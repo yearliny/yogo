@@ -7,5 +7,5 @@ public interface OptionService {
      * 获取所有选项
      * @return Map
      */
-    Map<String, String> findAllOptions();
+    Map<String, String> findAll();
 }

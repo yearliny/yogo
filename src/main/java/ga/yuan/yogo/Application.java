@@ -13,7 +13,7 @@ public class Application {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(Application.class, args);
         String serverPort = context.getEnvironment().getProperty("server.port");
-        log.info("Blog start at http://localhost:{}!", serverPort);
+        log.info("Yogo start at http://localhost:{}!", serverPort);
     }
 
 }

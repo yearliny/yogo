@@ -37,7 +37,7 @@ public class ApplicationTests {
         user.setMail("yearliny@outlook.com");
         user.setUrl("https://yuan.ga");
         user.setDisplayName("Feng");
-        user.setCreated(new Date(System.currentTimeMillis()));
+        user.setCreated(new Date());
 
         userRepository.save(user);
     }
@@ -60,6 +60,10 @@ public class ApplicationTests {
         contents.add(c2);
 
         contentRepository.saveAll(contents);
+    }
+
+    public void testEntityCollation(){
+
     }
 
 }

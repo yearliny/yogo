@@ -4,11 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
+@Table(name = "yogo_users")
 @Entity
 public class User implements Serializable {
 
@@ -25,10 +24,10 @@ public class User implements Serializable {
     private Date created;
 
     @OneToMany(mappedBy = "author")
-    private Set<Content> contents = new HashSet<>();
+    private List<Content> contents = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner")
-    private Set<Comment> comments = new HashSet<>();
+    private List<Comment> comments = new ArrayList<>();
 
     public User() {
     }

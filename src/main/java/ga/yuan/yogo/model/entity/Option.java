@@ -5,8 +5,12 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * 配置实体类，包含博客所有设置
+ *
+ */
 @Data
-@Table(name = "options")
+@Table(name = "yogo_options")
 @Entity
 public class Option implements Serializable {
 

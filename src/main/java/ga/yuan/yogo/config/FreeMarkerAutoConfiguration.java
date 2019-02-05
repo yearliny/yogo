@@ -22,7 +22,7 @@ public class FreeMarkerAutoConfiguration {
     @PostConstruct
     public void setSharedVariable() {
         try {
-            configuration.setSharedVariable("options", optionService.findAllOptions());
+            configuration.setSharedVariable("options", optionService.findAll());
         } catch (TemplateModelException e) {
             log.error(e.getMessage());
         }

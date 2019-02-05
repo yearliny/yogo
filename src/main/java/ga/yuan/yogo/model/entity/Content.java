@@ -7,14 +7,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
-@Table(name = "contents", indexes = {
+@Table(name = "yogo_contents", indexes = {
         @Index(name = "ix_c_slug", columnList = "slug"),
         @Index(name = "ix_c_created", columnList = "created")
 })
@@ -61,7 +58,7 @@ public class Content implements Serializable {
     private Long commentsNum;
     private Character allowComment;
 
-    @ManyToMany(mappedBy = "contents")
+    @ManyToMany(mappedBy = "contents", fetch = FetchType.EAGER)
     private Set<Meta> metas = new HashSet<>();
 
     @ManyToOne
@@ -69,7 +66,7 @@ public class Content implements Serializable {
     private User author;
 
     @OneToMany(mappedBy = "content")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     public Content() {
     }

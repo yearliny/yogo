@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@Table(name = "comments")
+@Table(name = "yogo_comments")
 @Entity
 public class Comment implements Serializable {
 

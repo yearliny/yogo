@@ -9,15 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-@Service("ContentService")
+@Service
 public class ContentServiceImpl implements ContentService {
+
     @Autowired
     private ContentRepository contentRepository;
     @Autowired
     private OptionRepository optionRepository;
-
-    public ContentServiceImpl() {
-    }
 
     @Override
     public Page<Content> list(Integer pageNum, Integer size) {
