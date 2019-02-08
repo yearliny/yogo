@@ -2,16 +2,20 @@ package ga.yuan.yogo.model.entity;
 
 import ga.yuan.yogo.model.enums.MetaType;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * 项目表：类型有 tag、category、link_category（链接分类）
  */
-@Data
+@Getter
+@Setter
 @Table(name = "yogo_metas", indexes = {@Index(name = "ix_m_slug", columnList = "slug")})
 @Entity
 public class Meta implements Serializable {
@@ -19,21 +23,36 @@ public class Meta implements Serializable {
     private static final long serialVersionUID = -8417367331279302043L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mid;
     private String name;
     private String slug;
+    @Enumerated(EnumType.STRING)
     private MetaType type;
     private String description;
     private Integer count;
     private Integer order;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "relations", joinColumns = {@JoinColumn(name = "mid")},
-            inverseJoinColumns = {@JoinColumn(name = "cid")})
+    @ManyToMany(mappedBy = "metas")
     private Set<Content> contents = new HashSet<>();
 
     public Meta() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meta meta = (Meta) o;
+        return mid.equals(meta.mid) &&
+                name.equals(meta.name) &&
+                slug.equals(meta.slug) &&
+                type == meta.type &&
+                Objects.equals(description, meta.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mid, name, slug, type);
+    }
 }

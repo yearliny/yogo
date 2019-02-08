@@ -4,7 +4,7 @@ import ga.yuan.yogo.model.entity.Content;
 import org.springframework.data.domain.Page;
 
 public interface ContentService {
-    Page<Content> list(Integer pageNum, Integer size);
+    Page<Content> listPosts(Integer pageNum, Integer size);
 
-    Page<Content> list(Integer pageNum);
+    Page<Content> listPosts(Integer pageNum);
 }

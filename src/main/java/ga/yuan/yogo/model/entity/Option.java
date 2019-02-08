@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 /**
  * 配置实体类，包含博客所有设置
+ * posts_per_page:（int）每页多少篇文章
  *
  */
 @Data

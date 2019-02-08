@@ -17,7 +17,7 @@ public class Comment implements Serializable {
     private static final long serialVersionUID = -8982234765169639848L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long coid;
     private Date created;
     //    评论填写的名称
@@ -26,6 +26,7 @@ public class Comment implements Serializable {
     @Email(message = "{validation.common.email-error}")
     private String mail;
     private String url;
+    @Column(length = 64)
     private String ip;
     private String agent;
     @Lob
@@ -38,7 +39,7 @@ public class Comment implements Serializable {
      * 2：垃圾评论(spam)
      * 3：回收站(trash)
      */
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private CommentStatus status;
 
 //    网站已注册用户的评论
@@ -55,5 +56,10 @@ public class Comment implements Serializable {
     private Comment parent;
 
     public Comment() {
+    }
+
+    @Transient
+    public Boolean isAdmin() {
+        return owner.equals(content.getAuthor());
     }
 }

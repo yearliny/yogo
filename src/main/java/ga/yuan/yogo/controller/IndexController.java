@@ -12,19 +12,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = {"/", "/page"})
-public class IndexController {
+public class IndexController extends BaseController {
+
+    private final ContentService contentService;
+
     @Autowired
-    private ContentService contentService;
+    public IndexController(ContentService contentService) {
+        this.contentService = contentService;
+    }
 
     @GetMapping
     public String index(Model model) {
-        return index(model, 1);
+        return index(model, 0);
     }
 
     @GetMapping("/page/{pageNum}")
     public String index(Model model, @PathVariable(value = "pageNum") Integer pageNum) {
-        Page<Content> contents = contentService.list(pageNum);
-        return "index";
+        Page<Content> posts = contentService.listPosts(pageNum);
+        model.addAttribute("posts", posts);
+        return render("index");
     }
 
 }

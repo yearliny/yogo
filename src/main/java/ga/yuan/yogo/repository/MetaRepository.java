@@ -8,7 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MetaRepository extends JpaRepository<Meta, Long> {
-    Optional<Meta> findByMid(Long id);
-
     List<Meta> findByType(MetaType metaType);
 }
