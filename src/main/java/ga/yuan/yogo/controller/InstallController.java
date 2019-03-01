@@ -25,7 +25,7 @@ public class InstallController {
 
     @GetMapping("/yg-install")
     public String installPage(Model model) {
-        return "common/install";
+        return "admin/install";
     }
 
     @PostMapping("/yg-install")

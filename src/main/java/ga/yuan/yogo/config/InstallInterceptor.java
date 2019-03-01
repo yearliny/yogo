@@ -1,7 +1,6 @@
 package ga.yuan.yogo.config;
 
-import ga.yuan.yogo.service.YogoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import ga.yuan.yogo.model.dto.YogoConst;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,18 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class InstallInterceptor implements HandlerInterceptor {
 
-    private final YogoService yogoService;
-
-    @Autowired
-    public InstallInterceptor(YogoService yogoService) {
-        this.yogoService = yogoService;
-    }
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (yogoService.isInstalled()) {
+//        OPTIONS 中有数据则表示已安装，拦截器放过
+        if (!YogoConst.OPTIONS.isEmpty()) {
             return true;
         }
+//        否则重定向至安装页面
         response.sendRedirect("/yg-install");
         return false;
     }

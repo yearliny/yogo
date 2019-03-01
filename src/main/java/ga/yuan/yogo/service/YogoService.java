@@ -14,7 +14,7 @@ public interface YogoService {
      *
      * @return Boolean
      */
-    boolean isInstalled();
+//    boolean isInstalled();
 
     @Transactional
     void install(Map<String, String> installForm);

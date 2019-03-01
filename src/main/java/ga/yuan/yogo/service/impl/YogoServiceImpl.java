@@ -23,10 +23,10 @@ public class YogoServiceImpl implements YogoService {
         this.userService = userService;
     }
 
-    @Override
-    public boolean isInstalled() {
-        return optionService.count() > 0 && userService.existsById(1L);
-    }
+//    @Override
+//    public boolean isInstalled() {
+//        return optionService.count() > 0 && userService.existsById(1L);
+//    }
 
     @Override
     public void install(Map<String, String> installForm) {

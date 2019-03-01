@@ -1,5 +1,8 @@
 package ga.yuan.yogo.model.enums;
 
+/**
+ * 用户角色：目前并没有做好多用户权限控制，仅仅使用了 SUPER_ADMIN，并且角色之间并没有实质区别
+ */
 public enum UserRole {
 
     SUPER_ADMIN, ADMINISTRATOR, EDITOR, AUTHOR, CONTRIBUTOR, SUBSCRIBER;

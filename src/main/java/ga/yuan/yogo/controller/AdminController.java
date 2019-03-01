@@ -34,7 +34,7 @@ public class AdminController {
     @GetMapping("/yg-login")
     public String loginIndex(Model model, @RequestParam(required = false) String action) {
         model.addAttribute("user", new User());
-        return "common/login";
+        return "admin/login";
     }
 
 //    @PostMapping("/yg-login")

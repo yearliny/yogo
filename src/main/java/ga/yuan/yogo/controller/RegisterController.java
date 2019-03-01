@@ -31,16 +31,16 @@ public class RegisterController {
     @GetMapping("/yg-admin/register")
     public String registerIndex(Model model) {
         model.addAttribute("user", new User());
-        return "common/register";
+        return "admin/register";
     }
 
     @PostMapping("/yg-admin/register")
     public String registerForm(Model model, @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "common/register";
+            return "admin/register";
         }
         userService.save(user);
-        return "common/login";
+        return "admin/login";
     }
 
 }

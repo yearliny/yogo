@@ -12,6 +12,10 @@ public class YogoConst {
      */
     public static Map<String, String> OPTIONS = new HashMap<>();
 
+    public static boolean isInstall() {
+        return !OPTIONS.isEmpty();
+    }
+
     /**
      * yogo 的数据目录。用户上传的文件在此存放
      */
