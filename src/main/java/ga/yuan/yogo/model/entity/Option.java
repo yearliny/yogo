@@ -7,7 +7,12 @@ import java.io.Serializable;
 
 /**
  * 配置实体类，包含博客所有设置
- * posts_per_page:（int）每页多少篇文章
+ *  site_title 标题
+ *  blog_description 描述
+ *
+ *  users_can_register: 是否开放注册
+ *
+ *  posts_per_page:（int）每页多少篇文章
  *
  */
 @Data

@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Table(name = "yg_users")
@@ -41,6 +40,7 @@ public class User implements Serializable {
 
     private Date created;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
 

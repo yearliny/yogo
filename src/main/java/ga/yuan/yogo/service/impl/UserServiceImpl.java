@@ -28,16 +28,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
-    /**
-     * 如果用户数量大于 0，返回 true。用于判断博客是否是第一次运行
-     *
-     * @return bool
-     */
-    @Override
-    public boolean existsUser() {
-        return userRepository.count() > 0;
-    }
-
     @Override
     public User save(User user) {
 //        设定用户注册时间
@@ -66,5 +56,10 @@ public class UserServiceImpl implements UserService {
             verified = user.map(u -> u.getPassword().equals(password)).orElse(false);
         }
         return verified;
+    }
+
+    @Override
+    public boolean existsById(long id) {
+        return userRepository.existsById(id);
     }
 }

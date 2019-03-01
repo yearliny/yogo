@@ -43,21 +43,4 @@ public class RegisterController {
         return "common/login";
     }
 
-    /**
-     * 登录页面
-     *
-     * @param model Model
-     * @return template_path
-     */
-    @GetMapping("/yg-admin/login")
-    public String loginIndex(Model model) {
-        model.addAttribute("user", new User());
-        return "common/login";
-    }
-
-    @PostMapping("/yg-admin/login")
-    public String loginForm(Model model, User user) {
-        userService.verifyUser(user.getName(), user.getPassword());
-        return "common/login";
-    }
 }

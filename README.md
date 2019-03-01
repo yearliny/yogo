@@ -1,5 +1,9 @@
 ## 介绍
-Yogo 是一款基于 SpringBoot 的轻量级博客。
+Yogo 是一款轻量级博客。
+
+* Spring Boot
+* Spring Date
+* Spring Security
 
 目前正处于开发过程中，正在开发的功能有：
 * 基本的博客功能，如文章、评论的发表与管理

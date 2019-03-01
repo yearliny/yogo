@@ -27,10 +27,6 @@ public interface OptionService {
 
     void delete(String name);
 
-    /**
-     * 博客是否已经安装，判断 options 表是否为空
-     *
-     * @return Boolean
-     */
-    boolean isInstalled();
+    long count();
+
 }
