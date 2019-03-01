@@ -34,7 +34,7 @@ public class ApplicationTests {
         User user = new User();
         user.setName("yearliny");
         user.setPassword("123456");
-        user.setMail("yearliny@outlook.com");
+        user.setEmail("yearliny@outlook.com");
         user.setUrl("https://yuan.ga");
         user.setDisplayName("Feng");
         user.setCreated(new Date());

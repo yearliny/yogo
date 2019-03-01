@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@Table(name = "yogo_contents", indexes = {
+@Table(name = "yg_contents", indexes = {
         @Index(name = "ix_c_slug", columnList = "slug"),
         @Index(name = "ix_c_created", columnList = "created")
 })
@@ -71,7 +71,7 @@ public class Content implements Serializable {
     private Boolean allowComment;
 
     @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinTable(name = "yogo_relations")
+    @JoinTable(name = "yg_relations")
     private Set<Meta> metas = new HashSet<>();
 
     @ManyToOne

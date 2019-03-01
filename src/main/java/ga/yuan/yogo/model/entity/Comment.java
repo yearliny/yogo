@@ -8,9 +8,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Data
-@Table(name = "yogo_comments")
+@Table(name = "yg_comments")
 @Entity
 public class Comment implements Serializable {
 
@@ -21,9 +23,9 @@ public class Comment implements Serializable {
     private Long coid;
     private Date created;
     //    评论填写的名称
-    @NotBlank(message = "{validation.common.username-empty}")
+    @NotBlank(message = "{validation.username-empty}")
     private String author;
-    @Email(message = "{validation.common.email-error}")
+    @Email(message = "{validation.email-error}")
     private String mail;
     private String url;
     @Column(length = 64)
@@ -58,8 +60,29 @@ public class Comment implements Serializable {
     public Comment() {
     }
 
+    /**
+     * 评论是否是文章作者发布
+     * @return boolean
+     */
     @Transient
     public Boolean isAdmin() {
         return owner.equals(content.getAuthor());
+    }
+
+    /**
+     * 评论内容含有链接数量
+     * @return int
+     */
+    @Transient
+    public int hasLinkNum() {
+        String regex = "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(body);
+
+        int num = 0;
+        while (m.find()) {
+            num ++;
+        }
+        return num;
     }
 }

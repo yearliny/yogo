@@ -22,14 +22,15 @@ public interface OptionService {
      */
     List<Option> saveAll(Map<String, String> options);
 
+
+    void delete(Option option);
+
+    void delete(String name);
+
     /**
-     * 博客是否已经安装，通过判断是否存在选项判断
+     * 博客是否已经安装，判断 options 表是否为空
+     *
      * @return Boolean
      */
-
-     void delete(Option option);
-
-     void delete(String name);
-
-    Boolean isInstalled();
+    boolean isInstalled();
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  */
 @Data
-@Table(name = "yogo_options")
+@Table(name = "yg_options")
 @Entity
 public class Option implements Serializable {
 

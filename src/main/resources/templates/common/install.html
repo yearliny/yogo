@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="description" content="">
+
+    <title th:text="#{install.title}">Yogo - 安装</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="/yogo/yg-content/vendor/bootstrap/css/bootstrap.css"
+          th:href="@{/yg-content/vendor/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body class="text-center bg-dark">
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5 bg-white border-info">
+            <h1 class="mb-3 font-weight-normal" th:text="#{install.title}">Yogo installing</h1>
+            <form action="#" th:action="@{/yg-admin/install}" method="post">
+                <input type="text" placeholder="网站标题" th:placeholder="#{register.site-title}">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/yogo/yg-content/vendor/jquery/jquery.slim.js"
+        th:src="@{/yg-content/vendor/jquery/jquery.slim.js}"></script>
+<script src="/yogo/yg-content/vendor/bootstrap/js/bootstrap.bundle.min.js"
+        th:src="@{/yg-content/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -16,7 +16,7 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@Table(name = "yogo_metas", indexes = {@Index(name = "ix_m_slug", columnList = "slug")})
+@Table(name = "yg_metas", indexes = {@Index(name = "ix_m_slug", columnList = "slug")})
 @Entity
 public class Meta implements Serializable {
 

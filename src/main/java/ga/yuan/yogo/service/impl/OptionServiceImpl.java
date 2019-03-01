@@ -34,7 +34,7 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public Boolean isInstalled() {
+    public boolean isInstalled() {
         return optionRepository.count() > 0;
     }
 

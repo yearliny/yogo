@@ -59,7 +59,7 @@ public class EntityGenerateDate {
         User u = new User();
         u.setCreated(new Date());
         u.setDisplayName("yearliny");
-        u.setMail("yearliny@outlook.com");
+        u.setEmail("yearliny@outlook.com");
         u.setUid(1L);
         userRepository.save(u);
     }
