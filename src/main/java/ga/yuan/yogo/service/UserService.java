@@ -8,6 +8,8 @@ public interface UserService {
 
     Optional<User> find(long id);
 
+    Optional<User> findByNameOrEmail(String nameOrEmail);
+
     /**
      * 保存用户
      *
@@ -15,15 +17,6 @@ public interface UserService {
      * @return user
      */
     User save(User user);
-
-    /**
-     * 验证用户登录
-     *
-     * @param nameOrEmail user name or email
-     * @param password    user password
-     * @return bool
-     */
-    boolean verifyUser(String nameOrEmail, String password);
 
     boolean existsById(long id);
 

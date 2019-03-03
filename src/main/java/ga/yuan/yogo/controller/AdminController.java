@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 public class AdminController {
@@ -20,7 +22,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @ModelAttribute
+    @ModelAttribute("options")
     public void setOptions(Model model) {
         model.addAttribute("options", YogoConst.OPTIONS);
     }
@@ -28,19 +30,18 @@ public class AdminController {
     /**
      * 登录页面
      *
-     * @param model Model
-     * @return template_path
+     * @return view
      */
     @GetMapping("/yg-login")
-    public String loginIndex(Model model, @RequestParam(required = false) String action) {
-        model.addAttribute("user", new User());
+    public String loginIndex(Model model) {
         return "admin/login";
     }
 
-//    @PostMapping("/yg-login")
-//    public String loginForm(Model model, User user) {
-//        userService.verifyUser(user.getName(), user.getPassword());
-//        return "common/login";
-//    }
+    @GetMapping("/yg-admin/")
+    public String index(HttpServletRequest request) {
+        String username = request.getUserPrincipal().getName();
+        Optional<User> user = userService.findByNameOrEmail(username);
+        return "admin/index";
+    }
 
 }

@@ -1,6 +1,11 @@
 package ga.yuan.yogo.controller;
 
-import ga.yuan.yogo.service.YogoService;
+import ga.yuan.yogo.model.dto.YogoConst;
+import ga.yuan.yogo.model.entity.Option;
+import ga.yuan.yogo.model.entity.User;
+import ga.yuan.yogo.model.enums.UserRole;
+import ga.yuan.yogo.service.OptionService;
+import ga.yuan.yogo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,22 +20,36 @@ import java.util.Map;
 @Controller
 public class InstallController {
 
-    private final YogoService yogoService;
+    private final OptionService optionService;
+    private final UserService userService;
 
     @Autowired
-    public InstallController(YogoService yogoService) {
-        this.yogoService = yogoService;
+    public InstallController(OptionService optionService, UserService userService) {
+        this.optionService = optionService;
+        this.userService = userService;
     }
 
 
     @GetMapping("/yg-install")
     public String installPage(Model model) {
-        return "admin/install";
+        return YogoConst.isInstall() ? "redirect:/yg-login" : "admin/install";
     }
 
     @PostMapping("/yg-install")
     public String installForm(@RequestParam Map<String, String> params) {
-        yogoService.install(params);
+        Option option = new Option();
+        option.setName("site_title");
+        option.setValue(params.get("site_title"));
+        optionService.save(option);
+
+        User user = new User();
+        user.setEmail(params.get("email"));
+        user.setName(params.get("username"));
+        user.setDisplayName(params.get("display_name"));
+        user.setPassword(params.get("password"));
+        user.setRole(UserRole.SUPER_ADMIN);
+        userService.save(user);
+
         return "redirect:/yg-login";
     }
 }

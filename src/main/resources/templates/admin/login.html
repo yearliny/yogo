@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="common/base :: admin_header(~{::title}, ~{})">
 
@@ -25,14 +25,16 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4" th:text="#{login.title}">Welcome Back!</h1>
                                 </div>
-                                <div class="message" th:if="${SPRING_SECURITY_LAST_EXCEPTION}"
-                                     th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}">
+                                <div class="alert alert-warning" th:if="${param.error}"
+                                     th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}"> role="alert">
+                                    A simple warning alert—check it out!
                                 </div>
                                 <form method="post" th:action="@{/yg-login}" class="user">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
                                                th:name="username"
-                                               placeholder="User Name" th:placeholder="#{form.username}" required>
+                                               placeholder="User Name" th:placeholder="#{form.username}" autofocus
+                                               required>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user"
@@ -41,7 +43,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" th:name="remember-me"
+                                            <input type="checkbox" class="custom-control-input" th:name="remember_me"
                                                    id="rememberMeCheck">
                                             <label class="custom-control-label" for="rememberMeCheck"
                                                    th:text="#{form.remember-me}">Remember Me</label>
@@ -52,12 +54,16 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html" th:text="#{form.forgot-password}">Forgot
+                                    <a class="small" href="#" th:text="#{form.forgot-password}">Forgot
                                         Password</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="register.html" th:text="#{register.title}">Create an
+                                    <a class="small" href="#" th:text="#{register.title}">Create an
                                         Account!</a>
+                                </div>
+                                <div class="text-center" sec:authorize="isAuthenticated()">
+                                    <a class="small" href="#" th:href="@{/yg-admin/}">←
+                                        返回到<span sec:authentication="name">Bob</span></a>
                                 </div>
                             </div>
                         </div>
@@ -71,8 +77,7 @@
 
 </div>
 
-<div th:replace="common/base :: admin_footer(_)">
-</div>
+<div th:replace="common/base :: admin_footer(_)"></div>
 
 </body>
 

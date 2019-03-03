@@ -2,6 +2,8 @@ package ga.yuan.yogo.model.entity;
 
 import ga.yuan.yogo.model.enums.UserRole;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -13,6 +15,7 @@ import java.util.List;
 @Data
 @Table(name = "yg_users")
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class User implements Serializable {
 
     private static final long serialVersionUID = -2644430559456254306L;
@@ -38,6 +41,7 @@ public class User implements Serializable {
 
     private String displayName;
 
+    @CreatedDate
     private Date created;
 
     @Column(nullable = false)

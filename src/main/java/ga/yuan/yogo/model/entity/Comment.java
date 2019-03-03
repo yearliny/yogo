@@ -2,6 +2,8 @@ package ga.yuan.yogo.model.entity;
 
 import ga.yuan.yogo.model.enums.CommentStatus;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -14,6 +16,7 @@ import java.util.regex.Pattern;
 @Data
 @Table(name = "yg_comments")
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = -8982234765169639848L;
@@ -21,6 +24,7 @@ public class Comment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long coid;
+    @CreatedDate
     private Date created;
     //    评论填写的名称
     @NotBlank(message = "{validation.username-empty}")
@@ -44,15 +48,15 @@ public class Comment implements Serializable {
     @Enumerated(EnumType.STRING)
     private CommentStatus status;
 
-//    网站已注册用户的评论
+    //    网站已注册用户的评论
     @ManyToOne
     private User owner;
 
-//    评论的正文
+    //    评论的正文
     @ManyToOne
     private Content content;
 
-//    评论的从属关系：谁回复谁
+    //    评论的从属关系：谁回复谁
     @OneToOne
     @JoinColumn(name = "parent")
     private Comment parent;
@@ -62,6 +66,7 @@ public class Comment implements Serializable {
 
     /**
      * 评论是否是文章作者发布
+     *
      * @return boolean
      */
     @Transient
@@ -71,6 +76,7 @@ public class Comment implements Serializable {
 
     /**
      * 评论内容含有链接数量
+     *
      * @return int
      */
     @Transient
@@ -81,7 +87,7 @@ public class Comment implements Serializable {
 
         int num = 0;
         while (m.find()) {
-            num ++;
+            num++;
         }
         return num;
     }

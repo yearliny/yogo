@@ -6,6 +6,9 @@ import ga.yuan.yogo.model.enums.ContentType;
 import ga.yuan.yogo.model.enums.MetaType;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
         @Index(name = "ix_c_created", columnList = "created")
 })
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Content implements Serializable {
 
     private static final long serialVersionUID = 5043846654481385966L;
@@ -31,8 +35,10 @@ public class Content implements Serializable {
 
     private String slug;
 
+    @CreatedDate
     private Date created;
 
+    @LastModifiedDate
     private Date modified;
 
     @Lob

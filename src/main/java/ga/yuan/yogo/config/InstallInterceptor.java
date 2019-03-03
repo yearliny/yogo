@@ -16,7 +16,7 @@ public class InstallInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        OPTIONS 中有数据则表示已安装，拦截器放过
-        if (!YogoConst.OPTIONS.isEmpty()) {
+        if (YogoConst.isInstall()) {
             return true;
         }
 //        否则重定向至安装页面
