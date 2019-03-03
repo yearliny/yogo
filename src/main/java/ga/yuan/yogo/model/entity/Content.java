@@ -83,7 +83,7 @@ public class Content implements Serializable {
     @ManyToOne
     private User author;
 
-    @OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "content")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "content")
     private List<Comment> comments = new ArrayList<>();
 
     public Content() {
