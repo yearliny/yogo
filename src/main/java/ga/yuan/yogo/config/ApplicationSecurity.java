@@ -40,7 +40,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
      * <p>
      * TODO: 登录页面，成功的验证信息会提示不支持 POST 请求
      *
-     * <p>具体的规则在前，不具体的规则在后，否则可能会被覆盖</p>
+     * <p>具体的规则在前，不具体的规则在后，否则可能会被覆盖
      *
      * @param http HttpSecurity
      * @throws Exception exception
@@ -58,9 +58,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .logout()
-                .logoutUrl("/yg-login?logout")
-                .logoutSuccessUrl("/yg-login")
-                .invalidateHttpSession(true)
+                .logoutUrl("/yg-logout")
+                .logoutSuccessUrl("/yg-login?logout")
                 .deleteCookies("remember_me")
                 .and()
 

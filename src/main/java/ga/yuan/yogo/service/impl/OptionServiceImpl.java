@@ -13,7 +13,6 @@ import java.util.*;
 public class OptionServiceImpl implements OptionService {
 
     private final OptionRepository optionRepository;
-
     private final UserRepository userRepository;
 
     @Autowired

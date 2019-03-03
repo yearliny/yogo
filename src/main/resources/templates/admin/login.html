@@ -26,7 +26,11 @@
                                     <h1 class="h4 text-gray-900 mb-4" th:text="#{login.title}">Welcome Back!</h1>
                                 </div>
                                 <div class="alert alert-warning" th:if="${param.error}"
-                                     th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}"> role="alert">
+                                     th:text="${session[SPRING_SECURITY_LAST_EXCEPTION].message}" role="alert">
+                                    A simple warning alert—check it out!
+                                </div>
+                                <div class="alert alert-success" th:if="${param.logout}"
+                                     th:text="#{login.logout-sucess}" role="alert">
                                     A simple warning alert—check it out!
                                 </div>
                                 <form method="post" th:action="@{/yg-login}" class="user">

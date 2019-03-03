@@ -16,13 +16,12 @@ public class ContentServiceImpl implements ContentService {
 
     private final ContentRepository contentRepository;
 
-    //    Spring 4.3 or later,implicit constructor inject dependency
     @Autowired
     public ContentServiceImpl(ContentRepository contentRepository) {
         this.contentRepository = contentRepository;
     }
 
-    //    返回已发表的文章
+    //    返回分页已发表的文章
     @Override
     public Page<Content> listPosts(Integer pageNum, Integer size) {
         return contentRepository

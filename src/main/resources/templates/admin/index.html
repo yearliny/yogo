@@ -3,7 +3,8 @@
 
 <head th:replace="common/base :: admin_header(~{::title}, ~{})">
 
-    <title th:if="${options.site_title}" th:text="${options.site_title} + ' - Yogo'">Yogo - login</title>
+    <title th:if="${options.site_title}" th:text="'Dashboard &lsaquo; ' ${options.site_title} + ' &#8212; Yogo'">Yogo -
+        login</title>
 
 </head>
 
