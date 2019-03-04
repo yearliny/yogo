@@ -1,6 +1,7 @@
 package ga.yuan.yogo.model.entity;
 
 import ga.yuan.yogo.model.enums.UserRole;
+import ga.yuan.yogo.utils.CommonUtil;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -57,7 +58,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     private List<Comment> comments = new ArrayList<>();
 
-    public User() {
+    @Transient
+    public String getGravatar(int size) {
+        return CommonUtil.getGravatar(email, size);
     }
 
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 @Controller
 public class AdminController {
@@ -38,9 +37,11 @@ public class AdminController {
     }
 
     @GetMapping("/yg-admin/")
-    public String index(HttpServletRequest request) {
+    public String index(HttpServletRequest request, Model model) {
         String username = request.getUserPrincipal().getName();
-        Optional<User> user = userService.findByNameOrEmail(username);
+        User user = userService.findByNameOrEmail(username);
+
+        model.addAttribute("user", user);
         return "admin/index";
     }
 

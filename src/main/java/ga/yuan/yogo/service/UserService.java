@@ -8,7 +8,7 @@ public interface UserService {
 
     Optional<User> find(long id);
 
-    Optional<User> findByNameOrEmail(String nameOrEmail);
+    User findByNameOrEmail(String nameOrEmail);
 
     /**
      * 保存用户

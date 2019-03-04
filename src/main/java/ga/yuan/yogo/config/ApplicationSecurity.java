@@ -47,6 +47,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.authorizeRequests()
                 .antMatchers("/yg-admin/**")
                 .authenticated()
@@ -58,8 +59,6 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .logout()
-                .logoutUrl("/yg-logout")
-                .logoutSuccessUrl("/yg-login?logout")
                 .deleteCookies("remember_me")
                 .and()
 

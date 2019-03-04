@@ -1,6 +1,7 @@
 package ga.yuan.yogo.model.entity;
 
 import ga.yuan.yogo.model.enums.CommentStatus;
+import ga.yuan.yogo.utils.CommonUtil;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,7 +31,7 @@ public class Comment implements Serializable {
     @NotBlank(message = "{validation.username-empty}")
     private String author;
     @Email(message = "{validation.email-error}")
-    private String mail;
+    private String email;
     private String url;
     @Column(length = 64)
     private String ip;
@@ -91,4 +92,10 @@ public class Comment implements Serializable {
         }
         return num;
     }
+
+    @Transient
+    public String getGravatar(int size) {
+        return CommonUtil.getGravatar(email, size);
+    }
+
 }

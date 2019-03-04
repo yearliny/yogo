@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByNameOrEmail(String nameOrEmail) {
-        Optional<User> user;
+    public User findByNameOrEmail(String nameOrEmail) {
+        User user;
         if (ValidationUtil.isEmail(nameOrEmail)) {
             user = userRepository.findByEmail(nameOrEmail);
         } else {
