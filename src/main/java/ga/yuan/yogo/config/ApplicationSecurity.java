@@ -47,15 +47,14 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.authorizeRequests()
-                .antMatchers("/yg-admin/**")
-                .authenticated()
+                .antMatchers("/yg-admin/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
-
+// successForwardUrl() 方法指定的跳转链接，会导致 “request method 'post' not supported” 错误，有待研究
                 .formLogin()
                 .loginPage("/yg-login")
-                .successForwardUrl("/yg-admin/")
+                .defaultSuccessUrl("/yg-admin/")
                 .and()
 
                 .logout()
