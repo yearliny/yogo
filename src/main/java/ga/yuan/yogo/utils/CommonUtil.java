@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
  */
 @Slf4j
 public class CommonUtil {
-    public static String hex(byte[] array) {
+    private static String hex(byte[] array) {
         StringBuilder sb = new StringBuilder();
         for (byte b : array) {
             sb.append(Integer.toHexString((b
@@ -23,7 +23,7 @@ public class CommonUtil {
         return sb.toString();
     }
 
-    public static String md5Hex(String message) {
+    private static String md5Hex(String message) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             return hex(md.digest(message.getBytes("CP1252")));

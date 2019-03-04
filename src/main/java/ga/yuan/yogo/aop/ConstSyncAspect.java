@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * ConstSyncAspect 使用 AOP 保持 yogo_options 表的内容始终与 YogoConst.OPTION 一致
+ * ConstSyncAspect 使用 AOP 保持 yg_options 表的内容始终与 {@link YogoConst#OPTIONS} 一致
  */
 @Slf4j
 @Aspect

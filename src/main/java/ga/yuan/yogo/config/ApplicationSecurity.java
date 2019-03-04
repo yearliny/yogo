@@ -28,7 +28,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 密码加密
+     * 密码 BCrypt 加密
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,8 +37,6 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
     /**
      * 配置权限控制，即我能做什么
-     * <p>
-     * TODO: 登录页面，成功的验证信息会提示不支持 POST 请求
      *
      * <p>具体的规则在前，不具体的规则在后，否则可能会被覆盖
      *
@@ -48,8 +46,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/yg-admin/**").authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/yg-admin/**")
+                .authenticated()
                 .and()
 // successForwardUrl() 方法指定的跳转链接，会导致 “request method 'post' not supported” 错误，有待研究
                 .formLogin()
