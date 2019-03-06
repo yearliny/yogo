@@ -1,6 +1,5 @@
 package ga.yuan.yogo.controller;
 
-import ga.yuan.yogo.model.dto.YogoConst;
 import ga.yuan.yogo.model.entity.Content;
 import ga.yuan.yogo.model.entity.User;
 import ga.yuan.yogo.model.enums.ContentStatus;
@@ -13,13 +12,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 网站的后台功能
+ */
 @Controller
+@RequestMapping("/yg-admin/")
 public class AdminController {
 
     private final UserService userService;
@@ -31,25 +35,18 @@ public class AdminController {
         this.contentService = contentService;
     }
 
-    @ModelAttribute("options")
-    public void setOptions(Model model) {
-        model.addAttribute("options", YogoConst.OPTIONS);
+    @ModelAttribute
+    public User getUser(Model model, Principal principal) {
+        return userService.findByNameOrEmail(principal.getName());
     }
 
     /**
-     * 登录页面
+     * 后台首页
      *
-     * @return view
+     * @return view name
      */
-    @GetMapping("/yg-login")
-    public String login(Model model) {
-        return "admin/login";
-    }
-
-    @GetMapping("/yg-admin/")
-    public String admin(Principal principal, Model model) {
-        User user = userService.findByNameOrEmail(principal.getName());
-        model.addAttribute("user", user);
+    @GetMapping
+    public String admin() {
         return "admin/index";
     }
 
@@ -58,7 +55,7 @@ public class AdminController {
      *
      * @return view name
      */
-    @GetMapping("/yg-admin/edit")
+    @GetMapping("/edit")
     public String edit(Model model, @RequestParam(value = "page", defaultValue = "0", required = false) int page) {
         Set<ContentStatus> contentStatus = new HashSet<>();
         contentStatus.add(ContentStatus.FUTURE);
@@ -75,7 +72,7 @@ public class AdminController {
      *
      * @return view name
      */
-    @GetMapping("/yg-admin/post-new")
+    @GetMapping("/post-new")
     public String postNew() {
         return "admin/post-new";
     }

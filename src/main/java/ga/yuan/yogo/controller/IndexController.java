@@ -8,12 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Map;
-
+/**
+ * 网站首页
+ */
 @Controller
 @RequestMapping(value = {"/", "/page"})
 public class IndexController {
@@ -25,11 +25,6 @@ public class IndexController {
     public IndexController(ContentService contentService, OptionService optionService) {
         this.contentService = contentService;
         this.optionService = optionService;
-    }
-
-    @ModelAttribute("options")
-    public Map<String, String> getOptions() {
-        return optionService.findAll();
     }
 
     @GetMapping
