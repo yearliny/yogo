@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class ContentServiceImpl implements ContentService {
 
@@ -23,7 +25,7 @@ public class ContentServiceImpl implements ContentService {
 
     //    返回分页已发表的文章
     @Override
-    public Page<Content> listPosts(Integer pageNum, Integer size) {
+    public Page<Content> listPosts(int pageNum, int size) {
         return contentRepository
                 .findByTypeAndStatusOrderByCreatedDesc(
                         ContentType.POST,
@@ -32,7 +34,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Page<Content> listPosts(Integer pageNum) {
+    public Page<Content> listPosts(int pageNum) {
         String key = "posts_per_page";
 //        默认值：每页5篇文章
         String size = "5";
@@ -40,5 +42,10 @@ public class ContentServiceImpl implements ContentService {
             size = YogoConst.OPTIONS.get(key);
         }
         return listPosts(pageNum, Integer.valueOf(size));
+    }
+
+    @Override
+    public Page<Content> listContent(ContentType type, Set<ContentStatus> status, int page) {
+        return contentRepository.findByTypeAndStatusOrderByCreatedDesc(type, status, PageRequest.of(page, 30));
     }
 }
