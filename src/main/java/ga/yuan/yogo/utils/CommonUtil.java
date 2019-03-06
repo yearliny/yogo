@@ -1,6 +1,8 @@
 package ga.yuan.yogo.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -42,7 +44,13 @@ public class CommonUtil {
      * @return url 头像的地址
      */
     public static String getGravatar(String email, int size, String orElse) {
-        return String.format("https://dn-qiniu-avatar.qbox.me/avatar/%s?s=%d&r=g&d%s", md5Hex(email), size, orElse);
+        UriComponents uriComponents = UriComponentsBuilder
+                .fromUriString("https://dn-qiniu-avatar.qbox.me/avatar/{md5hex}")
+                .queryParam("s", size)
+                .queryParam("r", "g").queryParam("d", orElse)
+                .encode()
+                .buildAndExpand(md5Hex(email));
+        return uriComponents.toString();
     }
 
     public static String getGravatar(String email, int size) {

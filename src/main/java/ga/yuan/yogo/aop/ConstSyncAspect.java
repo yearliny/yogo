@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * ConstSyncAspect 使用 AOP 保持 yg_options 表的内容始终与 {@link YogoConst#OPTIONS} 一致
+ * 使用 AOP 保持数据库 yg_options 表的内容始终与 {@link YogoConst#OPTIONS} 一致
  */
 @Slf4j
 @Aspect
@@ -42,6 +42,6 @@ public class ConstSyncAspect {
     @After("optionSaveExecution() || optionDeleteExecution()")
     public void syncYogoConst(JoinPoint joinPoint) {
         YogoConst.OPTIONS = optionService.findAll();
-        log.info("update YogoConst.OPTIONS success. At joinPoint {}", joinPoint.getSignature().getDeclaringTypeName());
+        log.info("Update YogoConst.OPTIONS success. At joinPoint {}", joinPoint.getSignature().getDeclaringTypeName());
     }
 }
