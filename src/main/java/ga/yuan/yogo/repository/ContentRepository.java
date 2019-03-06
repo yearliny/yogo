@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Set;
+
 public interface ContentRepository extends JpaRepository<Content, Long> {
 
     /**
@@ -18,5 +20,7 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
      * @return Pageable 对象
      */
     Page<Content> findByTypeAndStatusOrderByCreatedDesc(ContentType type, ContentStatus status, Pageable page);
+
+    Page<Content> findByTypeAndStatusOrderByCreatedDesc(ContentType type, Set<ContentStatus> status, Pageable page);
 
 }
