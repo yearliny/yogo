@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
     private final ContentService contentService;
-    private final OptionService optionService;
 
     @Autowired
     public IndexController(ContentService contentService, OptionService optionService) {
         this.contentService = contentService;
-        this.optionService = optionService;
     }
 
     @GetMapping
@@ -39,4 +37,14 @@ public class IndexController {
         return "index";
     }
 
+    /**
+     * 配合 {@link ga.yuan.yogo.config.YogoAtomFeedView}生成网站的 Atom Feed
+     *
+     * @return view name
+     */
+    @GetMapping("/feed")
+    public String rssView(Model model) {
+
+        return "atomFeedView";
+    }
 }

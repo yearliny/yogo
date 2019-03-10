@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" th:replace="~{layout/admin :: layout(~{::title}, ~{::#th-main}, _, _)}"
+      xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="common/header :: admin(_)"></head>
+<head>
+    <title>admin index</title>
+</head>
 
-<body id="page-top">
+<body>
 
-<div th:replace="common/wrapper :: admin(~{::#th-main})">
-    <div id="th-main">
-        <h1>hello world</h1>
-    </div>
+<div id="th-main">
+    <h1>hello world</h1>
 </div>
 
 </body>

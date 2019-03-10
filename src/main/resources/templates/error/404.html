@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN" th:replace="~{layout/error :: layout(~{::title}, ~{:: div.container-fluid})}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>404 Not Found</title>
+
+</head>
+<body>
+<!-- Begin Page Content -->
+<div class="container-fluid mt-5 mb-auto">
+    <div class="text-center">
+        <div class="error mx-auto" data-text="404">404</div>
+        <p class="lead text-gray-800 mb-5">Page Not Found</p>
+        <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
+
+        <a sec:authorize="isAuthenticated()" th:href="@{/yg-admin/}">&larr; Back to Dashboard</a>
+        <a sec:authorize="!(isAuthenticated())" th:href="@{/}">&larr; Back to Home</a>
+    </div>
+</div>
+</body>
+</html>
