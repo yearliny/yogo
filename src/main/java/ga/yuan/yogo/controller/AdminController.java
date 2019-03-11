@@ -1,10 +1,12 @@
 package ga.yuan.yogo.controller;
 
 import ga.yuan.yogo.model.entity.Content;
+import ga.yuan.yogo.model.entity.Meta;
 import ga.yuan.yogo.model.entity.User;
 import ga.yuan.yogo.model.enums.ContentStatus;
 import ga.yuan.yogo.model.enums.ContentType;
 import ga.yuan.yogo.service.ContentService;
+import ga.yuan.yogo.service.MetaService;
 import ga.yuan.yogo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,11 +31,13 @@ public class AdminController {
 
     private final UserService userService;
     private final ContentService contentService;
+    private final MetaService metaService;
 
     @Autowired
-    public AdminController(UserService userService, ContentService contentService) {
+    public AdminController(UserService userService, ContentService contentService, MetaService metaService) {
         this.userService = userService;
         this.contentService = contentService;
+        this.metaService = metaService;
     }
 
     @ModelAttribute
@@ -73,7 +78,12 @@ public class AdminController {
      * @return view name
      */
     @GetMapping("/post-new")
-    public String postNew() {
+    public String postNew(Model model) {
+        List<Meta> category = metaService.listCategory();
+        List<Meta> tag = metaService.listTag();
+
+        model.addAttribute("category", category);
+        model.addAttribute("tag", tag);
         return "admin/post-new";
     }
 
