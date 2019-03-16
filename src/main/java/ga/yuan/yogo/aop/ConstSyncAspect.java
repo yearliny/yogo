@@ -7,7 +7,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -20,7 +19,6 @@ public class ConstSyncAspect {
 
     private final OptionService optionService;
 
-    @Autowired
     public ConstSyncAspect(OptionService optionService) {
         this.optionService = optionService;
     }

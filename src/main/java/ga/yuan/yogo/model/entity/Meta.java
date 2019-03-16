@@ -1,7 +1,7 @@
 package ga.yuan.yogo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ga.yuan.yogo.model.enums.MetaType;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,13 +26,16 @@ public class Meta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mid;
     private String name;
+    @JsonIgnore
     private String slug;
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private MetaType type;
     private String description;
     private Integer count;
     private Integer order;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "metas")
     private Set<Content> contents = new HashSet<>();
 

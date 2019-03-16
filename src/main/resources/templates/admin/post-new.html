@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" th:replace="~{layout/admin :: layout(~{::title}, ~{::div.container-fluid}, ~{::link}, ~{::script})}"
+<html lang="zh-CN" th:replace="~{layout/admin :: layout(~{::title}, ~{::.container-fluid}, ~{::link}, ~{::script})}"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>发表新文章</title>
@@ -10,28 +10,99 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <form th:action="@{/yg-admin/post-new}">
+    <form th:action="@{/yg-admin/post-new}" th:object="${post}">
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <input class="form-control form-control-lg mb-2" name="title" type="text">
                 <textarea cols="30" id="post" name="body" rows="10"></textarea>
             </div>
             <div class="col-md-3">
-                <button class="form-control btn-primary" type="submit">提交</button>
-                <div class="form-check" th:each="cate : ${category}">
-                    <input checked class="form-check-input" id="cate-1" name="category" type="radio" value="默认分类">
-                    <label class="form-check-label" for="cate-1">
-                        默认分类
-                    </label>
+                <button class="form-control btn-primary mb-3" id="post-submit">提交</button>
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Accordion -->
+                    <a aria-controls="post-category" aria-expanded="true" class="d-block card-header py-3"
+                       data-toggle="collapse"
+                       href="#post-category-body" role="button">
+                        <h6 class="m-0 font-weight-bold text-primary">分类</h6>
+                    </a>
+                    <!-- Card Content - Collapse -->
+                    <div class="collapse show">
+                        <div class="card-body" id="post-category-body"></div>
+                    </div>
                 </div>
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Accordion -->
+                    <a aria-controls="post-category" aria-expanded="true" class="d-block card-header py-3"
+                       data-toggle="collapse"
+                       href="#post-tag-body" role="button">
+                        <h6 class="m-0 font-weight-bold text-primary">标签</h6>
+                    </a>
+                    <!-- Card Content - Collapse -->
+                    <div class="collapse show">
+                        <div class="card-body" id="post-tag-body"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </form>
 
 </div>
-<script th:src="@{/yg-content/admin/vendor/simplemde/simplemde.min.js}"></script>
+<!-- End Page Content -->
+<script id="tpl-category" type="text/template">
+    <div class="form-check">
+        <input class="form-check-input" type="radio" id="editor-post-cate-{mid}" value="{mid}">
+        <label class="form-check-label" for="editor-post-cate-{mid}">{name}</label>
+    </div>
+</script>
+<script id="tpl-tag" type="text/template">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="editor-post-tag-{mid}" value="{mid}">
+        <label class="form-check-label" for="editor-post-tag-{mid}">{name}</label>
+    </div>
+</script>
+<script th:src="@{/yg-content/admin/vendor/simplemde/simplemde.min.js}" type="text/javascript"></script>
 <script>
     let md = new SimpleMDE();
+
+    $(
+        function () {
+            $.getJSON('/yg-json/categories/', function (data) {
+                let tpl = document.getElementById('tpl-category').innerHTML;
+                let category = document.getElementById('post-category-body');
+                let html = '';
+                for (const c of data) {
+                    html += tpl.replace(/{mid}/g, c.mid).replace(/{name}/g, c.name);
+                }
+                category.innerHTML = html;
+            });
+            $.getJSON('/yg-json/post_tag/', function (data) {
+                let tpl = document.getElementById('tpl-tag').innerHTML;
+                let tag = document.getElementById('post-tag-body');
+                let html = '';
+                for (const c of data) {
+                    console.log(c);
+                    html += tpl.replace(/{mid}/g, c.mid).replace(/{name}/g, c.name);
+                }
+                tag.innerHTML = html;
+            });
+
+            $('#post-submit').click(function (event) {
+                let data = {
+                    title: 'Hello world!',
+                    body: '这是我的第一篇文章',
+                    metas: [
+                        {mid: 1}
+                    ]
+                };
+                $.post('/yg-json/posts/', function (data) {
+                    alert('文章发表成功：' + data.mid)
+                });
+                event.preventDefault();
+            })
+        }
+    )
 </script>
+
 </body>
 </html>

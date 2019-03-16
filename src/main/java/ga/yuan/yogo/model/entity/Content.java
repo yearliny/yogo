@@ -90,6 +90,11 @@ public class Content implements Serializable {
     public Content() {
     }
 
+    /**
+     * 从 metas 中筛选出 tag
+     *
+     * @return Set<Meta>
+     */
     @Transient
     public Set<Meta> getTag() {
         return metas.stream()
@@ -97,6 +102,10 @@ public class Content implements Serializable {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * 从 metas 中筛选出 category
+     * @return Set<Meta>
+     */
     @Transient
     public Set<Meta> getCategory() {
         return metas.stream()

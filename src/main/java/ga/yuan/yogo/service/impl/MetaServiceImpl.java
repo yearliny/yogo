@@ -19,11 +19,11 @@ public class MetaServiceImpl implements MetaService {
 
     @Override
     public List<Meta> listCategory() {
-        return metaRepository.listByType(MetaType.CATEGORY);
+        return metaRepository.findAllByType(MetaType.CATEGORY);
     }
 
     @Override
     public List<Meta> listTag() {
-        return metaRepository.listByType(MetaType.TAG);
+        return metaRepository.findAllByType(MetaType.TAG);
     }
 }

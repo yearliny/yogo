@@ -6,7 +6,6 @@ import ga.yuan.yogo.model.enums.ContentStatus;
 import ga.yuan.yogo.model.enums.ContentType;
 import ga.yuan.yogo.repository.ContentRepository;
 import ga.yuan.yogo.service.ContentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ public class ContentServiceImpl implements ContentService {
 
     private final ContentRepository contentRepository;
 
-    @Autowired
     public ContentServiceImpl(ContentRepository contentRepository) {
         this.contentRepository = contentRepository;
     }
@@ -42,6 +40,11 @@ public class ContentServiceImpl implements ContentService {
             size = YogoConst.OPTIONS.get(key);
         }
         return listPosts(pageNum, Integer.valueOf(size));
+    }
+
+    @Override
+    public Content save(Content content) {
+        return contentRepository.save(content);
     }
 
     @Override

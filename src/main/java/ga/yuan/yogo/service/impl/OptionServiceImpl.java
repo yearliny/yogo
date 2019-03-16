@@ -4,7 +4,6 @@ import ga.yuan.yogo.model.entity.Option;
 import ga.yuan.yogo.repository.OptionRepository;
 import ga.yuan.yogo.repository.UserRepository;
 import ga.yuan.yogo.service.OptionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,7 +14,6 @@ public class OptionServiceImpl implements OptionService {
     private final OptionRepository optionRepository;
     private final UserRepository userRepository;
 
-    @Autowired
     public OptionServiceImpl(OptionRepository optionRepository, UserRepository userRepository) {
         this.optionRepository = optionRepository;
         this.userRepository = userRepository;

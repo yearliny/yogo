@@ -2,7 +2,6 @@ package ga.yuan.yogo.config;
 
 import ga.yuan.yogo.model.dto.YogoConst;
 import ga.yuan.yogo.service.OptionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,6 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
 
     private final OptionService optionService;
 
-    @Autowired
     public StartedListener(OptionService optionService) {
         this.optionService = optionService;
     }

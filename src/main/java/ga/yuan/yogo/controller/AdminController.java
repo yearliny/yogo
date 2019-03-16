@@ -8,7 +8,6 @@ import ga.yuan.yogo.model.enums.ContentType;
 import ga.yuan.yogo.service.ContentService;
 import ga.yuan.yogo.service.MetaService;
 import ga.yuan.yogo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,6 @@ public class AdminController {
     private final ContentService contentService;
     private final MetaService metaService;
 
-    @Autowired
     public AdminController(UserService userService, ContentService contentService, MetaService metaService) {
         this.userService = userService;
         this.contentService = contentService;
@@ -84,6 +82,7 @@ public class AdminController {
 
         model.addAttribute("category", category);
         model.addAttribute("tag", tag);
+        model.addAttribute("post", new Content());
         return "admin/post-new";
     }
 

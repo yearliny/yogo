@@ -13,6 +13,14 @@ public interface ContentService {
     Page<Content> listPosts(int pageNum);
 
     /**
+     * 保存内容
+     *
+     * @param content 需要保存的内容
+     * @return 已经保存的内容，带有 id
+     */
+    Content save(Content content);
+
+    /**
      * 用于 admin 内容管理列表
      *
      * @param type   ContentType

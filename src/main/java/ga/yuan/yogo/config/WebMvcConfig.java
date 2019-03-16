@@ -1,6 +1,5 @@
 package ga.yuan.yogo.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -11,7 +10,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final InstallInterceptor installInterceptor;
 
-    @Autowired
     public WebMvcConfig(InstallInterceptor installInterceptor) {
         this.installInterceptor = installInterceptor;
     }

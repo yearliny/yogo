@@ -7,7 +7,6 @@ import ga.yuan.yogo.model.enums.UserRole;
 import ga.yuan.yogo.service.OptionService;
 import ga.yuan.yogo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,6 @@ public class InstallController {
     private final OptionService optionService;
     private final UserService userService;
 
-    @Autowired
     public InstallController(OptionService optionService, UserService userService) {
         this.optionService = optionService;
         this.userService = userService;

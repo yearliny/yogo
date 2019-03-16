@@ -3,7 +3,6 @@ package ga.yuan.yogo.controller;
 import ga.yuan.yogo.model.entity.Content;
 import ga.yuan.yogo.service.ContentService;
 import ga.yuan.yogo.service.OptionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +19,6 @@ public class IndexController {
 
     private final ContentService contentService;
 
-    @Autowired
     public IndexController(ContentService contentService, OptionService optionService) {
         this.contentService = contentService;
     }

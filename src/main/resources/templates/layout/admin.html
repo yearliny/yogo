@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" th:fragment="layout(title, main, header, footer)" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" th:fragment="layout(title, main, header, script)" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -38,9 +38,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div th:replace="${main}">
-                This is main area
-            </div>
+            <div th:replace="${main}">This is main area</div>
             <!-- End of Begin Page Content /.container-fluid -->
 
         </div>
@@ -71,7 +69,7 @@
 <!-- add custom script -->
 <script th:src="@{/yg-content/admin/vendor/chart.js/Chart.min.js}"></script>
 
-<th:block th:replace="${footer}"/>
+<th:block th:replace="${script}"/>
 
 </body>
 </html>
