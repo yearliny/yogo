@@ -1,7 +1,5 @@
 package ga.yuan.yogo.model.enums;
 
-import java.util.stream.Stream;
-
 /**
  * content 类型
  * 文章：post
@@ -13,9 +11,6 @@ public enum ContentType {
     POST, PAGE, ATTACHMENT, REVISION;
 
     public static ContentType of(String s) {
-        return Stream.of(values())
-                .filter(contentType -> contentType.equals(ContentType.valueOf(s.toUpperCase())))
-                .findFirst()
-                .orElse(null);
+        return Enum.valueOf(ContentType.class, s);
     }
 }

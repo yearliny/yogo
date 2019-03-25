@@ -5,6 +5,7 @@ import ga.yuan.yogo.model.entity.Content;
 import ga.yuan.yogo.model.enums.ContentStatus;
 import ga.yuan.yogo.model.enums.ContentType;
 import ga.yuan.yogo.repository.ContentRepository;
+import ga.yuan.yogo.repository.MetaRepository;
 import ga.yuan.yogo.service.ContentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +17,11 @@ import java.util.Set;
 public class ContentServiceImpl implements ContentService {
 
     private final ContentRepository contentRepository;
+    private final MetaRepository metaRepository;
 
-    public ContentServiceImpl(ContentRepository contentRepository) {
+    public ContentServiceImpl(ContentRepository contentRepository, MetaRepository metaRepository) {
         this.contentRepository = contentRepository;
+        this.metaRepository = metaRepository;
     }
 
     //    返回分页已发表的文章
@@ -42,8 +45,18 @@ public class ContentServiceImpl implements ContentService {
         return listPosts(pageNum, Integer.valueOf(size));
     }
 
+    /**
+     * 保存 content 实体类，这里需要着重处理<strong>瞬时态content保存仅带有id信息的瞬时态meta</strong>。
+     *
+     * @param content 需要保存的内容
+     * @return 已经保存的 content 实体类
+     */
     @Override
     public Content save(Content content) {
+        for (Long mid : content.getMetasMid()) {
+            metaRepository.findById(mid)
+                    .map(m -> content.getMetas().add(m));
+        }
         return contentRepository.save(content);
     }
 

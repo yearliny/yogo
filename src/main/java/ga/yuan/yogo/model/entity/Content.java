@@ -5,6 +5,7 @@ import ga.yuan.yogo.model.enums.ContentStatus;
 import ga.yuan.yogo.model.enums.ContentType;
 import ga.yuan.yogo.model.enums.MetaType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "yg_contents", indexes = {
         @Index(name = "ix_c_slug", columnList = "slug"),
         @Index(name = "ix_c_created", columnList = "created")
@@ -30,23 +32,16 @@ public class Content implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cid;
-
     private String title;
-
     private String slug;
-
     @CreatedDate
     private Date created;
-
     @LastModifiedDate
     private Date modified;
-
     @Lob
     private String body;
-
     //    排序
     private Integer rank;
-
     /**
      * content 类型
      * 文章：post
@@ -56,7 +51,6 @@ public class Content implements Serializable {
      */
     @Enumerated(EnumType.STRING)
     private ContentType type;
-
     /**
      * 文章状态
      * 0：已发表（publish）
@@ -66,29 +60,22 @@ public class Content implements Serializable {
      */
     @Enumerated(EnumType.STRING)
     private ContentStatus status;
-
     @Column(length = 32)
     private String password;
-
     private Long commentsNum;
-
     /**
      * boolean 在 Mysql 中会被映射为 TINYINT，true 为 1，false 为 0
      */
     private Boolean allowComment;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "yg_relations")
     private Set<Meta> metas = new HashSet<>();
-
+    @Transient
+    private List<Long> metasMid = new ArrayList<>();
     @ManyToOne
     private User author;
-
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "content")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "content")
     private List<Comment> comments = new ArrayList<>();
-
-    public Content() {
-    }
 
     /**
      * 从 metas 中筛选出 tag
@@ -104,6 +91,7 @@ public class Content implements Serializable {
 
     /**
      * 从 metas 中筛选出 category
+     *
      * @return Set<Meta>
      */
     @Transient
@@ -118,6 +106,11 @@ public class Content implements Serializable {
         return comments.stream()
                 .filter(m -> CommentStatus.APPROVE.equals(m.getStatus()))
                 .collect(Collectors.toList());
+    }
+
+    @Transient
+    public void addMeta(Meta meta) {
+        metas.add(meta);
     }
 
     @Override

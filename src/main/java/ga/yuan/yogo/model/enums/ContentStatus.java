@@ -17,17 +17,6 @@ public enum ContentStatus {
      * @return ContentStatus
      */
     public static ContentStatus of(String s) {
-//        如果传入字符为 null，直接返回 null
-        if (s == null) {
-            return null;
-        }
-//        遍历查找是否有相符的枚举
-        for (ContentStatus contentStatus : ContentStatus.values()) {
-            if (contentStatus == ContentStatus.valueOf(s.toUpperCase())) {
-                return contentStatus;
-            }
-        }
-//        不存在的枚举，返回 null
-        return null;
+        return Enum.valueOf(ContentStatus.class, s);
     }
 }

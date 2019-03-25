@@ -31,7 +31,7 @@
     .collapse {
       position: absolute;
       left: calc(#{$sidebar-collapsed-width} + #{$grid-gutter-width} / 2);
-      z-index: 1;
+      z-index: 2;
       top: 2px;
       // Grow In Animation
       @extend .animated--grow-in;
@@ -167,7 +167,7 @@
       .collapse {
         position: relative;
         left: 0;
-        z-index: 1;
+        z-index: 2;
         top: 0;
         animation: none;
 
@@ -247,7 +247,7 @@
         .collapse {
           position: absolute;
           left: calc(#{$sidebar-collapsed-width} + #{$grid-gutter-width} / 2);
-          z-index: 1;
+          z-index: 2;
           top: 2px;
           // Grow In Animation for Toggled State
           animation-name: growIn;

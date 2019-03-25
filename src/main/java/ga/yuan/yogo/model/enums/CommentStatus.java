@@ -11,17 +11,6 @@ public enum CommentStatus {
     APPROVE, HOLD, SPAM, TRASH;
 
     public static CommentStatus of(String s) {
-//        如果传入字符为 null，直接返回 null
-        if (s == null) {
-            return null;
-        }
-//        遍历查找是否有相符的枚举
-        for (CommentStatus commentStatus : CommentStatus.values()) {
-            if (commentStatus == CommentStatus.valueOf(s.toUpperCase())) {
-                return commentStatus;
-            }
-        }
-//        不存在的枚举，返回 null
-        return null;
+        return Enum.valueOf(CommentStatus.class, s);
     }
 }

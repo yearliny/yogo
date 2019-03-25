@@ -58,4 +58,13 @@ public class Meta implements Serializable {
     public int hashCode() {
         return Objects.hash(mid, name, slug, type);
     }
+
+    @Override
+    public String toString() {
+        return "Meta{" +
+                "mid=" + mid +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

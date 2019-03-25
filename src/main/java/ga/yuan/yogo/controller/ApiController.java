@@ -4,10 +4,7 @@ import ga.yuan.yogo.model.entity.Content;
 import ga.yuan.yogo.model.entity.Meta;
 import ga.yuan.yogo.service.ContentService;
 import ga.yuan.yogo.service.MetaService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class ApiController {
     }
 
     @PostMapping("/posts/")
-    Content postContent(Content content) {
+    Content postContent(@RequestBody Content content) {
         return contentService.save(content);
     }
 
