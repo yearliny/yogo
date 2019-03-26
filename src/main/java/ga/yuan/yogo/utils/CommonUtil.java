@@ -1,5 +1,7 @@
 package ga.yuan.yogo.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -7,6 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 /**
  * Utils class, use for generate gravatar url
@@ -55,5 +58,24 @@ public class CommonUtil {
 
     public static String getGravatar(String email, int size) {
         return getGravatar(email, size, "identicon");
+    }
+
+    /**
+     * 把 Map 转化为 Json
+     *
+     * @param map 需要转换的 Map<String, String>
+     * @return Json格式的String字符串
+     */
+    private static String toJson(Map<String, String> map) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String data = "";
+        try {
+            data = objectMapper
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage());
+        }
+        return data;
     }
 }

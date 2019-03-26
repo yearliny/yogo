@@ -36,6 +36,8 @@ public class Comment implements Serializable {
     @Column(length = 64)
     private String ip;
     private String agent;
+    //    The content of the HTTP_REFERER header should be sent here.
+    private String referrer;
     @Lob
     private String body;
 

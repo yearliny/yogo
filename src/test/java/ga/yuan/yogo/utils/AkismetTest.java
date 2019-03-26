@@ -1,5 +1,6 @@
 package ga.yuan.yogo.utils;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ public class AkismetTest {
 
     @Test
     public void testVerify() {
-        System.out.println(akismet.verify());
+        Assert.assertTrue(akismet.verify());
     }
+
 }
