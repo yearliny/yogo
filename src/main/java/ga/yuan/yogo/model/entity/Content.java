@@ -40,8 +40,7 @@ public class Content implements Serializable {
     private Date modified;
     @Lob
     private String body;
-    //    排序
-    private Integer rank;
+
     /**
      * content 类型
      * 文章：post
@@ -124,7 +123,6 @@ public class Content implements Serializable {
                 Objects.equals(created, content.created) &&
                 Objects.equals(modified, content.modified) &&
                 Objects.equals(body, content.body) &&
-                Objects.equals(rank, content.rank) &&
                 type == content.type &&
                 status == content.status &&
                 Objects.equals(password, content.password) &&

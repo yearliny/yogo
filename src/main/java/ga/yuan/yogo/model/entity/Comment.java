@@ -2,6 +2,7 @@ package ga.yuan.yogo.model.entity;
 
 import ga.yuan.yogo.model.enums.CommentStatus;
 import ga.yuan.yogo.utils.CommonUtil;
+import ga.yuan.yogo.utils.RegexUtil;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -36,7 +37,7 @@ public class Comment implements Serializable {
     @Column(length = 64)
     private String ip;
     private String agent;
-    //    The content of the HTTP_REFERER header should be sent here.
+    // 评论者客户端 headers 的 referrer 信息，用于验证垃圾评论
     private String referrer;
     @Lob
     private String body;
@@ -51,21 +52,18 @@ public class Comment implements Serializable {
     @Enumerated(EnumType.STRING)
     private CommentStatus status;
 
-    //    网站已注册用户的评论
+    // 网站已注册用户的评论
     @ManyToOne
     private User owner;
 
-    //    评论的正文
+    // 评论的正文
     @ManyToOne
     private Content content;
 
-    //    评论的从属关系：谁回复谁
+    // 评论的从属关系：谁回复谁
     @OneToOne
     @JoinColumn(name = "parent")
     private Comment parent;
-
-    public Comment() {
-    }
 
     /**
      * 评论是否是文章作者发布
@@ -83,16 +81,14 @@ public class Comment implements Serializable {
      * @return int
      */
     @Transient
-    public int hasLinkNum() {
-        String regex = "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]";
-        Pattern p = Pattern.compile(regex);
+    public int countLink() {
+        Pattern p = Pattern.compile(RegexUtil.LINK);
         Matcher m = p.matcher(body);
-
-        int num = 0;
+        int count = 0;
         while (m.find()) {
-            num++;
+            count++;
         }
-        return num;
+        return count;
     }
 
     @Transient
