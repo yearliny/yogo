@@ -30,7 +30,4 @@ public class Option implements Serializable {
     @Lob
     private String value;
 
-    public Option() {
-    }
-
 }

@@ -71,7 +71,7 @@ public class Comment implements Serializable {
      * @return boolean
      */
     @Transient
-    public Boolean isAdmin() {
+    public boolean isAdmin() {
         return owner.equals(content.getAuthor());
     }
 
