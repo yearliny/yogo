@@ -17,9 +17,9 @@ public class FrontMatter {
     private String title = "";
     private String date;
     private String updated;
-    private boolean comments = true;
-    private List<String> tags;
+    private Boolean comments = true;
     private List<String> categories;
+    private List<String> tags;
     private String permalink = "";
     private String slug = "";
 
