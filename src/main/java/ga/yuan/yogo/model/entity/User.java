@@ -34,9 +34,6 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
-    @Transient
-    private String passwordConfirm;
-
     @Email(message = "{validation.email-error}")
     @Column(unique = true, nullable = false)
     private String email;

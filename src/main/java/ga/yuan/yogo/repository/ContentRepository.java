@@ -29,9 +29,9 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
     /**
      * 查询文章以生成网站地图 sitemap.xml
      *
-     * @return List<Content> 仅包含链接、发表时间的信息
+     * @return List<SitemapVO> 仅包含链接、发表时间的信息
      */
-    @Query(nativeQuery = true, value = "SELECT c.slug, c.created FROM yg_contents c WHERE c.type='POST' AND c.status='PUBLISH' ORDER BY c.created, c.cid DESC LIMIT ?1")
-    List<SitemapVO> listSitemap(int size);
+    @Query(value = "SELECT c.slug, c.created FROM Content c WHERE c.type='POST' AND c.status='PUBLISH'")
+    List<SitemapVO> findSitemap(Pageable pageable);
 
 }

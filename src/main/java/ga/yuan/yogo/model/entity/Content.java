@@ -39,7 +39,9 @@ public class Content implements Serializable {
     @LastModifiedDate
     private Date modified;
     @Lob
-    private String body;
+    private String bodyRaw;
+    @Lob
+    private String bodyRender;
 
     /**
      * content 类型
@@ -122,7 +124,7 @@ public class Content implements Serializable {
                 slug.equals(content.slug) &&
                 Objects.equals(created, content.created) &&
                 Objects.equals(modified, content.modified) &&
-                Objects.equals(body, content.body) &&
+                Objects.equals(bodyRaw, content.bodyRaw) &&
                 type == content.type &&
                 status == content.status &&
                 Objects.equals(password, content.password) &&
@@ -133,6 +135,6 @@ public class Content implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cid, title, slug, created, modified, body, type, status, author);
+        return Objects.hash(cid, title, slug, created, modified, bodyRaw, type, status, author);
     }
 }

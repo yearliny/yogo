@@ -1,0 +1,36 @@
+package ga.yuan.yogo.utils;
+
+import ga.yuan.yogo.model.dto.FrontMatter;
+import org.junit.Test;
+import org.yaml.snakeyaml.Yaml;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ContentParserTest {
+    @Test
+    public void test() {
+        String text = "---\r\ntitle: Hello\r\nauthor: yearliny\r\n---\r\n今天我要演讲的题目是如何分割字符串";
+        int end = text.indexOf("---", 5);
+        String rawMetas = text.substring(5, end);
+        String content = text.substring(end + 5).trim();
+        Map<String, Object> frontMatter = new HashMap<>();
+        for (String meta : rawMetas.split("\r\n")) {
+            String[] m = meta.split(":");
+            frontMatter.put(m[0].strip(), m[1].strip());
+        }
+        System.out.println(rawMetas);
+    }
+
+    @Test
+    public void testYaml() {
+        String text = "---\r\ntitle: Hello\r\ncomments: true\r\n---\r\n今天我要演讲的题目是如何分割字符串";
+        String[] t = text.split("---\r\n");
+        String frontMatterText = t[1];
+        String body = t[2];
+
+        Yaml yaml = new Yaml();
+        FrontMatter frontMatter = yaml.loadAs(frontMatterText, FrontMatter.class);
+        System.out.println(frontMatter);
+    }
+}

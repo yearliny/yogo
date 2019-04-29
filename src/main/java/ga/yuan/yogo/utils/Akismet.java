@@ -15,7 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Anti-Spam tool @see <a href="https://akismet.com">Akismet</a>
+ * Anti-Spam tool
+ * @see <a href="https://akismet.com">Akismet</a>
  */
 @Slf4j
 public class Akismet {
