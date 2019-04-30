@@ -1,6 +1,6 @@
 package ga.yuan.yogo.config;
 
-import ga.yuan.yogo.model.dto.YogoConst;
+import ga.yuan.yogo.consts.YogoConst;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 

@@ -1,9 +1,9 @@
 package ga.yuan.yogo.service.impl;
 
-import ga.yuan.yogo.model.dto.YogoConst;
-import ga.yuan.yogo.model.entity.Content;
-import ga.yuan.yogo.model.enums.ContentStatus;
-import ga.yuan.yogo.model.enums.ContentType;
+import ga.yuan.yogo.consts.YogoConst;
+import ga.yuan.yogo.model.entity.ContentDO;
+import ga.yuan.yogo.model.enums.ContentStatusEnum;
+import ga.yuan.yogo.model.enums.ContentTypeEnum;
 import ga.yuan.yogo.repository.ContentRepository;
 import ga.yuan.yogo.repository.MetaRepository;
 import ga.yuan.yogo.service.ContentService;
@@ -26,16 +26,16 @@ public class ContentServiceImpl implements ContentService {
 
     //    返回分页已发表的文章
     @Override
-    public Page<Content> listPosts(int pageNum, int size) {
+    public Page<ContentDO> listPosts(int pageNum, int size) {
         return contentRepository
                 .findByTypeAndStatusOrderByCreatedDesc(
-                        ContentType.POST,
-                        ContentStatus.PUBLISH,
+                        ContentTypeEnum.POST,
+                        ContentStatusEnum.PUBLISH,
                         PageRequest.of(pageNum, size));
     }
 
     @Override
-    public Page<Content> listPosts(int pageNum) {
+    public Page<ContentDO> listPosts(int pageNum) {
         String key = "posts_per_page";
 //        默认值：每页5篇文章
         String size = "5";
@@ -52,7 +52,7 @@ public class ContentServiceImpl implements ContentService {
      * @return 已经保存的 content 实体类
      */
     @Override
-    public Content save(Content content) {
+    public ContentDO save(ContentDO content) {
         for (Long mid : content.getMetasMid()) {
             metaRepository.findById(mid)
                     .map(m -> content.getMetas().add(m));
@@ -61,7 +61,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Page<Content> listContent(ContentType type, Set<ContentStatus> status, int page) {
+    public Page<ContentDO> listContent(ContentTypeEnum type, Set<ContentStatusEnum> status, int page) {
         return contentRepository.findByTypeAndStatusOrderByCreatedDesc(type, status, PageRequest.of(page, 30));
     }
 }

@@ -1,6 +1,6 @@
 package ga.yuan.yogo.controller;
 
-import ga.yuan.yogo.model.dto.YogoConst;
+import ga.yuan.yogo.consts.YogoConst;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;

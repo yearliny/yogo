@@ -1,6 +1,6 @@
 package ga.yuan.yogo.config;
 
-import ga.yuan.yogo.model.dto.YogoConst;
+import ga.yuan.yogo.consts.YogoConst;
 import ga.yuan.yogo.service.OptionService;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;

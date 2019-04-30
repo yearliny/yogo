@@ -1,6 +1,6 @@
 package ga.yuan.yogo.service;
 
-import ga.yuan.yogo.model.entity.Option;
+import ga.yuan.yogo.model.entity.OptionDO;
 
 import java.util.List;
 import java.util.Map;
@@ -13,17 +13,17 @@ public interface OptionService {
      */
     Map<String, String> findAll();
 
-    Option save(Option option);
+    OptionDO save(OptionDO option);
 
     /**
-     * 从 Map 中保存 Option
+     * 从 Map 中保存 OptionDO
      *
      * @param options 传进的 map 参数
      */
-    List<Option> saveAll(Map<String, String> options);
+    List<OptionDO> saveAll(Map<String, String> options);
 
 
-    void delete(Option option);
+    void delete(OptionDO option);
 
     void delete(String name);
 

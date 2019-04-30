@@ -1,9 +1,9 @@
 package ga.yuan.yogo.model.entity;
 
-import ga.yuan.yogo.model.enums.CommentStatus;
-import ga.yuan.yogo.model.enums.ContentStatus;
-import ga.yuan.yogo.model.enums.ContentType;
-import ga.yuan.yogo.model.enums.MetaType;
+import ga.yuan.yogo.model.enums.CommentStatusEnum;
+import ga.yuan.yogo.model.enums.ContentStatusEnum;
+import ga.yuan.yogo.model.enums.ContentTypeEnum;
+import ga.yuan.yogo.model.enums.MetaTypeEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 })
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Content implements Serializable {
+public class ContentDO implements Serializable {
 
     private static final long serialVersionUID = 5043846654481385966L;
 
@@ -51,7 +51,7 @@ public class Content implements Serializable {
      * 版本：revision
      */
     @Enumerated(EnumType.STRING)
-    private ContentType type;
+    private ContentTypeEnum type;
     /**
      * 文章状态
      * 0：已发表（publish）
@@ -60,7 +60,7 @@ public class Content implements Serializable {
      * 3：回收站（trash）
      */
     @Enumerated(EnumType.STRING)
-    private ContentStatus status;
+    private ContentStatusEnum status;
     @Column(length = 32)
     private String password;
     private Long commentsNum;
@@ -70,47 +70,47 @@ public class Content implements Serializable {
     private Boolean allowComment;
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "yg_relations")
-    private Set<Meta> metas = new HashSet<>();
+    private Set<MetaDO> metas = new HashSet<>();
     @Transient
     private List<Long> metasMid = new ArrayList<>();
     @ManyToOne
-    private User author;
+    private UserDO author;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "content")
-    private List<Comment> comments = new ArrayList<>();
+    private List<CommentDO> comments = new ArrayList<>();
 
     /**
      * 从 metas 中筛选出 tag
      *
-     * @return Set<Meta>
+     * @return Set<MetaDO>
      */
     @Transient
-    public Set<Meta> getTag() {
+    public Set<MetaDO> getTag() {
         return metas.stream()
-                .filter(m -> MetaType.TAG.equals(m.getType()))
+                .filter(m -> MetaTypeEnum.TAG.equals(m.getType()))
                 .collect(Collectors.toSet());
     }
 
     /**
      * 从 metas 中筛选出 category
      *
-     * @return Set<Meta>
+     * @return Set<MetaDO>
      */
     @Transient
-    public Set<Meta> getCategory() {
+    public Set<MetaDO> getCategory() {
         return metas.stream()
-                .filter(m -> MetaType.CATEGORY.equals(m.getType()))
+                .filter(m -> MetaTypeEnum.CATEGORY.equals(m.getType()))
                 .collect(Collectors.toSet());
     }
 
     @Transient
-    public List<Comment> getApproveComments() {
+    public List<CommentDO> getApproveComments() {
         return comments.stream()
-                .filter(m -> CommentStatus.APPROVE.equals(m.getStatus()))
+                .filter(m -> CommentStatusEnum.APPROVE.equals(m.getStatus()))
                 .collect(Collectors.toList());
     }
 
     @Transient
-    public void addMeta(Meta meta) {
+    public void addMeta(MetaDO meta) {
         metas.add(meta);
     }
 
@@ -118,7 +118,7 @@ public class Content implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Content content = (Content) o;
+        ContentDO content = (ContentDO) o;
         return cid.equals(content.cid) &&
                 title.equals(content.title) &&
                 slug.equals(content.slug) &&

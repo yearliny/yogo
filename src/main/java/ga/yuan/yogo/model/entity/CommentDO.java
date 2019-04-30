@@ -1,8 +1,8 @@
 package ga.yuan.yogo.model.entity;
 
-import ga.yuan.yogo.model.enums.CommentStatus;
-import ga.yuan.yogo.utils.CommonUtil;
-import ga.yuan.yogo.utils.RegexUtil;
+import ga.yuan.yogo.model.enums.CommentStatusEnum;
+import ga.yuan.yogo.util.CommonUtil;
+import ga.yuan.yogo.util.RegexUtil;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Table(name = "yg_comments")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Comment implements Serializable {
+public class CommentDO implements Serializable {
 
     private static final long serialVersionUID = -8982234765169639848L;
 
@@ -50,20 +50,20 @@ public class Comment implements Serializable {
      * 3：回收站(trash)
      */
     @Enumerated(EnumType.STRING)
-    private CommentStatus status;
+    private CommentStatusEnum status;
 
     // 网站已注册用户的评论
     @ManyToOne
-    private User owner;
+    private UserDO owner;
 
     // 评论的正文
     @ManyToOne
-    private Content content;
+    private ContentDO content;
 
     // 评论的从属关系：谁回复谁
     @OneToOne
     @JoinColumn(name = "parent")
-    private Comment parent;
+    private CommentDO parent;
 
     /**
      * 评论是否是文章作者发布

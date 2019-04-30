@@ -1,4 +1,4 @@
-package ga.yuan.yogo.utils;
+package ga.yuan.yogo.util;
 
 import ga.yuan.yogo.model.dto.FrontMatter;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package ga.yuan.yogo.model.vo;
 
-import ga.yuan.yogo.model.dto.YogoConst;
+import ga.yuan.yogo.consts.YogoConst;
 import lombok.Data;
 
 import java.util.Date;

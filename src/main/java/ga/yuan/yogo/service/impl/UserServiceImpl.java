@@ -1,9 +1,9 @@
 package ga.yuan.yogo.service.impl;
 
-import ga.yuan.yogo.model.entity.User;
+import ga.yuan.yogo.model.entity.UserDO;
 import ga.yuan.yogo.repository.UserRepository;
 import ga.yuan.yogo.service.UserService;
-import ga.yuan.yogo.utils.RegexUtil;
+import ga.yuan.yogo.util.RegexUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> find(long id) {
+    public Optional<UserDO> find(long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public User findByNameOrEmail(String nameOrEmail) {
-        User user;
+    public UserDO findByNameOrEmail(String nameOrEmail) {
+        UserDO user;
         if (RegexUtil.isEmail(nameOrEmail)) {
             user = userRepository.findByEmail(nameOrEmail);
         } else {
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public UserDO save(UserDO user) {
 //       保存用户则先加密密码
         if (user.getUid() == null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));

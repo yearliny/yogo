@@ -1,4 +1,4 @@
-package ga.yuan.yogo.model.dto;
+package ga.yuan.yogo.consts;
 
 import java.util.HashMap;
 import java.util.Map;

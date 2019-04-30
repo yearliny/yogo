@@ -1,6 +1,6 @@
 package ga.yuan.yogo.service.impl;
 
-import ga.yuan.yogo.model.entity.Option;
+import ga.yuan.yogo.model.entity.OptionDO;
 import ga.yuan.yogo.repository.OptionRepository;
 import ga.yuan.yogo.repository.UserRepository;
 import ga.yuan.yogo.service.OptionService;
@@ -22,24 +22,24 @@ public class OptionServiceImpl implements OptionService {
     @Override
     public Map<String, String> findAll() {
         Map<String, String> optionMap = new HashMap<>();
-        List<Option> optionList = optionRepository.findAll();
-        for (Option o : optionList) {
+        List<OptionDO> optionList = optionRepository.findAll();
+        for (OptionDO o : optionList) {
             optionMap.put(o.getName(), o.getValue());
         }
         return optionMap;
     }
 
     @Override
-    public Option save(Option option) {
+    public OptionDO save(OptionDO option) {
         return optionRepository.save(option);
     }
 
     @Override
-    public List<Option> saveAll(Map<String, String> optionMap) {
+    public List<OptionDO> saveAll(Map<String, String> optionMap) {
 //        把 map 遍历填入到 option bean 中
-        Set<Option> optionSet = new HashSet<>();
+        Set<OptionDO> optionSet = new HashSet<>();
         for (String key : optionMap.keySet()) {
-            Option option = new Option();
+            OptionDO option = new OptionDO();
             option.setName(key);
             option.setValue(optionMap.get(key));
             optionSet.add(option);
@@ -48,7 +48,7 @@ public class OptionServiceImpl implements OptionService {
     }
 
     @Override
-    public void delete(Option option) {
+    public void delete(OptionDO option) {
         optionRepository.delete(option);
     }
 

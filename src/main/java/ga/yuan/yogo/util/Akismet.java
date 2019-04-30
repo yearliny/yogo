@@ -1,7 +1,7 @@
-package ga.yuan.yogo.utils;
+package ga.yuan.yogo.util;
 
-import ga.yuan.yogo.model.entity.Comment;
-import ga.yuan.yogo.model.enums.CommentStatus;
+import ga.yuan.yogo.model.entity.CommentDO;
+import ga.yuan.yogo.model.enums.CommentStatusEnum;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class Akismet {
         return result.substring(0, result.length() - 1);
     }
 
-    private String getCommentParam(Comment comment) {
+    private String getCommentParam(CommentDO comment) {
         Map<String, String> param = new HashMap<>();
         param.put("blog", this.blog);
         param.put("user_ip", comment.getIp());
@@ -81,7 +81,7 @@ public class Akismet {
         String result = "";
         try {
             HttpRequest request = HttpRequest.newBuilder(URI.create("https://rest.akismet.com/1.1/verify-key"))
-                    .header("Content-Type", "application/x-www-form-urlencoded")
+                    .header("ContentDO-Type", "application/x-www-form-urlencoded")
                     .POST(HttpRequest.BodyPublishers.ofString(getVerifyParam()))
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -103,32 +103,32 @@ public class Akismet {
      *
      * @return 评论状态[同意、待定、垃圾评论、回收站]
      */
-    public CommentStatus check(Comment comment) {
+    public CommentStatusEnum check(CommentDO comment) {
         String API_URL = String.format("https://%s.rest.akismet.com/1.1/comment-check", key);
         HttpRequest request = HttpRequest.newBuilder(URI.create(API_URL))
-                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("ContentDO-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(getCommentParam(comment)))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             switch (response.body()) {
                 case "true":
-                    return CommentStatus.SPAM;
+                    return CommentStatusEnum.SPAM;
                 case "false":
-                    return CommentStatus.APPROVE;
+                    return CommentStatusEnum.APPROVE;
                 case "invalid":
-                    log.error("Comment %s -> X-akismet-debug-help: %s", comment.getCoid(), response.headers().map().get("X-akismet-debug-help").toString());
+                    log.error("CommentDO %s -> X-akismet-debug-help: %s", comment.getCoid(), response.headers().map().get("X-akismet-debug-help").toString());
             }
         } catch (IOException | InterruptedException e) {
             log.error(e.getMessage());
         }
-        return CommentStatus.HOLD;
+        return CommentStatusEnum.HOLD;
     }
 
     /**
      * 提交被误判的评论
      */
-    private void submitComment(Comment comment, String type) {
+    private void submitComment(CommentDO comment, String type) {
         final String HAM_URL = String.format("https://%s.rest.akismet.com/1.1/submit-ham", key);
         final String SPAM_URL = String.format("https://%s.rest.akismet.com/1.1/submit-spam", key);
         String API_URL = "";
@@ -142,7 +142,7 @@ public class Akismet {
             return;
         }
         HttpRequest request = HttpRequest.newBuilder(URI.create(API_URL))
-                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("ContentDO-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(getCommentParam(comment)))
                 .build();
         try {
@@ -159,14 +159,14 @@ public class Akismet {
     /**
      * 提交漏判的垃圾评论
      */
-    public void submitSpam(Comment comment) {
+    public void submitSpam(CommentDO comment) {
         submitComment(comment, "spam");
     }
 
     /**
      * 提交误判的正常评论
      */
-    public void submitHam(Comment comment) {
+    public void submitHam(CommentDO comment) {
         submitComment(comment, "ham");
     }
 }

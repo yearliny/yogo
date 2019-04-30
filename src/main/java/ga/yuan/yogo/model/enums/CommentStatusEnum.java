@@ -7,10 +7,10 @@ package ga.yuan.yogo.model.enums;
  * 2：垃圾评论(spam)
  * 3：回收站(trash)
  */
-public enum CommentStatus {
+public enum CommentStatusEnum {
     APPROVE, HOLD, SPAM, TRASH;
 
-    public static CommentStatus of(String s) {
-        return Enum.valueOf(CommentStatus.class, s);
+    public static CommentStatusEnum of(String s) {
+        return Enum.valueOf(CommentStatusEnum.class, s);
     }
 }

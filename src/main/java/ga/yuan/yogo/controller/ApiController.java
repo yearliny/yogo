@@ -1,7 +1,7 @@
 package ga.yuan.yogo.controller;
 
-import ga.yuan.yogo.model.entity.Content;
-import ga.yuan.yogo.model.entity.Meta;
+import ga.yuan.yogo.model.entity.ContentDO;
+import ga.yuan.yogo.model.entity.MetaDO;
 import ga.yuan.yogo.service.ContentService;
 import ga.yuan.yogo.service.MetaService;
 import org.springframework.web.bind.annotation.*;
@@ -24,17 +24,17 @@ public class ApiController {
     }
 
     @GetMapping("/categories/")
-    List<Meta> getCategories() {
+    List<MetaDO> getCategories() {
         return metaService.listCategory();
     }
 
     @GetMapping("/post_tag/")
-    List<Meta> getPostTag() {
+    List<MetaDO> getPostTag() {
         return metaService.listTag();
     }
 
     @PostMapping("/posts/")
-    Content postContent(@RequestBody Content content) {
+    ContentDO postContent(@RequestBody ContentDO content) {
         return contentService.save(content);
     }
 

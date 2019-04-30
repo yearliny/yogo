@@ -1,11 +1,11 @@
 package ga.yuan.yogo.repository;
 
-import ga.yuan.yogo.model.entity.User;
+import ga.yuan.yogo.model.entity.UserDO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserDO, Long> {
 
-    User findByEmail(String email);
+    UserDO findByEmail(String email);
 
-    User findByName(String name);
+    UserDO findByName(String name);
 }

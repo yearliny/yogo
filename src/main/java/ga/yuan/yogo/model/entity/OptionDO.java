@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Data
 @Table(name = "yg_options")
 @Entity
-public class Option implements Serializable {
+public class OptionDO implements Serializable {
 
     private static final long serialVersionUID = 9149588769802370048L;
 

@@ -7,16 +7,16 @@ package ga.yuan.yogo.model.enums;
  * 2：草稿箱（draft）
  * 3：回收站（trash）
  */
-public enum ContentStatus {
+public enum ContentStatusEnum {
     PUBLISH, FUTURE, DRAFT, TRASH;
 
     /**
      * 通过字符串的状态反查枚举类型
      *
      * @param s
-     * @return ContentStatus
+     * @return ContentStatusEnum
      */
-    public static ContentStatus of(String s) {
-        return Enum.valueOf(ContentStatus.class, s);
+    public static ContentStatusEnum of(String s) {
+        return Enum.valueOf(ContentStatusEnum.class, s);
     }
 }

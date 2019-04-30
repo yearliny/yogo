@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/yg-content/admin/vendor/simplemde/simplemde.min.css}">
 </head>
 <body>
-<!-- Begin Page Content -->
+<!-- Begin Page ContentDO -->
 <div class="container-fluid">
 
     <form th:action="@{/yg-admin/post-new}" th:object="${post}">
@@ -28,7 +28,7 @@
                        href="#post-category-body" role="button">
                         <h6 class="m-0 font-weight-bold text-primary">分类</h6>
                     </a>
-                    <!-- Card Content - Collapse -->
+									<!-- Card ContentDO - Collapse -->
                     <div class="collapse show">
                         <div class="card-body" id="post-category-body"></div>
                     </div>
@@ -40,7 +40,7 @@
                        href="#post-tag-body" role="button">
                         <h6 class="m-0 font-weight-bold text-primary">标签</h6>
                     </a>
-                    <!-- Card Content - Collapse -->
+									<!-- Card ContentDO - Collapse -->
                     <div class="collapse show">
                         <div class="card-body" id="post-tag-body"></div>
                     </div>
@@ -51,7 +51,7 @@
     </form>
 
 </div>
-<!-- End Page Content -->
+<!-- End Page ContentDO -->
 <script id="tpl-category" type="text/template">
     <div class="form-check">
         <input class="form-check-input" type="radio" name="post-category" id="editor-post-cate-{mid}" value="{mid}">

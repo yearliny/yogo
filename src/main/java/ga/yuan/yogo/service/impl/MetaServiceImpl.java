@@ -1,7 +1,7 @@
 package ga.yuan.yogo.service.impl;
 
-import ga.yuan.yogo.model.entity.Meta;
-import ga.yuan.yogo.model.enums.MetaType;
+import ga.yuan.yogo.model.entity.MetaDO;
+import ga.yuan.yogo.model.enums.MetaTypeEnum;
 import ga.yuan.yogo.repository.MetaRepository;
 import ga.yuan.yogo.service.MetaService;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ public class MetaServiceImpl implements MetaService {
     }
 
     @Override
-    public List<Meta> listCategory() {
-        return metaRepository.findAllByType(MetaType.CATEGORY);
+    public List<MetaDO> listCategory() {
+        return metaRepository.findAllByType(MetaTypeEnum.CATEGORY);
     }
 
     @Override
-    public List<Meta> listTag() {
-        return metaRepository.findAllByType(MetaType.TAG);
+    public List<MetaDO> listTag() {
+        return metaRepository.findAllByType(MetaTypeEnum.TAG);
     }
 }

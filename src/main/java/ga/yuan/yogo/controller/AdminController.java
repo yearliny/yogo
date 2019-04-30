@@ -1,10 +1,10 @@
 package ga.yuan.yogo.controller;
 
-import ga.yuan.yogo.model.entity.Content;
-import ga.yuan.yogo.model.entity.Meta;
-import ga.yuan.yogo.model.entity.User;
-import ga.yuan.yogo.model.enums.ContentStatus;
-import ga.yuan.yogo.model.enums.ContentType;
+import ga.yuan.yogo.model.entity.ContentDO;
+import ga.yuan.yogo.model.entity.MetaDO;
+import ga.yuan.yogo.model.entity.UserDO;
+import ga.yuan.yogo.model.enums.ContentStatusEnum;
+import ga.yuan.yogo.model.enums.ContentTypeEnum;
 import ga.yuan.yogo.service.ContentService;
 import ga.yuan.yogo.service.MetaService;
 import ga.yuan.yogo.service.UserService;
@@ -39,7 +39,7 @@ public class AdminController {
     }
 
     @ModelAttribute
-    public User getUser(Model model, Principal principal) {
+    public UserDO getUser(Model model, Principal principal) {
         return userService.findByNameOrEmail(principal.getName());
     }
 
@@ -60,12 +60,12 @@ public class AdminController {
      */
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam(value = "page", defaultValue = "0", required = false) int page) {
-        Set<ContentStatus> contentStatus = new HashSet<>();
-        contentStatus.add(ContentStatus.FUTURE);
-        contentStatus.add(ContentStatus.DRAFT);
-        contentStatus.add(ContentStatus.PUBLISH);
+        Set<ContentStatusEnum> contentStatus = new HashSet<>();
+        contentStatus.add(ContentStatusEnum.FUTURE);
+        contentStatus.add(ContentStatusEnum.DRAFT);
+        contentStatus.add(ContentStatusEnum.PUBLISH);
 
-        Page<Content> contents = contentService.listContent(ContentType.POST, contentStatus, page);
+        Page<ContentDO> contents = contentService.listContent(ContentTypeEnum.POST, contentStatus, page);
         model.addAttribute("contents", contents);
         return "admin/edit";
     }
@@ -77,12 +77,12 @@ public class AdminController {
      */
     @GetMapping("/post-new")
     public String postNew(Model model) {
-        List<Meta> category = metaService.listCategory();
-        List<Meta> tag = metaService.listTag();
+        List<MetaDO> category = metaService.listCategory();
+        List<MetaDO> tag = metaService.listTag();
 
         model.addAttribute("category", category);
         model.addAttribute("tag", tag);
-        model.addAttribute("post", new Content());
+        model.addAttribute("post", new ContentDO());
         return "admin/post-new";
     }
 

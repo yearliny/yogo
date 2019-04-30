@@ -1,7 +1,7 @@
 package ga.yuan.yogo.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ga.yuan.yogo.model.enums.MetaType;
+import ga.yuan.yogo.model.enums.MetaTypeEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +16,7 @@ import java.util.Set;
 @Data
 @Table(name = "yg_metas", indexes = {@Index(name = "ix_m_slug", columnList = "slug")})
 @Entity
-public class Meta implements Serializable {
+public class MetaDO implements Serializable {
 
     private static final long serialVersionUID = -8417367331279302043L;
 
@@ -26,19 +26,19 @@ public class Meta implements Serializable {
     private String name;
     private String slug;
     @Enumerated(EnumType.STRING)
-    private MetaType type;
+    private MetaTypeEnum type;
     private String description;
     private Integer count;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "metas")
-    private Set<Content> contents = new HashSet<>();
+    private Set<ContentDO> contents = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Meta meta = (Meta) o;
+        MetaDO meta = (MetaDO) o;
         return name.equals(meta.name) &&
                 type == meta.type;
     }
@@ -50,7 +50,7 @@ public class Meta implements Serializable {
 
     @Override
     public String toString() {
-        return "Meta{" +
+        return "MetaDO{" +
                 "mid=" + mid +
                 ", name='" + name + '\'' +
                 ", type=" + type +

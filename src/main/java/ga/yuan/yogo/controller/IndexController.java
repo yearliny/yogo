@@ -1,6 +1,6 @@
 package ga.yuan.yogo.controller;
 
-import ga.yuan.yogo.model.entity.Content;
+import ga.yuan.yogo.model.entity.ContentDO;
 import ga.yuan.yogo.service.ContentService;
 import ga.yuan.yogo.service.OptionService;
 import org.springframework.data.domain.Page;
@@ -30,7 +30,7 @@ public class IndexController {
 
     @GetMapping("/page/{pageNum}")
     public String index(Model model, @PathVariable(value = "pageNum") Integer pageNum) {
-        Page<Content> posts = contentService.listPosts(pageNum);
+        Page<ContentDO> posts = contentService.listPosts(pageNum);
         model.addAttribute("posts", posts);
         return "index";
     }

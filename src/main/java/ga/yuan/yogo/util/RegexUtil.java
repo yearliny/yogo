@@ -1,6 +1,5 @@
-package ga.yuan.yogo.utils;
+package ga.yuan.yogo.util;
 
-import javax.validation.constraints.Email;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

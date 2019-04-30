@@ -1,7 +1,7 @@
 package ga.yuan.yogo.model.entity;
 
-import ga.yuan.yogo.model.enums.UserRole;
-import ga.yuan.yogo.utils.CommonUtil;
+import ga.yuan.yogo.model.enums.UserRoleEnum;
+import ga.yuan.yogo.util.CommonUtil;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,13 +14,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * User 实体类，{@link EntityListeners} 注解用于支持 Spring Data JPA 的 {@link CreatedDate} 注解的功能
+ * UserDO 实体类，{@link EntityListeners} 注解用于支持 Spring Data JPA 的 {@link CreatedDate} 注解的功能
  */
 @Data
 @Table(name = "yg_users")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class User implements Serializable {
+public class UserDO implements Serializable {
 
     private static final long serialVersionUID = -2644430559456254306L;
 
@@ -47,13 +47,13 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private UserRoleEnum role;
 
     @OneToMany(mappedBy = "author", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-    private List<Content> contents = new ArrayList<>();
+    private List<ContentDO> contents = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
-    private List<Comment> comments = new ArrayList<>();
+    private List<CommentDO> comments = new ArrayList<>();
 
     @Transient
     public String getGravatar(int size) {

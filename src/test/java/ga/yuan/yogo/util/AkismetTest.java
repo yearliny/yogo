@@ -1,4 +1,4 @@
-package ga.yuan.yogo.utils;
+package ga.yuan.yogo.util;
 
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,16 +1,16 @@
 package ga.yuan.yogo.service;
 
-import ga.yuan.yogo.model.entity.Content;
-import ga.yuan.yogo.model.enums.ContentStatus;
-import ga.yuan.yogo.model.enums.ContentType;
+import ga.yuan.yogo.model.entity.ContentDO;
+import ga.yuan.yogo.model.enums.ContentStatusEnum;
+import ga.yuan.yogo.model.enums.ContentTypeEnum;
 import org.springframework.data.domain.Page;
 
 import java.util.Set;
 
 public interface ContentService {
-    Page<Content> listPosts(int pageNum, int size);
+    Page<ContentDO> listPosts(int pageNum, int size);
 
-    Page<Content> listPosts(int pageNum);
+    Page<ContentDO> listPosts(int pageNum);
 
     /**
      * 保存内容
@@ -18,14 +18,14 @@ public interface ContentService {
      * @param content 需要保存的内容
      * @return 已经保存的内容，带有 id
      */
-    Content save(Content content);
+    ContentDO save(ContentDO content);
 
     /**
      * 用于 admin 内容管理列表
      *
-     * @param type   ContentType
-     * @param status ContentStatus
-     * @return Page<Content>
+     * @param type   ContentTypeEnum
+     * @param status ContentStatusEnum
+     * @return Page<ContentDO>
      */
-    Page<Content> listContent(ContentType type, Set<ContentStatus> status, int page);
+    Page<ContentDO> listContent(ContentTypeEnum type, Set<ContentStatusEnum> status, int page);
 }

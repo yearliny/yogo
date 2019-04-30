@@ -1,14 +1,14 @@
 package ga.yuan.yogo.service;
 
-import ga.yuan.yogo.model.entity.User;
+import ga.yuan.yogo.model.entity.UserDO;
 
 import java.util.Optional;
 
 public interface UserService {
 
-    Optional<User> find(long id);
+    Optional<UserDO> find(long id);
 
-    User findByNameOrEmail(String nameOrEmail);
+    UserDO findByNameOrEmail(String nameOrEmail);
 
     /**
      * 保存用户
@@ -16,7 +16,7 @@ public interface UserService {
      * @param user
      * @return user
      */
-    User save(User user);
+    UserDO save(UserDO user);
 
     boolean existsById(long id);
 

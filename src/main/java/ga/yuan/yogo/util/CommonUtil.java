@@ -1,4 +1,4 @@
-package ga.yuan.yogo.utils;
+package ga.yuan.yogo.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

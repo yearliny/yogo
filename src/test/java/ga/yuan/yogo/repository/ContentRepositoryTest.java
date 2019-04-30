@@ -1,8 +1,8 @@
 package ga.yuan.yogo.repository;
 
-import ga.yuan.yogo.model.entity.Content;
-import ga.yuan.yogo.model.entity.Meta;
-import ga.yuan.yogo.model.enums.MetaType;
+import ga.yuan.yogo.model.entity.ContentDO;
+import ga.yuan.yogo.model.entity.MetaDO;
+import ga.yuan.yogo.model.enums.MetaTypeEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class ContentRepositoryTest {
     @Test
     public void testRelateMeta() {
         var content = contentRepository.getOne(1L);
-        var meta = new Meta();
+        var meta = new MetaDO();
         meta.setMid(7L);
         content.addMeta(meta);
         contentRepository.saveAndFlush(content);
@@ -42,12 +42,12 @@ public class ContentRepositoryTest {
      */
     @Test
     public void testCreateRelateMeta() {
-        Content content = new Content();
+        ContentDO content = new ContentDO();
         content.setTitle("-----testCreateRelateMeta----------");
 
         contentRepository.saveAndFlush(content);
 
-        Meta meta = new Meta();
+        MetaDO meta = new MetaDO();
         meta.setMid(6L);
 
         content.getMetas().add(meta);
@@ -61,12 +61,12 @@ public class ContentRepositoryTest {
      */
     @Test
     public void testTransientRelateMeta() {
-        Content content = new Content();
+        ContentDO content = new ContentDO();
         content.setTitle("-----testTransientRelateMeta----------");
 
-        Meta meta = new Meta();
+        MetaDO meta = new MetaDO();
         meta.setName("testTransientRelateMeta");
-        meta.setType(MetaType.TAG);
+        meta.setType(MetaTypeEnum.TAG);
 
         content.getMetas().add(meta);
 
