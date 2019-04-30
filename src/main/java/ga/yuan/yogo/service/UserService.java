@@ -12,9 +12,6 @@ public interface UserService {
 
     /**
      * 保存用户
-     *
-     * @param user
-     * @return user
      */
     UserDO save(UserDO user);
 

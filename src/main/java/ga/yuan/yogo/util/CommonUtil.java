@@ -23,7 +23,7 @@ public class CommonUtil {
         StringBuilder sb = new StringBuilder();
         for (byte b : array) {
             sb.append(Integer.toHexString((b
-                    & 0xFF) | 0x100).substring(1, 3));
+                    & 0xFF) | 0x100), 1, 3);
         }
         return sb.toString();
     }
@@ -43,21 +43,16 @@ public class CommonUtil {
      *
      * @param email  根据 email 生成头像地址
      * @param size   头像的尺寸（px）range(1, 2048)
-     * @param orElse 如果此 email 下没有设定头像，随机生成的策略。@see <a href="https://cn.gravatar.com/site/implement/images/#default-image">default-image</a>
      * @return url 头像的地址
      */
-    public static String getGravatar(String email, int size, String orElse) {
+    public static String getGravatar(String email, int size) {
         UriComponents uriComponents = UriComponentsBuilder
                 .fromUriString("https://dn-qiniu-avatar.qbox.me/avatar/{md5hex}")
                 .queryParam("s", size)
-                .queryParam("r", "g").queryParam("d", orElse)
+                .queryParam("r", "g").queryParam("d", "identicon")
                 .encode()
                 .buildAndExpand(md5Hex(email));
         return uriComponents.toString();
-    }
-
-    public static String getGravatar(String email, int size) {
-        return getGravatar(email, size, "identicon");
     }
 
     /**

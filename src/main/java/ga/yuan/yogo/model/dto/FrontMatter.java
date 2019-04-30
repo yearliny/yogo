@@ -37,6 +37,6 @@ public class FrontMatter {
         } else {
             link = title;
         }
-        return permalink.strip().replaceAll(" ", "-");
+        return link.strip().replaceAll(" ", "-");
     }
 }

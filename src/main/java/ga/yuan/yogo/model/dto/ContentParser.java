@@ -15,14 +15,14 @@ import java.util.stream.Collectors;
 public class ContentParser {
     private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private String rawBody;
+    private String rawInput;
     private ContentDO content;
 
     public ContentParser() {
     }
 
-    public ContentParser(String rawBody) {
-        this.rawBody = rawBody;
+    public ContentParser(String rawInput) {
+        this.rawInput = rawInput;
     }
 
     public ContentParser(ContentDO content) {
@@ -37,13 +37,13 @@ public class ContentParser {
      */
     public ContentDO load() throws ParseException {
         Yaml yaml = new Yaml();
-        String[] rc = rawBody.split("---\r\n");
+        String[] rc = rawInput.split("---\r\n");
         String frontMatterText = rc[1];
         String body = rc[2];
         FrontMatter frontMatter = yaml.loadAs(frontMatterText, FrontMatter.class);
 
         content.setTitle(frontMatter.getTitle());
-        content.setBodyRaw(rawBody);
+        content.setBodyRaw(body);
         if (frontMatter.getDate() != null && !frontMatter.getDate().isBlank()) {
             content.setCreated(format.parse(frontMatter.getDate()));
         }

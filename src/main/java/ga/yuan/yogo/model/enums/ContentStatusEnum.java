@@ -13,7 +13,7 @@ public enum ContentStatusEnum {
     /**
      * 通过字符串的状态反查枚举类型
      *
-     * @param s
+     * @param s 枚举类型字符串
      * @return ContentStatusEnum
      */
     public static ContentStatusEnum of(String s) {

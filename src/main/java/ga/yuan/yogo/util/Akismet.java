@@ -18,12 +18,12 @@ import java.util.Map;
  * Anti-Spam tool
  * @see <a href="https://akismet.com">Akismet</a>
  */
+@SuppressWarnings("WeakerAccess")
 @Slf4j
 public class Akismet {
-    private final String API_URL = "https://rest.akismet.com/1.1/";
-    private HttpClient client = HttpClient.newHttpClient();
-    private String key;
-    private String blog;
+    private final HttpClient client = HttpClient.newHttpClient();
+    private final String key;
+    private final String blog;
 
     /**
      * verifyParam.put("key", "f9e206045640");
@@ -117,7 +117,7 @@ public class Akismet {
                 case "false":
                     return CommentStatusEnum.APPROVE;
                 case "invalid":
-                    log.error("CommentDO %s -> X-akismet-debug-help: %s", comment.getCoid(), response.headers().map().get("X-akismet-debug-help").toString());
+                    log.error("CommentDO {} -> X-akismet-debug-help: {}", comment.getCoid(), response.headers().map().get("X-akismet-debug-help").toString());
             }
         } catch (IOException | InterruptedException e) {
             log.error(e.getMessage());
@@ -131,7 +131,7 @@ public class Akismet {
     private void submitComment(CommentDO comment, String type) {
         final String HAM_URL = String.format("https://%s.rest.akismet.com/1.1/submit-ham", key);
         final String SPAM_URL = String.format("https://%s.rest.akismet.com/1.1/submit-spam", key);
-        String API_URL = "";
+        String API_URL;
 
         if (type.equals("ham")) {
             API_URL = HAM_URL;

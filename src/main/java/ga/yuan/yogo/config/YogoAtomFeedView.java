@@ -15,8 +15,7 @@ import java.util.Map;
 @Component("atomFeedView")
 public class YogoAtomFeedView extends AbstractAtomFeedView {
     @Override
-    protected List<Entry> buildFeedEntries(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Entry item = new Entry();
+    protected List<Entry> buildFeedEntries(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
         return null;
     }
 }
