@@ -17,7 +17,7 @@ import java.util.List;
  * UserDO 实体类，{@link EntityListeners} 注解用于支持 Spring Data JPA 的 {@link CreatedDate} 注解的功能
  */
 @Data
-@Table(name = "yg_users")
+@Table(name = "yg_user")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class UserDO implements Serializable {

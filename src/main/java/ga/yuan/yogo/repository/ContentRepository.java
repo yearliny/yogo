@@ -21,7 +21,7 @@ public interface ContentRepository extends JpaRepository<ContentDO, Long> {
      * @param page   页码和每页文章数量
      * @return Pageable 对象
      */
-    Page<ContentDO> findByTypeAndStatus(ContentTypeEnum type, Set<ContentStatusEnum> status, Pageable page);
+    Page<ContentDO> findByTypeAndStatusOrderByCreatedDesc(ContentTypeEnum type, Set<ContentStatusEnum> status, Pageable page);
 
     /**
      * 查询文章以生成网站地图 sitemap.xml

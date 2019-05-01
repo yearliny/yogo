@@ -14,7 +14,7 @@ import java.util.Set;
  * 项目表：类型有 tag、category、link_category（链接分类）
  */
 @Data
-@Table(name = "yg_metas", indexes = {@Index(name = "ix_m_slug", columnList = "slug")})
+@Table(name = "yg_meta", indexes = {@Index(name = "idx_m_slug", columnList = "slug")})
 @Entity
 public class MetaDO implements Serializable {
 

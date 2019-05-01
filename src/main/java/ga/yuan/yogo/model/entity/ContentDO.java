@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "yg_contents", indexes = {
-        @Index(name = "ix_c_slug", columnList = "slug"),
-        @Index(name = "ix_c_created", columnList = "created")
+@Table(name = "yg_content", indexes = {
+        @Index(name = "idx_c_slug", columnList = "slug"),
+        @Index(name = "idx_c_created", columnList = "created")
 })
 @Entity
 @EntityListeners(AuditingEntityListener.class)

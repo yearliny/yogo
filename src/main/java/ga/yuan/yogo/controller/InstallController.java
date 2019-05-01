@@ -1,52 +1,37 @@
 package ga.yuan.yogo.controller;
 
 import ga.yuan.yogo.consts.YogoConst;
-import ga.yuan.yogo.model.entity.OptionDO;
-import ga.yuan.yogo.model.entity.UserDO;
-import ga.yuan.yogo.model.enums.UserRoleEnum;
-import ga.yuan.yogo.service.OptionService;
-import ga.yuan.yogo.service.UserService;
+import ga.yuan.yogo.model.vo.InstallVO;
+import ga.yuan.yogo.service.YogoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Map;
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
 public class InstallController {
 
-    private final OptionService optionService;
-    private final UserService userService;
+    private final YogoService yogoService;
 
-    public InstallController(OptionService optionService, UserService userService) {
-        this.optionService = optionService;
-        this.userService = userService;
+    public InstallController(YogoService yogoService) {
+        this.yogoService = yogoService;
     }
 
     @GetMapping("/yg-install")
-    public String installPage(Model model) {
+    public String installPage(InstallVO installVO) {
         return YogoConst.isInstall() ? "redirect:/yg-login" : "admin/install";
     }
 
     @PostMapping("/yg-install")
-    public String installForm(@RequestParam Map<String, String> params) {
-        OptionDO option = new OptionDO();
-        option.setName("site_title");
-        option.setValue(params.get("site_title"));
-        optionService.save(option);
-
-        UserDO user = new UserDO();
-        user.setEmail(params.get("email"));
-        user.setName(params.get("username"));
-        user.setDisplayName(params.get("display_name"));
-        user.setPassword(params.get("password"));
-        user.setRole(UserRoleEnum.SUPER_ADMIN);
-        userService.save(user);
-
+    public String installForm(@Valid InstallVO installVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/install";
+        }
+        yogoService.install(installVO);
         return "redirect:/yg-login";
     }
 }

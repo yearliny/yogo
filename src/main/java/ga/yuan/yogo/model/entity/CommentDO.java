@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Data
-@Table(name = "yg_comments")
+@Table(name = "yg_comment")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class CommentDO implements Serializable {

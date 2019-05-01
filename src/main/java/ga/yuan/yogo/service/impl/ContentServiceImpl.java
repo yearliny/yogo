@@ -1,6 +1,6 @@
 package ga.yuan.yogo.service.impl;
 
-import ga.yuan.yogo.consts.YogoConst;
+import ga.yuan.yogo.consts.OptionWrapper;
 import ga.yuan.yogo.model.entity.ContentDO;
 import ga.yuan.yogo.model.enums.ContentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentTypeEnum;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -27,22 +28,18 @@ public class ContentServiceImpl implements ContentService {
     //    返回分页已发表的文章
     @Override
     public Page<ContentDO> listPosts(int pageNum, int size) {
+        Set<ContentStatusEnum> contentStatusEnums = new HashSet<>();
+        contentStatusEnums.add(ContentStatusEnum.PUBLISH);
         return contentRepository
                 .findByTypeAndStatusOrderByCreatedDesc(
                         ContentTypeEnum.POST,
-                        ContentStatusEnum.PUBLISH,
+                        contentStatusEnums,
                         PageRequest.of(pageNum, size));
     }
 
     @Override
     public Page<ContentDO> listPosts(int pageNum) {
-        String key = "posts_per_page";
-//        默认值：每页5篇文章
-        String size = "5";
-        if (YogoConst.OPTIONS.containsKey(key)) {
-            size = YogoConst.OPTIONS.get(key);
-        }
-        return listPosts(pageNum, Integer.valueOf(size));
+        return listPosts(pageNum, OptionWrapper.getPostsPerPage());
     }
 
     /**

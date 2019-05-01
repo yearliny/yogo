@@ -24,7 +24,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(installInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/yg-install")
-                .excludePathPatterns("/yg-content/**");
+                .excludePathPatterns("/assets/**");
     }
 
     /**
@@ -34,7 +34,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/yg-content/**")
+        registry.addResourceHandler("/assets/**")
                 .addResourceLocations("classpath:/static/");
     }
 
