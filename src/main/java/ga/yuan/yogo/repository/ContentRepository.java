@@ -7,6 +7,7 @@ import ga.yuan.yogo.model.vo.SitemapXmlVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,8 @@ public interface ContentRepository extends JpaRepository<ContentDO, Long> {
     /**
      * 查询文章以生成网站地图 sitemap.xml
      *
-     * @return List<SitemapXmlVO> 仅包含链接、发表时间的信息
+     * @return {@link SitemapXmlVO} 仅包含链接、发表时间的信息
      */
-    List<SitemapXmlVO> findAllSitemapXML(Pageable pageable);
+    @Query("SELECT new ga.yuan.yogo.model.vo.SitemapXmlVO(c.slug, c.created) FROM ContentDO c")
+    List<SitemapXmlVO> findAllSitemapXML();
 }

@@ -1,9 +1,10 @@
 package ga.yuan.yogo.service.impl;
 
-import ga.yuan.yogo.consts.OptionWrapper;
+import ga.yuan.yogo.consts.YogoConst;
 import ga.yuan.yogo.model.entity.ContentDO;
 import ga.yuan.yogo.model.enums.ContentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentTypeEnum;
+import ga.yuan.yogo.model.enums.OptionEnum;
 import ga.yuan.yogo.repository.ContentRepository;
 import ga.yuan.yogo.repository.MetaRepository;
 import ga.yuan.yogo.service.ContentService;
@@ -39,7 +40,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Page<ContentDO> listPosts(int pageNum) {
-        return listPosts(pageNum, OptionWrapper.getPostsPerPage());
+        return listPosts(pageNum, YogoConst.getOptionInt(OptionEnum.POST_PER_PAGE));
     }
 
     /**

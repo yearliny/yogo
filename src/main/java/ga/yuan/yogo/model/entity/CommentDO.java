@@ -29,12 +29,12 @@ public class CommentDO implements Serializable {
     @CreatedDate
     private Date created;
     //    评论填写的名称
-    @NotBlank(message = "{validation.username-empty}")
     private String author;
-    @Email(message = "{validation.email-error}")
+    @Column(length = 100)
     private String email;
+    @Column(length = 200)
     private String url;
-    @Column(length = 64)
+    @Column(length = 100)
     private String ip;
     private String agent;
     // 评论者客户端 headers 的 referrer 信息，用于验证垃圾评论
@@ -68,7 +68,7 @@ public class CommentDO implements Serializable {
     /**
      * 评论是否是文章作者发布
      *
-     * @return boolean
+     * @return 如果是作者发布，返回 true
      */
     @Transient
     public boolean isAdmin() {
@@ -78,7 +78,7 @@ public class CommentDO implements Serializable {
     /**
      * 评论内容含有链接数量
      *
-     * @return int
+     * @return 评论的数量
      */
     @Transient
     public int countLink() {
@@ -91,6 +91,11 @@ public class CommentDO implements Serializable {
         return count;
     }
 
+    /**
+     * 根据用户的 email，使用 {@link CommonUtil#getGravatar(String, int)} 生成Gravatar头像地址
+     * @param size 头像的尺寸
+     * @return 生成的Gravatar头像地址
+     */
     @Transient
     public String getGravatar(int size) {
         return CommonUtil.getGravatar(email, size);

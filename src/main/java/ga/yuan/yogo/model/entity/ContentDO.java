@@ -33,6 +33,7 @@ public class ContentDO implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cid;
     private String title;
+    @Column(length = 200)
     private String slug;
     @CreatedDate
     private Date created;
@@ -69,7 +70,9 @@ public class ContentDO implements Serializable {
      */
     private Boolean allowComment;
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "yg_relations")
+    @JoinTable(name = "yg_relation",
+            joinColumns = @JoinColumn(name = "cid"),
+            inverseJoinColumns = @JoinColumn(name = "mid"))
     private Set<MetaDO> metas = new HashSet<>();
     @Transient
     private List<Long> metasMid = new ArrayList<>();
@@ -102,6 +105,10 @@ public class ContentDO implements Serializable {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * 获取已经通过的评论
+     * @return List<CommentDO>
+     */
     @Transient
     public List<CommentDO> getApproveComments() {
         return comments.stream()

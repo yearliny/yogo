@@ -1,5 +1,7 @@
 package ga.yuan.yogo.consts;
 
+import ga.yuan.yogo.model.enums.OptionEnum;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,28 @@ public class YogoConst {
      */
     public static Map<String, String> OPTIONS = new HashMap<>();
 
+    /**
+     * 查询 OPTIONS 常量，返回 String 类型的结果
+     * @param optionEnum 需要查询的选项
+     * @return 返回 String 类型的结果
+     */
+    public static String getOption(OptionEnum optionEnum) {
+        return YogoConst.OPTIONS.get(optionEnum.getKey());
+    }
+
+    /**
+     * 查询 OPTIONS 常量，返回 int 类型的结果
+     * @param optionEnum 需要查询的选项
+     * @return 返回 int 类型的结果
+     */
+    public static int getOptionInt(OptionEnum optionEnum) {
+        return Integer.valueOf(YogoConst.OPTIONS.get(optionEnum.getKey()));
+    }
+
+    /**
+     * 当没有任何选项，判定网站未安装
+     * @return 如果已经安装，返回 true
+     */
     public static boolean isInstall() {
         return !OPTIONS.isEmpty();
     }

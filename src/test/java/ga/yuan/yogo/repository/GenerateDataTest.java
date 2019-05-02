@@ -58,7 +58,7 @@ public class GenerateDataTest {
             ContentDO c = new ContentDO();
             c.setTitle("This is publish post " + i);
             c.setSlug("This is publish post " + i);
-            c.setBody("This is publish post " + i);
+            c.setBodyRender("This is publish post " + i);
             c.setStatus(ContentStatusEnum.PUBLISH);
             c.setType(ContentTypeEnum.POST);
             c.setAllowComment(true);
@@ -70,7 +70,7 @@ public class GenerateDataTest {
             ContentDO c = new ContentDO();
             c.setTitle("This is draft post " + i);
             c.setSlug("This is draft post " + i);
-            c.setBody("This is draft post " + i);
+            c.setBodyRender("This is draft post " + i);
             c.setStatus(ContentStatusEnum.DRAFT);
             c.setType(ContentTypeEnum.POST);
             c.setAllowComment(true);
@@ -82,7 +82,7 @@ public class GenerateDataTest {
             ContentDO c = new ContentDO();
             c.setTitle("This is publish post " + i);
             c.setSlug("This is publish post " + i);
-            c.setBody("This is publish post " + i);
+            c.setBodyRender("This is publish post " + i);
             c.setStatus(ContentStatusEnum.PUBLISH);
             c.setType(ContentTypeEnum.PAGE);
             c.setAllowComment(true);
@@ -94,7 +94,7 @@ public class GenerateDataTest {
             ContentDO c = new ContentDO();
             c.setTitle("This is draft post " + i);
             c.setSlug("This is draft post " + i);
-            c.setBody("This is draft post " + i);
+            c.setBodyRender("This is draft post " + i);
             c.setStatus(ContentStatusEnum.DRAFT);
             c.setType(ContentTypeEnum.PAGE);
             c.setAllowComment(true);

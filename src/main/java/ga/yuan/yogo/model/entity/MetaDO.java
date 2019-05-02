@@ -24,6 +24,7 @@ public class MetaDO implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mid;
     private String name;
+    @Column(length = 200)
     private String slug;
     @Enumerated(EnumType.STRING)
     private MetaTypeEnum type;

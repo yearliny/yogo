@@ -17,8 +17,9 @@ public class InstallVO {
     @NotNull
     @Size(max = 24)
     private String username;
+    @Size(max = 255)
     private String displayName;
     @NotNull
-    @Size(min = 8, max = 24)
+    @Size(min = 8, max = 32)
     private String password;
 }
