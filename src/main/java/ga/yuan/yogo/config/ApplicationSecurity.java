@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -54,11 +55,11 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .logout()
-                .deleteCookies("remember_me")
+                .deleteCookies("rememberMe")
                 .and()
 
                 .rememberMe()
-                .rememberMeParameter("remember_me");
+                .rememberMeParameter("rememberMe");
     }
 
     /**
@@ -69,9 +70,9 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        需要获取 (username, password, enable)，这里没有 enable 字段，所以总是返回 true
-        String QUERY_USER = "SELECT name, password, true FROM yg_users WHERE name=?";
-        String QUERY_USER_ROLE = "SELECT name, role FROM yg_users WHERE name=?";
+        // 需要获取 (username, password, enable)，数据库没有设计 enable 字段，所以总是返回 true
+        String QUERY_USER = "SELECT name, password, true FROM yg_user WHERE name=?";
+        String QUERY_USER_ROLE = "SELECT name, role FROM yg_user WHERE name=?";
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)

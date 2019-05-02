@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layout/out :: layout(~{::title}, ~{::#th-section})}" lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{admin/layout/out :: layout(~{::title}, ~{::#th-section})}" lang="zh"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title th:text="#{install.head}">安装程序 ‹ Yogo</title>
@@ -11,36 +12,38 @@
     <div class="text-center">
         <h1 th:text="#{install.title}" class="h4 text-gray-900 mb-4">欢迎使用 Yogo</h1>
     </div>
+
     <form class="user" th:action="@{/yg-install}" th:object="${installVO}" method="post">
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('*')}"
+             th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
+
         <div class="form-group">
-            <label th:for="${#ids.next('siteTitle')}" th:text="#{entity.siteTitle}" for="installSiteTitle"
-                   class="sr-only">网站标题</label>
-            <input th:field="*{siteTitle}" th:placeholder="#{entity.siteTitle}" type="text" id="installSiteTitle"
-                   class="form-control form-control-user" name="siteTitle">
+            <label for="siteTitle" th:text="#{field.siteTitle}" class="sr-only">网站标题</label>
+            <input th:field="*{siteTitle}" th:placeholder="#{field.siteTitle}" type="text"
+                   class="form-control form-control-user">
         </div>
         <div class="form-group">
-            <label th:for="${#ids.next('username')}" th:text="#{entity.username}" for="installUsername"
+            <label for="username" th:text="#{field.username}"
                    class="sr-only">用户名</label>
-            <input th:field="*{username}" th:placeholder="#{entity.username}" type="text" id="installUsername"
-                   class="form-control form-control-user" name="username"
+            <input th:field="*{username}" th:placeholder="#{field.username}" type="text"
+                   class="form-control form-control-user"
                    aria-describedby="usernameHelp">
-            <small class="form-text text-muted ml-2" id="usernameHelp">用户名仅能使用字母、数字和下划线
-            </small>
+            <small class="form-text text-muted ml-2" id="usernameHelp">用户名仅能使用字母、数字和下划线</small>
         </div>
         <div class="form-group">
-            <label th:for="${#ids.next('password')}" th:text="#{entity.password}" for="installPassword"
+            <label for="password" th:text="#{field.password}"
                    class="sr-only">密码</label>
-            <input th:field="*{password}" th:placeholder="#{entity.password}" type="text" id="installPassword"
+            <input th:field="*{password}" th:placeholder="#{field.password}" type="text" id="installPassword"
                    class="form-control form-control-user" name="password"
                    placeholder="密码">
             <small class="form-text text-muted ml-2">密码用于网站的登录，请安全的保管</small>
         </div>
         <div class="form-group">
-            <label th:for="${#ids.next('email')}" th:text="#{entity.email}" for="installEmail"
+            <label for="email" th:text="#{field.email}"
                    class="sr-only">电子邮箱</label>
-            <input th:field="*{email}" th:placeholder="#{entity.email}" type="email" id="installEmail"
+            <input th:field="*{email}" th:placeholder="#{field.email}" type="email" id="installEmail"
                    class="form-control form-control-user" name="email">
-            <small class="form-text text-muted ml-2">请正确填写电子邮箱</small>
+            <small class="form-text text-muted ml-2">请正确填写电子邮箱，用于登录和找回密码。</small>
         </div>
         <button th:text="#{install.submit}" type="submit"
                 class="btn btn-primary btn-user btn-block">
@@ -48,7 +51,6 @@
         </button>
     </form>
 </div>
-
 
 </body>
 

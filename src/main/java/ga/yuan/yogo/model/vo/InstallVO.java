@@ -3,6 +3,7 @@ package ga.yuan.yogo.model.vo;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -12,14 +13,15 @@ import javax.validation.constraints.Size;
 @Data
 public class InstallVO {
     private String siteTitle;
-    @Email
+    @Email(message = "{valida.emailError}")
+    @NotBlank(message = "{valida.usernameEmpty}")
     private String email;
     @NotNull
-    @Size(max = 24)
+    @Size(min = 1, max = 24, message = "valida.username")
     private String username;
     @Size(max = 255)
     private String displayName;
     @NotNull
-    @Size(min = 8, max = 32)
+    @Size(min = 8, max = 32, message = "{valida.password}")
     private String password;
 }

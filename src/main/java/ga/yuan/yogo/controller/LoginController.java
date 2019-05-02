@@ -15,7 +15,7 @@ public class LoginController {
      * @return view
      */
     @GetMapping("/yg-login")
-    public String login(Model model) {
+    public String login() {
         return "admin/login";
     }
 }
