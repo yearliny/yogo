@@ -38,8 +38,8 @@ public class AdminController {
         this.metaService = metaService;
     }
 
-    @ModelAttribute
-    public UserDO getUser(Model model, Principal principal) {
+    @ModelAttribute(name = "user")
+    public UserDO getUser(Principal principal) {
         return userService.findByNameOrEmail(principal.getName());
     }
 

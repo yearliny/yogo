@@ -27,18 +27,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDO findByNameOrEmail(String nameOrEmail) {
-        UserDO user;
         if (RegexUtil.isEmail(nameOrEmail)) {
-            user = userRepository.findByEmail(nameOrEmail);
-        } else {
-            user = userRepository.findByName(nameOrEmail);
+            return userRepository.findByEmail(nameOrEmail);
         }
-        return user;
+        return userRepository.findByName(nameOrEmail);
     }
 
     @Override
     public UserDO save(UserDO user) {
-//       保存用户则先加密密码
+        // 如果保存新用户，先加密密码
         if (user.getUid() == null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
