@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 博客首次运行时，需要安装后才可访问其他页面，否则跳转到 /yg-install 页面
+ * 博客（首次）运行时，需要安装后才可访问其他页面，否则跳转到 /yg-install 页面
  */
 @Component
 public class InstallInterceptor implements HandlerInterceptor {

@@ -1,7 +1,7 @@
 package ga.yuan.yogo.model.enums;
 
 /**
- * OptionDO 的 Name 值，作为常量进行维护
+ * OptionDO 枚举类，key 对应在数据库中表示的字段名 name
  */
 public enum OptionEnum {
     SITE_TITLE("site_title"),

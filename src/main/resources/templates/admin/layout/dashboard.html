@@ -39,7 +39,7 @@
                data-toggle="dropdown"
                href="index.html">
                 <img class="img-profile rounded-circle"
-                     th:src="${user.getGravatar()}" alt="avatar" width="40">
+                     th:src="${user.getGravatar(40)}" alt="avatar" width="40">
                 <div th:text="${user.name}" class="sidebar-brand-text mx-3">yearliny</div>
             </a>
 
@@ -108,17 +108,17 @@
         </li>
 
         <!-- Nav Item - 媒体库 -->
-        <li class="nav-item" th:classappend="${#strings.contains('media media-new',${sidebar})} ? active">
+        <li class="nav-item" th:classappend="${#strings.contains(mediaBar, sidebar)} ? 'active'">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMedia"
                aria-expanded="true"
                aria-controls="collapseMedia">
                 <i class="fas fa-fw fa-images"></i>
                 <span>媒体</span>
             </a>
-            <div id="collapseMedia" class="collapse show" data-parent="#accordionSidebar">
+            <div th:classappend="${#strings.contains(mediaBar, sidebar)} ? 'show'" id="collapseMedia" class="collapse" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item active" href="utilities-color.html">媒体库</a>
-                    <a class="collapse-item" href="utilities-border.html">添加</a>
+                    <a th:classappend="${sidebar=='media'} ? 'active'" class="collapse-item" href="utilities-color.html">媒体库</a>
+                    <a th:classappend="${sidebar=='media-new'} ? 'active'" class="collapse-item" href="utilities-border.html">添加</a>
                 </div>
             </div>
         </li>

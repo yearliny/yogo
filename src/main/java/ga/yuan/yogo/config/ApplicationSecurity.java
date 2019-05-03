@@ -27,7 +27,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 密码 BCrypt 加密
+     * 用户密码使用 BCrypt 加密
      */
     @Bean
     public PasswordEncoder passwordEncoder() {

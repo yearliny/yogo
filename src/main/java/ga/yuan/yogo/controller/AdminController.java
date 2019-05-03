@@ -86,4 +86,14 @@ public class AdminController {
         return "admin/post-new";
     }
 
+    /**
+     * 添加媒体文件
+     *
+     * @return view name
+     */
+    @GetMapping("/media-new")
+    public String mediaNew() {
+        return "admin/media-new";
+    }
+
 }

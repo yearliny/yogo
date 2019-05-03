@@ -11,6 +11,7 @@ import java.util.Map;
 
 /**
  * 用于生成网站的 RSS
+ * todo: 未完成
  */
 @Component("atomFeedView")
 public class YogoAtomFeedView extends AbstractAtomFeedView {
