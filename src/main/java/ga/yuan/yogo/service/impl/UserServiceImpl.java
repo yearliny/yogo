@@ -41,9 +41,4 @@ public class UserServiceImpl implements UserService {
         }
         return userRepository.save(user);
     }
-
-    @Override
-    public boolean existsById(long id) {
-        return userRepository.existsById(id);
-    }
 }

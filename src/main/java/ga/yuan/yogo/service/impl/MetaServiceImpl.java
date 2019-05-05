@@ -18,6 +18,11 @@ public class MetaServiceImpl implements MetaService {
     }
 
     @Override
+    public MetaDO save(MetaDO meta) {
+        return metaRepository.save(meta);
+    }
+
+    @Override
     public List<MetaDO> listCategory() {
         return metaRepository.findAllByType(MetaTypeEnum.CATEGORY);
     }

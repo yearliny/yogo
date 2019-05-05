@@ -3,6 +3,7 @@ package ga.yuan.yogo.service;
 import ga.yuan.yogo.model.entity.ContentDO;
 import ga.yuan.yogo.model.enums.ContentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentTypeEnum;
+import ga.yuan.yogo.model.vo.ContentStatusCounterVO;
 import org.springframework.data.domain.Page;
 
 import java.util.Set;
@@ -28,4 +29,10 @@ public interface ContentService {
      * @return Page<ContentDO>
      */
     Page<ContentDO> listContent(ContentTypeEnum type, Set<ContentStatusEnum> status, int page);
+
+    /**
+     * 按内容的状态统计其数量
+     * @return vo ContentStatusCounterVO
+     */
+    ContentStatusCounterVO countStatus();
 }

@@ -5,6 +5,7 @@ import ga.yuan.yogo.model.entity.ContentDO;
 import ga.yuan.yogo.model.enums.ContentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentTypeEnum;
 import ga.yuan.yogo.model.enums.OptionEnum;
+import ga.yuan.yogo.model.vo.ContentStatusCounterVO;
 import ga.yuan.yogo.repository.ContentRepository;
 import ga.yuan.yogo.repository.MetaRepository;
 import ga.yuan.yogo.service.ContentService;
@@ -32,7 +33,7 @@ public class ContentServiceImpl implements ContentService {
         Set<ContentStatusEnum> contentStatusEnums = new HashSet<>();
         contentStatusEnums.add(ContentStatusEnum.PUBLISH);
         return contentRepository
-                .findByTypeAndStatusOrderByCreatedDesc(
+                .findByTypeAndStatusInOrderByCreatedDesc(
                         ContentTypeEnum.POST,
                         contentStatusEnums,
                         PageRequest.of(pageNum, size));
@@ -51,15 +52,21 @@ public class ContentServiceImpl implements ContentService {
      */
     @Override
     public ContentDO save(ContentDO content) {
-        for (Long mid : content.getMetasMid()) {
-            metaRepository.findById(mid)
-                    .map(m -> content.getMetas().add(m));
-        }
         return contentRepository.save(content);
     }
 
     @Override
     public Page<ContentDO> listContent(ContentTypeEnum type, Set<ContentStatusEnum> status, int page) {
-        return contentRepository.findByTypeAndStatusOrderByCreatedDesc(type, status, PageRequest.of(page, 30));
+        return contentRepository.findByTypeAndStatusInOrderByCreatedDesc(type, status, PageRequest.of(page, 30));
+    }
+
+    @Override
+    public ContentStatusCounterVO countStatus() {
+        ContentStatusCounterVO counter = new ContentStatusCounterVO();
+        counter.setPublish(contentRepository.countByStatus(ContentStatusEnum.PUBLISH));
+        counter.setFuture(contentRepository.countByStatus(ContentStatusEnum.FUTURE));
+        counter.setDraft(contentRepository.countByStatus(ContentStatusEnum.DRAFT));
+        counter.setTrash(contentRepository.countByStatus(ContentStatusEnum.TRASH));
+        return counter;
     }
 }

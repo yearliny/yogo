@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layout/dashboard :: layout(~{::title}, 'media-new', ~{::#th-section})}"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="zh">
+<html th:replace="~{admin/layout/dashboard :: layout(~{::title}, 'media-new', ~{::content})}"
+      xmlns:th="http://www.thymeleaf.org" lang="zh">
 
 <head>
     <title>上传新媒体文件 ‹ yearliny — Yogo</title>
@@ -8,7 +8,7 @@
 
 <body>
 
-<div class="row" id="th-section">
+<div class="row" th:fragment="content">
     <div class="col-md-7">
         <form action="#" method="post">
             <div class="custom-file mb-4">

@@ -22,7 +22,7 @@ public interface ContentRepository extends JpaRepository<ContentDO, Long> {
      * @param page   页码和每页文章数量
      * @return Pageable 对象
      */
-    Page<ContentDO> findByTypeAndStatusOrderByCreatedDesc(ContentTypeEnum type, Set<ContentStatusEnum> status, Pageable page);
+    Page<ContentDO> findByTypeAndStatusInOrderByCreatedDesc(ContentTypeEnum type, Set<ContentStatusEnum> status, Pageable page);
 
     /**
      * 查询文章以生成网站地图 sitemap.xml
@@ -31,4 +31,11 @@ public interface ContentRepository extends JpaRepository<ContentDO, Long> {
      */
     @Query("SELECT new ga.yuan.yogo.model.vo.SitemapXmlVO(c.slug, c.created) FROM ContentDO c")
     List<SitemapXmlVO> findAllSitemapXML();
+
+    /**
+     * 按内容状态进行计数
+     * @param status ContentStatusEnum
+     * @return Long
+     */
+    Long countByStatus(ContentStatusEnum status);
 }

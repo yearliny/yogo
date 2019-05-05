@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layout/out :: layout(~{::title}, ~{::#th-section})}" lang="zh"
+<html th:replace="~{admin/layout/out :: layout(~{::title}, ~{::content})}" lang="zh"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
@@ -8,7 +8,7 @@
 
 <body>
 
-<div class="p-5" id="th-section">
+<div class="p-5" th:fragment="content">
     <div class="text-center">
         <h1 th:text="#{login.title}" class="h4 text-gray-900 mb-4">欢迎回来!</h1>
     </div>

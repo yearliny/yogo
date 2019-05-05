@@ -54,9 +54,4 @@ public class OptionServiceImpl implements OptionService {
         optionRepository.deleteByName(name);
     }
 
-    @Override
-    public long count() {
-        return optionRepository.count();
-    }
-
 }

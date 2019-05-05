@@ -27,6 +27,4 @@ public interface OptionService {
 
     void delete(String name);
 
-    long count();
-
 }

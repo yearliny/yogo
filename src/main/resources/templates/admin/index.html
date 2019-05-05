@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html th:replace="~{admin/layout/dashboard :: layout(~{::title}, 'index', ~{::content})}"
+      xmlns:th="http://www.thymeleaf.org" lang="zh">
+
+<head>
+
+    <title>仪表盘 ‹ yearliny — Yogo</title>
+
+</head>
+
+<body>
+<!-- Begin Page Content -->
+<div th:fragment="content">
+    <h1 class="mb-3 text-gray-800 mb-3">仪表盘</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">最近发表</div>
+                <div class="card-body p-2">
+                    <ul th:each="post : ${postPage.content}" class="published-posts mb-1">
+                        <li><span th:text="${#dates.format(post.created, 'HH:mm yyyy年MM月dd日')}">13:09 04月13日</span><a th:text="${post.title}"
+                                href="https://yuan.ga/wp-admin/post.php?post=3045&amp;action=edit"
+                                aria-label="编辑“也谈谈996.ICU”">也谈谈996.ICU</a></li>
+                        <li th:remove="all"><span>13:09 04月13日</span><a
+                                href="https://yuan.ga/wp-admin/post.php?post=3045&amp;action=edit"
+                                aria-label="编辑“也谈谈996.ICU”">也谈谈996.ICU</a></li>
+                        <li th:remove="all"><span>13:09 04月13日</span><a
+                                href="https://yuan.ga/wp-admin/post.php?post=3045&amp;action=edit"
+                                aria-label="编辑“也谈谈996.ICU”">也谈谈996.ICU</a></li>
+                        <li th:remove="all"><span>13:09 04月13日</span><a
+                                href="https://yuan.ga/wp-admin/post.php?post=3045&amp;action=edit"
+                                aria-label="编辑“也谈谈996.ICU”">也谈谈996.ICU</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">近期评论</div>
+                <div class="card-body comment-list p-2">
+                    <div th:each="comment : ${commentPage.content}" class="media border-bottom">
+                        <img th:src="${comment.getGravatar(50)}" src="https://dn-qiniu-avatar.qbox.me/avatar/be2682fbb092f57ce6b068e88eba03c7?s=50&d=mm&r=pg"
+                             class="mr-3" alt="..." width="50" height="50">
+                        <div class="media-body">
+                            <p class="mx-0">由[[${comment.author}]]发表在 <a th:text="${comment.content.title}" href="#">《V2Ray完全使用教程》</a></p>
+                            <blockquote class="text-gray-900" th:utext="${comment.body}">
+                                <p>Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
+                                felis in
+                                faucibus.</p>
+                            </blockquote>
+                            <p class="row-actions mb-1">
+                                <span><a href="#" class="text-success">批准</a></span>
+                                <span> | <a class="text-warning">驳回</a></span>
+                                <span> | <a class="vim-r hide-if-no-js" href="#">回复</a></span>
+                                <span> | <a href="#">编辑</a></span>
+                                <span> | <a href="#" class="text-danger">垃圾评论</a></span>
+                                <span> | <a href="#" class="text-danger">移至回收站</a></span>
+                                <span> | <a class="comment-link" href="#">查看</a></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer p-2 px-2">
+                    <ul class="list-inline small mb-0">
+                        <li class="list-inline-item"><a href="#">全部（[[${commentCounter.all}]]）</a></li>
+                        <li class="list-inline-item"><a href="#">待审（[[${commentCounter.hold}]]）</a></li>
+                        <li class="list-inline-item"><a href="#">已批准（[[${commentCounter.approved}]]）</a></li>
+                        <li class="list-inline-item"><a href="#">垃圾（[[${commentCounter.spam}]]）</a></li>
+                        <li class="list-inline-item"><a href="#">回收站（[[${commentCounter.trash}]]）</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+</body>
+
+</html>

@@ -67,6 +67,10 @@ public class ContentParser {
         return content;
     }
 
+    /**
+     * 通过 ContentDO 导出其文章属性为 FrontMatter
+     * @return FrontMatter
+     */
     public FrontMatter dump() {
         FrontMatter frontMatter = new FrontMatter();
         frontMatter.setTitle(content.getTitle());

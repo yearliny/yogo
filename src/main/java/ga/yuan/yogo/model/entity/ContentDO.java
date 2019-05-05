@@ -74,8 +74,6 @@ public class ContentDO implements Serializable {
             joinColumns = @JoinColumn(name = "cid"),
             inverseJoinColumns = @JoinColumn(name = "mid"))
     private Set<MetaDO> metas = new HashSet<>();
-    @Transient
-    private List<Long> metasMid = new ArrayList<>();
     @ManyToOne
     private UserDO author;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "content")

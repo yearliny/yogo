@@ -7,7 +7,7 @@ import ga.yuan.yogo.model.vo.InstallVO;
  */
 public interface YogoService {
     /**
-     * 安装博客，创建一个新的超级用户，并保存选项
+     * 安装博客：创建一个新的超级用户，保存网站标题选项，并创建默认分类目录，测试文章和评论
      *
      * @param installVO 安装页面的表单
      */

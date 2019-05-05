@@ -18,11 +18,11 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
-public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
+public class WebApplicationSecurity extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
 
-    public ApplicationSecurity(DataSource dataSource) {
+    public WebApplicationSecurity(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

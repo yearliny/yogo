@@ -20,7 +20,4 @@ public interface UserService {
      * 保存用户，密码使用 {@link BCryptPasswordEncoder} 进行加密
      */
     UserDO save(UserDO user);
-
-    boolean existsById(long id);
-
 }
