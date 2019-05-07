@@ -1,14 +1,19 @@
 package ga.yuan.yogo.service;
 
+import ga.yuan.yogo.model.dto.FrontMatterBodyDTO;
 import ga.yuan.yogo.model.entity.ContentDO;
 import ga.yuan.yogo.model.enums.ContentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentTypeEnum;
 import ga.yuan.yogo.model.vo.ContentStatusCounterVO;
 import org.springframework.data.domain.Page;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface ContentService {
+
+    Optional<ContentDO> getContent(Long id);
+
     Page<ContentDO> listPosts(int pageNum, int size);
 
     Page<ContentDO> listPosts(int pageNum);
@@ -20,6 +25,13 @@ public interface ContentService {
      * @return 已经保存的内容，带有 id
      */
     ContentDO save(ContentDO content);
+
+    /**
+     * 从编辑器的原始字符保存 ContentDO 对象
+     * @param bodyRaw 编辑器字符
+     * @return ContentDO
+     */
+    ContentDO saveFromBodyRaw(String bodyRaw);
 
     /**
      * 用于 admin 内容管理列表
@@ -35,4 +47,5 @@ public interface ContentService {
      * @return vo ContentStatusCounterVO
      */
     ContentStatusCounterVO countStatus();
+
 }

@@ -12,16 +12,18 @@ import java.util.List;
  */
 @Data
 @Slf4j
-public class FrontMatter {
+public class FrontMatterBodyDTO {
 
-    private String title = "";
+    private String title;
     private String date;
     private String updated;
     private Boolean comments = true;
     private List<String> categories;
     private List<String> tags;
-    private String permalink = "";
-    private String slug = "";
+    private String permalink;
+    private String slug;
+    // 内容主体
+    private String body;
 
     /**
      * 链接的选择优先级 permalink > slug > title

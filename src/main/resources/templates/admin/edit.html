@@ -1,61 +1,44 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html th:replace="~{admin/layout/dashboard :: layout(~{::title}, 'post-edit', ~{::content})}" xmlns:th="http://www.thymeleaf.org" lang="zh">
 
 <head>
-    <title>编辑文章 ‹ yearliny — Yogo</title>
+    <title>编辑文章 ‹ [[${options.site_title}]] — Yogo</title>
 </head>
 
 <body>
 
-
 <!-- Begin Page Content -->
 <div class="container-fluid px-2 ">
-    <div class="row">
+    <div th:fragment="content" class="row">
         <!-- editor -->
-        <form class="w-100" method="post" action="#">
+        <form th:action="@{/yg-admin/edit}" class="w-100" method="post" action="#">
             <label for="editor" class="sr-only">写文章</label>
-            <textarea id="editor" rows="15"></textarea>
+            <textarea th:text="${rawBody}" name="bodyRaw" id="editor" rows="15">12121</textarea>
+            <button type="submit">提交</button>
         </form>
     </div>
 
 </div>
 <!-- /.container-fluid -->
 
-<link rel="stylesheet" href="css/easymde.css">
-<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<!--/* 编辑文章页面的引用 */-->
+<th:block th:fragment="assets">
+    <link rel="stylesheet" th:href="@{/assets/css/easymde.css}">
+    <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 
-<script>
-    window.onload = function () {
-        const easyMDE = new EasyMDE({
-            element: document.getElementById('editor'),
-            autoDownloadFontAwesome: false,
-            spellChecker: false,
-            toolbar: [
-                "bold", "italic", "heading", "|",
-                "quote", "unordered-list", "ordered-list", "|",
-                "link", "image", "|",
-                "side-by-side", "fullscreen", "guide", "|",
-                {
-                    name: "submit-post",
-                    className: "fas fa-check text-primary",
-                    title: "Submit Post",
-                    action: submit_post
-                }
-            ]
-        });
+    <script th:inline="javascript">
+        let bodyRaw = [[${bodyRaw}]];
+        window.onload = function () {
+            const easyMDE = new EasyMDE({
+                element: document.getElementById('editor'),
+                autoDownloadFontAwesome: false,
+                spellChecker: false
+            });
+            easyMDE.value(bodyRaw);
+        };
+    </script>
+</th:block>
 
-        function submit_post() {
-            const check = "fas fa-check text-primary";
-            const spinner = "fas fa-spinner fa-spin text-primary";
-            const button = document.querySelector("button.submit-post");
-            const icon = button.querySelector("i");
-            const value = easyMDE.value();
-            button.classList.add("disable");
-            icon.classList.value = spinner;
-        }
-    };
-
-</script>
 </body>
 
 </html>

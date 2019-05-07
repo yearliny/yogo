@@ -1,13 +1,13 @@
 package ga.yuan.yogo.util;
 
-import ga.yuan.yogo.model.dto.FrontMatter;
+import ga.yuan.yogo.model.dto.FrontMatterBodyDTO;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContentParserTest {
+public class ContentParserUtilTest {
     @Test
     public void test() {
         String text = "---\r\ntitle: Hello\r\nauthor: yearliny\r\n---\r\n今天我要演讲的题目是如何分割字符串";
@@ -30,7 +30,7 @@ public class ContentParserTest {
         String body = t[2];
 
         Yaml yaml = new Yaml();
-        FrontMatter frontMatter = yaml.loadAs(frontMatterText, FrontMatter.class);
-        System.out.println(frontMatter);
+        FrontMatterBodyDTO frontMatterBodyDTO = yaml.loadAs(frontMatterText, FrontMatterBodyDTO.class);
+        System.out.println(frontMatterBodyDTO);
     }
 }

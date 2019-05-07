@@ -16,14 +16,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -71,36 +69,29 @@ public class AdminController {
     }
 
     /**
-     * 列出文章、页面列表
-     *
-     * @return view name
+     * 文章、页面的编辑器
+     * @param post 编辑文章的 id
+     * @return viewName
      */
     @GetMapping("/edit")
-    public String edit(Model model, @RequestParam(value = "page", defaultValue = "0", required = false) int page) {
-        Set<ContentStatusEnum> contentStatus = new HashSet<>();
-        contentStatus.add(ContentStatusEnum.FUTURE);
-        contentStatus.add(ContentStatusEnum.DRAFT);
-        contentStatus.add(ContentStatusEnum.PUBLISH);
-
-        Page<ContentDO> contents = contentService.listContent(ContentTypeEnum.POST, contentStatus, page);
-        model.addAttribute("contents", contents);
+    public String edit(@RequestParam(value = "post", defaultValue = "0") Long post, Model model) {
+        final String defaultBodyRaw = "---\r\ntitle: \r\n---\r\n";
+        Optional<ContentDO> content = contentService.getContent(post);
+        model.addAttribute("bodyRaw", content.map(ContentDO::getBodyRaw).orElse(defaultBodyRaw));
         return "admin/edit";
     }
 
     /**
-     * 文章发表页面
-     *
-     * @return view name
+     * 文章、页面的编辑器
+     * @param post 编辑文章的 id
+     * @return viewName
      */
-    @GetMapping("/post-new")
-    public String postNew(Model model) {
-        List<MetaDO> category = metaService.listCategory();
-        List<MetaDO> tag = metaService.listTag();
-
-        model.addAttribute("category", category);
-        model.addAttribute("tag", tag);
-        model.addAttribute("post", new ContentDO());
-        return "admin/post-new";
+    @PostMapping("/edit")
+    public String editSave(@RequestParam("post") Long post, Model model) {
+        final String defaultBodyRaw = "---\r\ntitle: \r\n---\r\n";
+        Optional<ContentDO> content = contentService.getContent(post);
+        model.addAttribute("bodyRaw", content.map(ContentDO::getBodyRaw).orElse(defaultBodyRaw));
+        return "admin/edit";
     }
 
     /**

@@ -9,13 +9,18 @@ import ga.yuan.yogo.model.vo.ContentStatusCounterVO;
 import ga.yuan.yogo.repository.ContentRepository;
 import ga.yuan.yogo.repository.MetaRepository;
 import ga.yuan.yogo.service.ContentService;
+import ga.yuan.yogo.util.ContentParserUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class ContentServiceImpl implements ContentService {
 
@@ -25,6 +30,11 @@ public class ContentServiceImpl implements ContentService {
     public ContentServiceImpl(ContentRepository contentRepository, MetaRepository metaRepository) {
         this.contentRepository = contentRepository;
         this.metaRepository = metaRepository;
+    }
+
+    @Override
+    public Optional<ContentDO> getContent(Long id) {
+        return contentRepository.findById(id);
     }
 
     //    返回分页已发表的文章
@@ -52,6 +62,17 @@ public class ContentServiceImpl implements ContentService {
      */
     @Override
     public ContentDO save(ContentDO content) {
+        return contentRepository.save(content);
+    }
+
+    @Override
+    public ContentDO saveFromBodyRaw(String bodyRaw) {
+        ContentDO content = new ContentDO();
+        try {
+            content = ContentParserUtil.load(bodyRaw);
+        } catch (ParseException e) {
+            log.error(e.getMessage());
+        }
         return contentRepository.save(content);
     }
 
