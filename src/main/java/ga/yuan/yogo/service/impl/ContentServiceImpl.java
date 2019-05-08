@@ -40,8 +40,7 @@ public class ContentServiceImpl implements ContentService {
     //    返回分页已发表的文章
     @Override
     public Page<ContentDO> listPosts(int pageNum, int size) {
-        Set<ContentStatusEnum> contentStatusEnums = new HashSet<>();
-        contentStatusEnums.add(ContentStatusEnum.PUBLISH);
+        Set<ContentStatusEnum> contentStatusEnums = Set.of(ContentStatusEnum.PUBLISH);
         return contentRepository
                 .findByTypeAndStatusInOrderByCreatedDesc(
                         ContentTypeEnum.POST,

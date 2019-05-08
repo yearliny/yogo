@@ -43,8 +43,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Page<CommentDO> listRecentComment(CommentStatusEnum statusEnum, Pageable pageable) {
-        Set<CommentStatusEnum> status = new HashSet<>();
-        status.add(statusEnum);
+        Set<CommentStatusEnum> status = Set.of(statusEnum);
         return commentRepository.findAllByStatusInOrderByCreatedDesc(status, pageable);
     }
 
