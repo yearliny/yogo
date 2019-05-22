@@ -123,23 +123,14 @@ public class ContentDO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContentDO content = (ContentDO) o;
-        return cid.equals(content.cid) &&
-                title.equals(content.title) &&
-                slug.equals(content.slug) &&
-                Objects.equals(created, content.created) &&
-                Objects.equals(modified, content.modified) &&
-                Objects.equals(bodyRaw, content.bodyRaw) &&
-                type == content.type &&
-                status == content.status &&
-                Objects.equals(password, content.password) &&
-                Objects.equals(commentsNum, content.commentsNum) &&
-                Objects.equals(allowComment, content.allowComment) &&
-                Objects.equals(author, content.author);
+        ContentDO contentDO = (ContentDO) o;
+        return Objects.equals(slug, contentDO.slug) &&
+                type == contentDO.type &&
+                status == contentDO.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cid, title, slug, created, modified, bodyRaw, type, status, author);
+        return Objects.hash(slug, type, status);
     }
 }

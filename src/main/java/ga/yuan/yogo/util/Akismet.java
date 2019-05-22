@@ -11,8 +11,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Anti-Spam tool
@@ -45,8 +48,14 @@ public class Akismet {
      */
     private static String encodeMap(Map<String, String> map) {
         StringBuilder result = new StringBuilder();
-        for (String k : map.keySet()) {
-            result.append(String.format("%s=%s&", k, URLEncoder.encode(map.get(k), StandardCharsets.UTF_8)));
+        // 过滤空参数
+        Map<String, String> filtered = map.entrySet().stream()
+                .filter(e -> e.getValue() != null)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        for (Map.Entry<String, String> e : filtered.entrySet()) {
+            String param = String.format("%s=%s&", e.getKey(), URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8));
+            result.append(param);
         }
         return result.substring(0, result.length() - 1);
     }
@@ -81,7 +90,7 @@ public class Akismet {
         String result = "";
         try {
             HttpRequest request = HttpRequest.newBuilder(URI.create("https://rest.akismet.com/1.1/verify-key"))
-                    .header("ContentDO-Type", "application/x-www-form-urlencoded")
+                    .header("Content-Type", "application/x-www-form-urlencoded")
                     .POST(HttpRequest.BodyPublishers.ofString(getVerifyParam()))
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -106,7 +115,7 @@ public class Akismet {
     public CommentStatusEnum check(CommentDO comment) {
         String API_URL = String.format("https://%s.rest.akismet.com/1.1/comment-check", key);
         HttpRequest request = HttpRequest.newBuilder(URI.create(API_URL))
-                .header("ContentDO-Type", "application/x-www-form-urlencoded")
+                .header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(getCommentParam(comment)))
                 .build();
         try {
@@ -142,7 +151,7 @@ public class Akismet {
             return;
         }
         HttpRequest request = HttpRequest.newBuilder(URI.create(API_URL))
-                .header("ContentDO-Type", "application/x-www-form-urlencoded")
+                .header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(getCommentParam(comment)))
                 .build();
         try {

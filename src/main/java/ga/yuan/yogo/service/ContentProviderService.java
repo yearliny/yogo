@@ -12,20 +12,23 @@ public interface ContentProviderService {
 
     /**
      * 获取最后一次更新的时间
+     *
      * @return 最后一次更新的时间 Date
      */
-    Date lastModify();
+    Date lastModify() throws Exception;
 
     /**
      * 获取所有 content
+     *
      * @return List<ContentDO>
      */
-    List<ContentDO> getContent();
+    List<ContentDO> getContent() throws Exception;
 
     /**
      * 获取 start 之后更新的 content
+     *
      * @return List<ContentDO>
      */
-    List<ContentDO> getContent(Date start);
+    List<ContentDO> getContent(Date start) throws Exception;
 
 }

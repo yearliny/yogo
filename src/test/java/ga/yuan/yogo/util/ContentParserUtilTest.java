@@ -1,36 +1,66 @@
 package ga.yuan.yogo.util;
 
 import ga.yuan.yogo.model.dto.FrontMatterBodyDTO;
+import ga.yuan.yogo.model.entity.ContentDO;
+import org.junit.Assert;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
+import javax.swing.text.AbstractDocument;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ContentParserUtilTest {
+
     @Test
-    public void test() {
-        String text = "---\r\ntitle: Hello\r\nauthor: yearliny\r\n---\r\n今天我要演讲的题目是如何分割字符串";
-        int end = text.indexOf("---", 5);
-        String rawMetas = text.substring(5, end);
-        String content = text.substring(end + 5).trim();
-        Map<String, Object> frontMatter = new HashMap<>();
-        for (String meta : rawMetas.split("\r\n")) {
-            String[] m = meta.split(":");
-            frontMatter.put(m[0].strip(), m[1].strip());
-        }
-        System.out.println(rawMetas);
+    public void loadAsFrontMatter() {
+        // expected
+        FrontMatterBodyDTO expected = new FrontMatterBodyDTO();
+        expected.setBody("今天我要演讲的题目是如何分割字符串");
+        expected.setTitle("Hello");
+        expected.setComments(true);
+
+        String text = "---\r\ntitle: Hello\r\ncomments: true\r\n---\r\n今天我要演讲的题目是如何分割字符串";
+        FrontMatterBodyDTO actual = ContentParserUtil.loadAsFrontMatter(text);
+
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void testYaml() {
+    public void load() throws ParseException {
         String text = "---\r\ntitle: Hello\r\ncomments: true\r\n---\r\n今天我要演讲的题目是如何分割字符串";
-        String[] t = text.split("---\r\n");
-        String frontMatterText = t[1];
-        String body = t[2];
 
-        Yaml yaml = new Yaml();
-        FrontMatterBodyDTO frontMatterBodyDTO = yaml.loadAs(frontMatterText, FrontMatterBodyDTO.class);
-        System.out.println(frontMatterBodyDTO);
+        String title = "Hello";
+        String body = "今天我要演讲的题目是如何分割字符串";
+        boolean allowComment = true;
+
+        ContentDO expected = new ContentDO();
+        expected.setAllowComment(allowComment);
+        expected.setTitle(title);
+        expected.setBodyRaw(body);
+
+        ContentDO actual = ContentParserUtil.load(text);
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void dump() {
+        String title = "Hello";
+        String body = "今天我要演讲的题目是如何分割字符串";
+        boolean allowComment = true;
+
+        FrontMatterBodyDTO expected = new FrontMatterBodyDTO();
+        expected.setBody(body);
+        expected.setTitle(title);
+        expected.setComments(allowComment);
+
+        ContentDO content = new ContentDO();
+        content.setAllowComment(allowComment);
+        content.setTitle(title);
+        content.setBodyRaw(body);
+        FrontMatterBodyDTO actual = ContentParserUtil.dump(content);
+
+        Assert.assertEquals(expected, actual);
     }
 }

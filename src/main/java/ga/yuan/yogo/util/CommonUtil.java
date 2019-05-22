@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
@@ -19,6 +21,26 @@ import java.util.Map;
  */
 @Slf4j
 public class CommonUtil {
+    /**
+     * InputStream 转换为 String
+     *
+     * @param is 需要转换的 InputStream
+     * @return 转换好的 String
+     */
+    public static String strFromInputStream(InputStream is) {
+        var textBuilder = new StringBuilder();
+        var inputStreamReader = new InputStreamReader(is, Charset.forName(StandardCharsets.UTF_8.name()));
+        try (Reader reader = new BufferedReader(inputStreamReader)) {
+            int c = 0;
+            while ((c = reader.read()) != -1) {
+                textBuilder.append((char) c);
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+        return textBuilder.toString();
+    }
+
     private static String hex(byte[] array) {
         StringBuilder sb = new StringBuilder();
         for (byte b : array) {
@@ -41,15 +63,29 @@ public class CommonUtil {
     /**
      * 生成 Gravatar 头像地址，默认使用七牛云 CDN
      *
-     * @param email  根据 email 生成头像地址
-     * @param size   头像的尺寸（px）range(1, 2048)
+     * @param email 根据 email 生成头像地址
+     * @param size  头像的尺寸（px）range(1, 2048)
      * @return url 头像的地址
      */
     public static String getGravatar(String email, int size) {
+        return getGravatar(email, size, "https://dn-qiniu-avatar.qbox.me/avatar/");
+    }
+
+    /**
+     * 生成 Gravatar 头像地址
+     *
+     * @param email 根据 email 生成头像地址
+     * @param size  头像的尺寸（px）range(1, 2048)
+     * @param cdn   使用哪家 Gravatar CDN 镜像，必须含有 http(s):// 以及网址结尾的 /，
+     *              如"https://dn-qiniu-avatar.qbox.me/avatar/"
+     * @return url 头像的地址
+     */
+    public static String getGravatar(String email, int size, String cdn) {
         UriComponents uriComponents = UriComponentsBuilder
-                .fromUriString("https://dn-qiniu-avatar.qbox.me/avatar/{md5hex}")
+                .fromUriString(String.format("%s{md5hex}", cdn))
                 .queryParam("s", size)
-                .queryParam("r", "g").queryParam("d", "identicon")
+                .queryParam("r", "g")
+                .queryParam("d", "identicon")
                 .encode()
                 .buildAndExpand(md5Hex(email));
         return uriComponents.toString();

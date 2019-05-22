@@ -21,6 +21,7 @@ public class ContentParserUtil {
 
     /**
      * 从原始输入转换为 FrontMatterBodyDTO 对象
+     *
      * @param rawInput 用户输入
      * @return FrontMatterBodyDTO
      */
@@ -54,18 +55,23 @@ public class ContentParserUtil {
         }
         content.setAllowComment(frontMatter.getComments());
         content.setSlug(frontMatter.getPermalink());
-        for (String category : frontMatter.getCategories()) {
-            MetaDO m = new MetaDO();
-            m.setName(category);
-            m.setType(MetaTypeEnum.CATEGORY);
-            content.getMetas().add(m);
+        if (frontMatter.getCategories() != null) {
+            for (String category : frontMatter.getCategories()) {
+                MetaDO m = new MetaDO();
+                m.setName(category);
+                m.setType(MetaTypeEnum.CATEGORY);
+                content.getMetas().add(m);
+            }
         }
-        for (String tag : frontMatter.getTags()) {
-            MetaDO m = new MetaDO();
-            m.setName(tag);
-            m.setType(MetaTypeEnum.TAG);
-            content.getMetas().add(m);
+        if (frontMatter.getTags() != null) {
+            for (String tag : frontMatter.getTags()) {
+                MetaDO m = new MetaDO();
+                m.setName(tag);
+                m.setType(MetaTypeEnum.TAG);
+                content.getMetas().add(m);
+            }
         }
+
         return content;
     }
 
@@ -77,8 +83,12 @@ public class ContentParserUtil {
     public static FrontMatterBodyDTO dump(ContentDO content) {
         FrontMatterBodyDTO frontMatterBodyDTO = new FrontMatterBodyDTO();
         frontMatterBodyDTO.setTitle(content.getTitle());
-        frontMatterBodyDTO.setDate(format.format(content.getCreated()));
-        frontMatterBodyDTO.setUpdated(format.format(content.getModified()));
+        if (content.getCreated() != null) {
+            frontMatterBodyDTO.setDate(format.format(content.getCreated()));
+        }
+        if (content.getModified() != null) {
+            frontMatterBodyDTO.setUpdated(format.format(content.getModified()));
+        }
         frontMatterBodyDTO.setComments(content.getAllowComment());
         frontMatterBodyDTO.setCategories(content.getCategory().stream().map(MetaDO::getName).collect(Collectors.toList()));
         frontMatterBodyDTO.setTags(content.getTag().stream().map(MetaDO::getName).collect(Collectors.toList()));

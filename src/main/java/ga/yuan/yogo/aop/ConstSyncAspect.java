@@ -40,6 +40,6 @@ public class ConstSyncAspect {
     @After("optionSaveExecution() || optionDeleteExecution()")
     public void syncYogoConst(JoinPoint joinPoint) {
         YogoConst.OPTIONS = optionService.findAll();
-        log.info("Update YogoConst.OPTIONS success. At joinPoint {}", joinPoint.getSignature().getDeclaringTypeName());
+        log.debug("Update YogoConst.OPTIONS success. At joinPoint {}", joinPoint.getSignature().getDeclaringTypeName());
     }
 }
