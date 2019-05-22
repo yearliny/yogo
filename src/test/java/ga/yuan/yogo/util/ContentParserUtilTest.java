@@ -38,6 +38,8 @@ public class ContentParserUtilTest {
         ContentDO expected = new ContentDO();
         expected.setAllowComment(allowComment);
         expected.setTitle(title);
+        // ContentParserUtil.load() 当没有设定 slug，默认为标题，所以需要进行设定
+        expected.setSlug(title);
         expected.setBodyRaw(body);
 
         ContentDO actual = ContentParserUtil.load(text);

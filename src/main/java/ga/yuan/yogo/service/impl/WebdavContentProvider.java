@@ -23,18 +23,15 @@ import java.util.List;
 @Slf4j
 @Service
 public class WebdavContentProvider implements ContentProviderService {
-    private final Sardine sardine;
-    private final String baseUrl;
+    private Sardine sardine;
+    private String baseUrl;
     /**
      * 比如 https://dav.jianguoyun.com/dav/ 中的 https://dav.jianguoyun.com 这一部分。
      * 使用 baseDomain 可以和 DavResource.getHref 形成新的资源链接，便于获取
      */
-    private final String baseDomain;
+    private String baseDomain;
 
-    public WebdavContentProvider() {
-        this("yearliny@outlook.com",
-                "ar579tm33ppzf88s",
-                "https://dav.jianguoyun.com/dav/Documents/Notes");
+    private WebdavContentProvider() {
     }
 
     public WebdavContentProvider(String username, String password, String baseUrl) {
@@ -82,8 +79,12 @@ public class WebdavContentProvider implements ContentProviderService {
 
     @Override
     public Date lastModify() throws IOException {
+        return lastModify(baseUrl);
+    }
+
+    public Date lastModify(String path) throws IOException {
         try {
-            List<DavResource> resources = sardine.list(baseUrl);
+            List<DavResource> resources = sardine.list(path);
             // resources 第一个资源就是当前目录
             return resources.get(0).getModified();
         } catch (IOException e) {
@@ -92,7 +93,7 @@ public class WebdavContentProvider implements ContentProviderService {
     }
 
 
-    @Override
+        @Override
     public List<ContentDO> getContent() throws IOException {
         List<ContentDO> contents = new ArrayList<>();
         List<DavResource> resources;

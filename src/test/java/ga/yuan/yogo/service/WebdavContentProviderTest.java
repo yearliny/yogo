@@ -4,19 +4,34 @@ import ga.yuan.yogo.model.entity.ContentDO;
 import ga.yuan.yogo.service.impl.WebdavContentProvider;
 import ga.yuan.yogo.util.CommonUtil;
 import ga.yuan.yogo.util.ContentParserUtil;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class WebdavContentProviderTest {
-    private WebdavContentProvider provider = new WebdavContentProvider();
+    private WebdavContentProvider provider;
+
+    @Before
+    public void setup() {
+        provider = new WebdavContentProvider("yearliny@outlook.com",
+                "ar579tm33ppzf88s",
+                "https://dav.jianguoyun.com/dav/Test/Inbox");
+    }
 
     @Test
-    public void testLastModify() throws IOException, ParseException {
-        System.out.println(provider.lastModify());
+    public void lastModify() throws IOException, ParseException {
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date expected = format.parse("2019-05-22 13:52:10");
+        Date actual = provider.lastModify("https://dav.jianguoyun.com/dav/Test/Inbox/lastModify");
+
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
