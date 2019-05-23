@@ -93,19 +93,9 @@ public class WebdavContentProvider implements ContentProviderService {
     }
 
 
-        @Override
-    public List<ContentDO> getContent() throws IOException {
-        List<ContentDO> contents = new ArrayList<>();
-        List<DavResource> resources;
-        try {
-            resources = sardine.list(baseUrl);
-            for (DavResource resource : resources) {
-            }
-
-            return contents;
-        } catch (IOException e) {
-            throw new IOException("无法从Webdav服务器获取资源");
-        }
+    @Override
+    public List<ContentDO> getContent() throws IOException, ParseException {
+        return getContent(baseUrl);
     }
 
     @Override

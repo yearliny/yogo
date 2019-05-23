@@ -11,7 +11,7 @@ public interface UserService {
 
     /**
      * 通过用户名或邮箱查询用户
-     * @param nameOrEmail 字符串，用户名或邮箱地址，使用正则表达式判断
+     * @param nameOrEmail 字符串，用户名或邮箱地址
      * @return 查询到的用户
      */
     UserDO findByNameOrEmail(String nameOrEmail);

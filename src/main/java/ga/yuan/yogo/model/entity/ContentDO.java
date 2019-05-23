@@ -105,6 +105,7 @@ public class ContentDO implements Serializable {
 
     /**
      * 获取已经通过的评论
+     *
      * @return List<CommentDO>
      */
     @Transient
@@ -115,8 +116,8 @@ public class ContentDO implements Serializable {
     }
 
     @Transient
-    public void addMeta(MetaDO meta) {
-        metas.add(meta);
+    public void addMeta(MetaDO... metaDO) {
+        metas.addAll(Arrays.asList(metaDO));
     }
 
     @Override
@@ -132,5 +133,15 @@ public class ContentDO implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(slug, type, status);
+    }
+
+    @Override
+    public String toString() {
+        return "ContentDO{" +
+                "title='" + title + '\'' +
+                ", slug='" + slug + '\'' +
+                ", type=" + type +
+                ", status=" + status +
+                '}';
     }
 }

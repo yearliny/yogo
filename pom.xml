@@ -105,14 +105,13 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- 以下依赖不参与项目打包，便于开发测试 -->
+        <!-- 以下依赖不参与项目打包，便于开发和测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- 开发工具包 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

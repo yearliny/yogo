@@ -54,7 +54,7 @@ public class YogoServiceImpl implements YogoService {
         content.setStatus(ContentStatusEnum.PUBLISH);
         content.setTitle("你好，Yogo！");
         content.setSlug("hello-yogo");
-        content.setBodyRender("<p>这是一篇测试文章，用来演示效果。快点删掉此文章开始你的写作旅程吧！</p>");
+        content.setBodyRender("<p>这是一篇测试文章，用来演示效果。删掉此文章后开始你的写作旅程吧！</p>");
         content = contentService.save(content);
 
 //        保存测试评论
