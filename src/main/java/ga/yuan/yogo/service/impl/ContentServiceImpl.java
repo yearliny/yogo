@@ -16,7 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -25,11 +24,9 @@ import java.util.Set;
 public class ContentServiceImpl implements ContentService {
 
     private final ContentRepository contentRepository;
-    private final MetaRepository metaRepository;
 
-    public ContentServiceImpl(ContentRepository contentRepository, MetaRepository metaRepository) {
+    public ContentServiceImpl(ContentRepository contentRepository) {
         this.contentRepository = contentRepository;
-        this.metaRepository = metaRepository;
     }
 
     @Override

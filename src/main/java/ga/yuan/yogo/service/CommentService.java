@@ -24,11 +24,4 @@ public interface CommentService {
      * @return Page<CommentDO>
      */
     Page<CommentDO> listRecentComment(Set<CommentStatusEnum> status, Pageable pageable);
-
-    /**
-     * 获取最近的评论，仅包含一种评论状态
-     *
-     * @return Page<CommentDO>
-     */
-    Page<CommentDO> listRecentComment(CommentStatusEnum statusEnum, Pageable pageable);
 }

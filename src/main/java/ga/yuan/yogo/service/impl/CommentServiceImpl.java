@@ -41,10 +41,4 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findAllByStatusInOrderByCreatedDesc(status, pageable);
     }
 
-    @Override
-    public Page<CommentDO> listRecentComment(CommentStatusEnum statusEnum, Pageable pageable) {
-        Set<CommentStatusEnum> status = Set.of(statusEnum);
-        return commentRepository.findAllByStatusInOrderByCreatedDesc(status, pageable);
-    }
-
 }
