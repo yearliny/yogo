@@ -27,12 +27,10 @@ public class ConstSyncAspect {
      * 定义切点，这里定义对 OptionDO 的增、删、改操作
      */
     @Pointcut("execution(* ga.yuan.yogo.service.OptionService.save*(..)))")
-    public void optionSaveExecution() {
-    }
+    public void optionSaveExecution() { }
 
     @Pointcut("execution(* ga.yuan.yogo.service.OptionService.delete*(..)))")
-    public void optionDeleteExecution() {
-    }
+    public void optionDeleteExecution() { }
 
     /**
      * 对 OptionService 增删改操作后，我们更新 YogoConst.OPTIONS 常量
