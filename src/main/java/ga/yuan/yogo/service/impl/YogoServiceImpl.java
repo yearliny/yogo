@@ -27,7 +27,7 @@ public class YogoServiceImpl implements YogoService {
     public void install(InstallVO installVO) {
         // 保存选项
         OptionDO option = new OptionDO();
-        option.setName(OptionEnum.SITE_TITLE.getKey());
+        option.setName(OptionEnum.SITE_TITLE.getName());
         option.setValue(installVO.getSiteTitle());
         optionService.save(option);
 

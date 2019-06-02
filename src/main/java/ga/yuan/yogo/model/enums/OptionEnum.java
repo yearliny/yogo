@@ -1,7 +1,7 @@
 package ga.yuan.yogo.model.enums;
 
 /**
- * OptionDO 枚举类，key 对应在数据库中表示的字段名 name
+ * OptionDO 枚举类，name 对应在数据库中表示的字段名 name
  */
 public enum OptionEnum {
     SITE_TITLE("site_title"),
@@ -10,13 +10,13 @@ public enum OptionEnum {
     POST_PER_PAGE("post_per_page"),
     POST_PER_RSS("post_per_rss");
 
-    private String key;
+    private String name;
 
-    OptionEnum(String key) {
-        this.key = key;
+    OptionEnum(String name) {
+        this.name = name;
     }
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 }

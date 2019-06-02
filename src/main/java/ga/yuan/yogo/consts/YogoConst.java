@@ -20,7 +20,7 @@ public class YogoConst {
      * @return 返回 String 类型的结果
      */
     public static String getOption(OptionEnum optionEnum) {
-        return YogoConst.OPTIONS.get(optionEnum.getKey());
+        return YogoConst.OPTIONS.get(optionEnum.getName());
     }
 
     /**
@@ -29,7 +29,7 @@ public class YogoConst {
      * @return 返回 int 类型的结果
      */
     public static int getOptionInt(OptionEnum optionEnum) {
-        return Integer.valueOf(YogoConst.OPTIONS.get(optionEnum.getKey()));
+        return Integer.valueOf(YogoConst.OPTIONS.get(optionEnum.getName()));
     }
 
     /**

@@ -9,8 +9,4 @@ package ga.yuan.yogo.model.enums;
  */
 public enum ContentTypeEnum {
     POST, PAGE, ATTACHMENT, REVISION;
-
-    public static ContentTypeEnum of(String s) {
-        return Enum.valueOf(ContentTypeEnum.class, s);
-    }
 }

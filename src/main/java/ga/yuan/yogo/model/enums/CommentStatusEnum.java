@@ -9,8 +9,4 @@ package ga.yuan.yogo.model.enums;
  */
 public enum CommentStatusEnum {
     APPROVE, HOLD, SPAM, TRASH;
-
-    public static CommentStatusEnum of(String s) {
-        return Enum.valueOf(CommentStatusEnum.class, s);
-    }
 }
