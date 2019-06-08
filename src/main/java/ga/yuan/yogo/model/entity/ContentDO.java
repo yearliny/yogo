@@ -40,9 +40,7 @@ public class ContentDO implements Serializable {
     @LastModifiedDate
     private Date modified;
     @Lob
-    private String bodyRaw;
-    @Lob
-    private String bodyRender;
+    private String body;
 
     /**
      * content 类型

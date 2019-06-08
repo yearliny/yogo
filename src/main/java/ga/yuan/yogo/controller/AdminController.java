@@ -77,7 +77,7 @@ public class AdminController {
     public String edit(@RequestParam(value = "post", defaultValue = "0") Long post, Model model) {
         final String defaultBodyRaw = "---\r\ntitle: \r\n---\r\n";
         Optional<ContentDO> content = contentService.getContent(post);
-        model.addAttribute("bodyRaw", content.map(ContentDO::getBodyRaw).orElse(defaultBodyRaw));
+        model.addAttribute("bodyRaw", content.map(ContentDO::getBody).orElse(defaultBodyRaw));
         return "admin/edit";
     }
 
@@ -90,7 +90,7 @@ public class AdminController {
     public String editSave(@RequestParam("post") Long post, Model model) {
         final String defaultBodyRaw = "---\r\ntitle: \r\n---\r\n";
         Optional<ContentDO> content = contentService.getContent(post);
-        model.addAttribute("bodyRaw", content.map(ContentDO::getBodyRaw).orElse(defaultBodyRaw));
+        model.addAttribute("bodyRaw", content.map(ContentDO::getBody).orElse(defaultBodyRaw));
         return "admin/edit";
     }
 

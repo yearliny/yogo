@@ -27,13 +27,6 @@ public interface ContentService {
     ContentDO save(ContentDO content);
 
     /**
-     * 从编辑器的原始字符保存 ContentDO 对象
-     * @param bodyRaw 编辑器字符
-     * @return ContentDO
-     */
-    ContentDO saveFromBodyRaw(String bodyRaw);
-
-    /**
      * 用于 admin 内容管理列表
      *
      * @param type   ContentTypeEnum
