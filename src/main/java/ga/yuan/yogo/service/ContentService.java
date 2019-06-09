@@ -1,7 +1,9 @@
 package ga.yuan.yogo.service;
 
+import ga.yuan.yogo.model.dto.EditContentDTO;
 import ga.yuan.yogo.model.dto.FrontMatterBodyDTO;
 import ga.yuan.yogo.model.entity.ContentDO;
+import ga.yuan.yogo.model.entity.UserDO;
 import ga.yuan.yogo.model.enums.ContentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentTypeEnum;
 import ga.yuan.yogo.model.vo.ContentStatusCounterVO;
@@ -27,6 +29,14 @@ public interface ContentService {
     ContentDO save(ContentDO content);
 
     /**
+     * 保存内容, 使用 ContentEditDTO
+     *
+     * @param editContentDTO 需要保存的内容
+     * @return 已经保存的内容，带有 id
+     */
+    ContentDO save(EditContentDTO editContentDTO, ContentTypeEnum type);
+
+    /**
      * 用于 admin 内容管理列表
      *
      * @param type   ContentTypeEnum
@@ -41,4 +51,10 @@ public interface ContentService {
      */
     ContentStatusCounterVO countStatus();
 
+    /**
+     * 通过 id 查询 EditContentDTO，用于文章编辑
+     * @param id id
+     * @return EditContentDTO
+     */
+    Optional<EditContentDTO> getEditContentDTO(Long id);
 }

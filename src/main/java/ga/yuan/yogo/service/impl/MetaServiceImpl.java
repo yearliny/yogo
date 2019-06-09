@@ -18,8 +18,13 @@ public class MetaServiceImpl implements MetaService {
     }
 
     @Override
-    public MetaDO getMeta(String name, MetaTypeEnum type) {
-        return null;
+    public MetaDO get(Long id) {
+        return metaRepository.getOne(id);
+    }
+
+    @Override
+    public MetaDO get(String name, MetaTypeEnum type) {
+        return metaRepository.findByNameAndType(name, type);
     }
 
     @Override

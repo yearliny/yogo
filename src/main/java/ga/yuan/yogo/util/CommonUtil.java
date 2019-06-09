@@ -81,8 +81,8 @@ public class CommonUtil {
      * @return url 头像的地址
      */
     public static String getGravatar(String email, int size, String cdn) {
-        if (cdn.endsWith("/") && cdn.startsWith("https://") || cdn.startsWith("http://")) {
-            throw new IllegalArgumentException("不合法的网址！");
+        if (!cdn.startsWith("https://") || !cdn.startsWith("http://") && !cdn.endsWith("/")) {
+            throw new IllegalArgumentException("不合法的CDN地址！");
         }
         if (size < 1 || size > 2048) {
             throw new IllegalArgumentException("尺寸区间为 1~2048 ！");

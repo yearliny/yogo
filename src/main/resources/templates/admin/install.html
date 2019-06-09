@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layout/out :: layout(~{::title}, ~{::content})}" lang="zh"
+<html th:replace="~{admin/layout/out :: layout(~{::title}, ~{::content})}" lang="zh-cn"
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -15,15 +15,17 @@
 
     <form class="user" th:action="@{/yg-install}" th:object="${installVO}" method="post">
         <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('*')}"
-             th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
+             th:each="err : ${#fields.errors('*')}">
+            <p th:text="${err}"></p>
+        </div>
 
         <div class="form-group">
-            <label for="siteTitle" th:text="#{field.siteTitle}" class="sr-only">网站标题</label>
+            <label th:for="${#ids.next('siteTitle')}" th:text="#{field.siteTitle}" class="sr-only">网站标题</label>
             <input th:field="*{siteTitle}" th:placeholder="#{field.siteTitle}" type="text"
                    class="form-control form-control-user">
         </div>
         <div class="form-group">
-            <label for="username" th:text="#{field.username}"
+            <label th:for="${#ids.next('username')}" th:text="#{field.username}"
                    class="sr-only">用户名</label>
             <input th:field="*{username}" th:placeholder="#{field.username}" type="text"
                    class="form-control form-control-user"
@@ -31,15 +33,15 @@
             <small class="form-text text-muted ml-2" id="usernameHelp">用户名仅能使用字母、数字和下划线</small>
         </div>
         <div class="form-group">
-            <label for="password" th:text="#{field.password}"
+            <label th:for="${#ids.next('password')}" th:text="#{field.password}"
                    class="sr-only">密码</label>
-            <input th:field="*{password}" th:placeholder="#{field.password}" type="text" id="installPassword"
+            <input th:field="*{password}" th:placeholder="#{field.password}" type="text"
                    class="form-control form-control-user" name="password"
                    placeholder="密码">
             <small class="form-text text-muted ml-2">密码用于网站的登录，请安全的保管</small>
         </div>
         <div class="form-group">
-            <label for="email" th:text="#{field.email}"
+            <label th:for="${#ids.next('email')}" th:text="#{field.email}"
                    class="sr-only">电子邮箱</label>
             <input th:field="*{email}" th:placeholder="#{field.email}" type="email" id="installEmail"
                    class="form-control form-control-user" name="email">

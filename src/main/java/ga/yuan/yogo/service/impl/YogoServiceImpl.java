@@ -40,24 +40,31 @@ public class YogoServiceImpl implements YogoService {
         user.setRole(UserRoleEnum.SUPER_ADMIN);
         user = userService.save(user);
 
-//        创建默认分类
+        // 创建默认分类
         MetaDO category = new MetaDO();
         category.setType(MetaTypeEnum.CATEGORY);
         category.setName("默认分类");
         category = metaService.save(category);
 
-//        保存测试文章
+        // 创建默认标签
+        MetaDO tag = new MetaDO();
+        category.setType(MetaTypeEnum.TAG);
+        category.setName("默认标签");
+        category = metaService.save(tag);
+
+        // 保存测试文章
         ContentDO content = new ContentDO();
         content.addMeta(category);
+        content.addMeta(tag);
         content.setAuthor(user);
         content.setType(ContentTypeEnum.POST);
         content.setStatus(ContentStatusEnum.PUBLISH);
         content.setTitle("你好，Yogo！");
         content.setSlug("hello-yogo");
-        content.setBodyRender("<p>这是一篇测试文章，用来演示效果。删掉此文章后开始你的写作旅程吧！</p>");
+        content.setBody("<p>这是一篇测试文章，用来演示效果。删掉此文章后开始你的写作旅程吧！</p>");
         content = contentService.save(content);
 
-//        保存测试评论
+        // 保存测试评论
         CommentDO comment = new CommentDO();
         comment.setContent(content);
         comment.setAuthor("yearliny");

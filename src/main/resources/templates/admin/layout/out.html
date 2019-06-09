@@ -1,6 +1,6 @@
 <!--/* out 意为用户为登录的后台页面，包含安装、登录、注册页面等 */-->
 <!DOCTYPE html>
-<html th:fragment="layout (title, content)" lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html th:fragment="layout (title, content)" th:lang="${#locale.language}" lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -34,9 +34,9 @@
                     <!-- Nested Row within Card Body -->
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-md-10">
-                            <div th:replace="${content}">
+                            <th:block th:replace="${content}">
                                 <p>Layout content</p>
-                            </div>
+                            </th:block>
                         </div>
                     </div>
                 </div>

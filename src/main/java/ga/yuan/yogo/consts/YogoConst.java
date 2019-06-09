@@ -4,6 +4,7 @@ import ga.yuan.yogo.model.enums.OptionEnum;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 博客常量，用于减轻数据库负担并改善性能
@@ -19,8 +20,8 @@ public class YogoConst {
      * @param optionEnum 需要查询的选项
      * @return 返回 String 类型的结果
      */
-    public static String getOption(OptionEnum optionEnum) {
-        return YogoConst.OPTIONS.get(optionEnum.getName());
+    public static Optional<String> getOption(OptionEnum optionEnum) {
+        return Optional.of(YogoConst.OPTIONS.get(optionEnum.getName()));
     }
 
     /**
@@ -28,8 +29,8 @@ public class YogoConst {
      * @param optionEnum 需要查询的选项
      * @return 返回 int 类型的结果
      */
-    public static int getOptionInt(OptionEnum optionEnum) {
-        return Integer.valueOf(YogoConst.OPTIONS.get(optionEnum.getName()));
+    public static Optional<Integer> getOptionInt(OptionEnum optionEnum) {
+        return Optional.of(Integer.valueOf(YogoConst.OPTIONS.get(optionEnum.getName())));
     }
 
     /**

@@ -67,7 +67,7 @@ public class ContentDO implements Serializable {
      * boolean 在 Mysql 中会被映射为 TINYINT，true 为 1，false 为 0
      */
     private Boolean allowComment;
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "yg_relation",
             joinColumns = @JoinColumn(name = "cid"),
             inverseJoinColumns = @JoinColumn(name = "mid"))
@@ -95,10 +95,11 @@ public class ContentDO implements Serializable {
      * @return Set<MetaDO>
      */
     @Transient
-    public Set<MetaDO> getCategory() {
+    public MetaDO getCategory() {
         return metas.stream()
                 .filter(m -> MetaTypeEnum.CATEGORY.equals(m.getType()))
-                .collect(Collectors.toSet());
+                .findAny()
+                .get();
     }
 
     /**

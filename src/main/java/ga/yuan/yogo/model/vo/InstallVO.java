@@ -21,7 +21,7 @@ public class InstallVO {
     private String username;
     @Size(max = 255)
     private String displayName;
-    @NotNull
-    @Size(min = 8, max = 32, message = "{valida.password}")
+    @NotNull(message = "{valida.passwordNotNull}")
+    @Size(min = 8, max = 32, message = "{valida.passwordSize}")
     private String password;
 }

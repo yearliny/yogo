@@ -4,13 +4,13 @@
 
 <head>
 
-    <title>仪表盘 ‹ yearliny — Yogo</title>
+    <title>仪表盘 ‹ [[${options.site_title}]] — Yogo</title>
 
 </head>
 
 <body>
 <!-- Begin Page Content -->
-<div th:fragment="content">
+<div class="container mt-3" th:fragment="content">
     <h1 class="mb-3 text-gray-800 mb-3">仪表盘</h1>
     <div class="row">
         <div class="col-md-6">
@@ -19,7 +19,7 @@
                 <div class="card-body p-2">
                     <ul th:each="post : ${postPage.content}" class="published-posts mb-1">
                         <li><span th:text="${#dates.format(post.created, 'HH:mm yyyy年MM月dd日')}">13:09 04月13日</span><a th:text="${post.title}"
-                                href="https://yuan.ga/wp-admin/post.php?post=3045&amp;action=edit"
+                                th:href="@{/yg-admin/edit(id=${post.cid})}"
                                 aria-label="编辑“也谈谈996.ICU”">也谈谈996.ICU</a></li>
                         <li th:remove="all"><span>13:09 04月13日</span><a
                                 href="https://yuan.ga/wp-admin/post.php?post=3045&amp;action=edit"
@@ -42,8 +42,8 @@
                         <img th:src="${comment.getGravatar(50)}" src="https://dn-qiniu-avatar.qbox.me/avatar/be2682fbb092f57ce6b068e88eba03c7?s=50&d=mm&r=pg"
                              class="mr-3" alt="..." width="50" height="50">
                         <div class="media-body">
-                            <p class="mx-0">由[[${comment.author}]]发表在 <a th:text="${comment.content.title}" href="#">《V2Ray完全使用教程》</a></p>
-                            <blockquote class="text-gray-900" th:utext="${comment.body}">
+                            <p class="mx-0 mb-1">由[[${comment.author}]]发表在 <a th:text="${comment.content.title}" href="#">《V2Ray完全使用教程》</a></p>
+                            <blockquote class="mb-1" th:utext="${comment.body}">
                                 <p>Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue
                                 felis in
                                 faucibus.</p>
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer p-2 px-2">
+                <div class="card-footer p-3 px-2">
                     <ul class="list-inline small mb-0">
                         <li class="list-inline-item"><a href="#">全部（[[${commentCounter.all}]]）</a></li>
                         <li class="list-inline-item"><a href="#">待审（[[${commentCounter.hold}]]）</a></li>

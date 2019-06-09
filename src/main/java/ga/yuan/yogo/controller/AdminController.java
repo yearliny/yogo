@@ -1,8 +1,8 @@
 package ga.yuan.yogo.controller;
 
+import ga.yuan.yogo.model.dto.EditContentDTO;
 import ga.yuan.yogo.model.entity.CommentDO;
 import ga.yuan.yogo.model.entity.ContentDO;
-import ga.yuan.yogo.model.entity.MetaDO;
 import ga.yuan.yogo.model.entity.UserDO;
 import ga.yuan.yogo.model.enums.CommentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentStatusEnum;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -57,10 +56,9 @@ public class AdminController {
     public String admin(Model model) {
         Page<ContentDO> postPage = contentService.listPosts(0, 5);
         CommentCounterVO commentCounter = commentService.countComment();
-        Set<CommentStatusEnum> commentStatus = new HashSet<>();
-        commentStatus.add(CommentStatusEnum.APPROVE);
-        commentStatus.add(CommentStatusEnum.HOLD);
-        Page<CommentDO> commentPage = commentService.listRecentComment(commentStatus, PageRequest.of(0, 5));
+        Page<CommentDO> commentPage = commentService.listRecentComment(
+                Set.of(CommentStatusEnum.APPROVE, CommentStatusEnum.HOLD),
+                PageRequest.of(0, 5));
 
         model.addAttribute("postPage", postPage);
         model.addAttribute("commentCounter", commentCounter);
@@ -70,27 +68,31 @@ public class AdminController {
 
     /**
      * 文章、页面的编辑器
-     * @param post 编辑文章的 id
+     *
+     * @param postId 编辑文章的 id
      * @return viewName
      */
     @GetMapping("/edit")
-    public String edit(@RequestParam(value = "post", defaultValue = "0") Long post, Model model) {
-        final String defaultBodyRaw = "---\r\ntitle: \r\n---\r\n";
-        Optional<ContentDO> content = contentService.getContent(post);
-        model.addAttribute("bodyRaw", content.map(ContentDO::getBody).orElse(defaultBodyRaw));
+    public String edit(Model model, @RequestParam(value = "id", defaultValue = "0") Long postId) {
+        Optional<EditContentDTO> editContentDTO = contentService.getEditContentDTO(postId);
+        model.addAttribute("editContentDTO", editContentDTO.orElse(new EditContentDTO()));
+        model.addAttribute("allStatus", ContentStatusEnum.values());
+        model.addAttribute("allCate", metaService.listCategory());
+        model.addAttribute("allTag", metaService.listTag());
+        System.out.println(editContentDTO);
         return "admin/edit";
     }
 
     /**
      * 文章、页面的编辑器
-     * @param post 编辑文章的 id
+     *
+     * @param editContentDTO EditContentDTO
      * @return viewName
      */
     @PostMapping("/edit")
-    public String editSave(@RequestParam("post") Long post, Model model) {
-        final String defaultBodyRaw = "---\r\ntitle: \r\n---\r\n";
-        Optional<ContentDO> content = contentService.getContent(post);
-        model.addAttribute("bodyRaw", content.map(ContentDO::getBody).orElse(defaultBodyRaw));
+    public String editSave(EditContentDTO editContentDTO,
+                           @RequestParam(value = "type", defaultValue = "POST") ContentTypeEnum type) {
+        contentService.save(editContentDTO, type);
         return "admin/edit";
     }
 

@@ -23,7 +23,8 @@ public class InstallController {
     }
 
     @GetMapping("/yg-install")
-    public String installPage(InstallVO installVO) {
+    public String installPage(Model model, InstallVO installVO) {
+        model.addAttribute("installVO", installVO);
         return YogoConst.isInstall() ? "redirect:/yg-login" : "admin/install";
     }
 
