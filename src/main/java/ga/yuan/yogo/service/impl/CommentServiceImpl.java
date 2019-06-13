@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -19,6 +20,11 @@ public class CommentServiceImpl implements CommentService {
 
     public CommentServiceImpl(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
+    }
+
+    @Override
+    public Optional<CommentDO> findById(Long id) {
+        return commentRepository.findById(id);
     }
 
     @Override

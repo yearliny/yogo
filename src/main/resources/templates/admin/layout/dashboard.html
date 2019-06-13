@@ -240,6 +240,7 @@
 
 <!-- Custom scripts for all pages-->
 <script th:src="@{/assets/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/assets/js/yogo-admin.js}"></script>
 
 <!--/* 如果是文章、页面编辑页面，就引用编辑器依赖*/-->
 <div th:replace="${#strings.contains('post-edit page-edit', sidebar)} ? ~{/admin/edit::assets}"></div>

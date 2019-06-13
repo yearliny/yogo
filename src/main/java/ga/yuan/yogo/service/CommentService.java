@@ -6,9 +6,18 @@ import ga.yuan.yogo.model.vo.CommentCounterVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface CommentService {
+
+    /**
+     * 通过 id 查询 CommentDO
+     * @param id 评论id
+     * @return CommentDO
+     */
+    Optional<CommentDO> findById(Long id);
+
     CommentDO save(CommentDO comment);
 
     /**
