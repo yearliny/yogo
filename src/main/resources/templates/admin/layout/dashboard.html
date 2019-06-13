@@ -7,8 +7,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -19,10 +17,8 @@
     <link th:href="@{/assets/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link th:href="@{/assets/css/sb-admin-2.css}" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -31,7 +27,7 @@
 <div id="wrapper"
      th:with="mediaBar=${'media media-new'},
      pageBar=${'page-all page-edit'},
-     postBar=${'post-all post-edit post-cate post-tag'}">
+     postBar=${'post edit CATEGORY TAG'}">
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -40,7 +36,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="sidebar-brand d-flex align-items-center justify-content-center dropdown-toggle"
                data-toggle="dropdown"
-               href="index.html">
+               th:href="@{/yg-admin/}">
                 <img class="img-profile rounded-circle"
                      th:src="${user.getGravatar(40)}" alt="avatar" width="40">
                 <div th:text="${user.name}" class="sidebar-brand-text mx-3">yearliny</div>
@@ -87,13 +83,13 @@
             <div th:classappend="${#strings.contains(postBar, sidebar)} ? 'show'" id="collapsePost" class="collapse"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a th:href="@{/yg-admin/post}" th:classappend="${sidebar=='post-all'} ? 'active'"
+                    <a th:href="@{/yg-admin/post}" th:classappend="${sidebar=='all'} ? 'active'"
                        class="collapse-item">所有文章</a>
-                    <a th:href="@{/yg-admin/edit}" th:classappend="${sidebar=='post-edit'} ? 'active'"
+                    <a th:href="@{/yg-admin/edit}" th:classappend="${sidebar=='edit'} ? 'active'"
                        class="collapse-item">写文章</a>
-                    <a th:href="@{/yg-admin/meta?type=CATEGORY}" th:classappend="${sidebar=='post-cate'} ? 'active'"
+                    <a th:href="@{/yg-admin/meta(type='CATEGORY')}" th:classappend="${sidebar=='CATEGORY'} ? 'active'"
                        class="collapse-item">分类目录</a>
-                    <a th:href="@{/yg-admin/meta?type=TAG}" th:classappend="${sidebar=='post-tag'} ? 'active'"
+                    <a th:href="@{/yg-admin/meta(type='TAG')}" th:classappend="${sidebar=='TAG'} ? 'active'"
                        class="collapse-item">标签</a>
                 </div>
             </div>
@@ -245,8 +241,8 @@
 <script th:src="@{/assets/js/sb-admin-2.min.js}"></script>
 <script th:src="@{/assets/js/yogo-admin.js}"></script>
 
-<!--/* 如果是文章、页面编辑页面，就引用编辑器依赖*/-->
-<div th:replace="${#strings.contains('post-edit page-edit', sidebar)} ? ~{/admin/edit::assets}"></div>
+<!--/* 如果是文章、页面编辑页面，就引用编辑器依赖 */-->
+<div th:replace="${#strings.contains('edit', sidebar)} ? ~{/admin/edit::assets}"></div>
 
 </body>
 

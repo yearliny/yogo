@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html th:replace="~{admin/layout/dashboard :: layout(~{::title}, 'post-all', ~{::content})}" lang="zh"
+<html th:replace="~{admin/layout/dashboard :: layout(~{::title}, 'all', ~{::content})}" lang="zh"
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -12,15 +12,15 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <ul class="nav">
-                <li class="nav-item"><a th:href="@{/yg-admin/post?status=all}" class="nav-link">全部（[[${contentStatusCounter.all}]]）</a>
+                <li class="nav-item"><a th:href="@{/yg-admin/post(status='all')}" class="nav-link">全部（[[${contentStatusCounter.all}]]）</a>
                 </li>
-                <li class="nav-item"><a th:href="@{/yg-admin/post?status=publish}" class="nav-link">已发布（[[${contentStatusCounter.publish}]]）</a>
+                <li class="nav-item"><a th:href="@{/yg-admin/post(status='publish')}" class="nav-link">已发布（[[${contentStatusCounter.publish}]]）</a>
                 </li>
-                <li class="nav-item"><a th:href="@{/yg-admin/post?status=draft}" class="nav-link">草稿（[[${contentStatusCounter.draft}]]）</a>
+                <li class="nav-item"><a th:href="@{/yg-admin/post(status='draft')}" class="nav-link">草稿（[[${contentStatusCounter.draft}]]）</a>
                 </li>
-                <li class="nav-item"><a th:href="@{/yg-admin/post?status=future}" class="nav-link">定时发表（[[${contentStatusCounter.future}]]）</a>
+                <li class="nav-item"><a th:href="@{/yg-admin/post(status='future')}" class="nav-link">定时发表（[[${contentStatusCounter.future}]]）</a>
                 </li>
-                <li class="nav-item"><a th:href="@{/yg-admin/post?status=trash}" class="nav-link">垃圾箱（[[${contentStatusCounter.trash}]]）</a>
+                <li class="nav-item"><a th:href="@{/yg-admin/post(status='trash')}" class="nav-link">垃圾箱（[[${contentStatusCounter.trash}]]）</a>
                 </li>
             </ul>
         </div>
