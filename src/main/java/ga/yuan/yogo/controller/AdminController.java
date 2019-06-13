@@ -3,11 +3,14 @@ package ga.yuan.yogo.controller;
 import ga.yuan.yogo.model.dto.EditContentDTO;
 import ga.yuan.yogo.model.entity.CommentDO;
 import ga.yuan.yogo.model.entity.ContentDO;
+import ga.yuan.yogo.model.entity.MetaDO;
 import ga.yuan.yogo.model.entity.UserDO;
 import ga.yuan.yogo.model.enums.CommentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentStatusEnum;
 import ga.yuan.yogo.model.enums.ContentTypeEnum;
+import ga.yuan.yogo.model.enums.MetaTypeEnum;
 import ga.yuan.yogo.model.vo.CommentCounterVO;
+import ga.yuan.yogo.model.vo.ContentStatusCounterVO;
 import ga.yuan.yogo.service.CommentService;
 import ga.yuan.yogo.service.ContentService;
 import ga.yuan.yogo.service.MetaService;
@@ -19,9 +22,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import static ga.yuan.yogo.model.enums.ContentStatusEnum.*;
 
 /**
  * 网站的后台功能
@@ -66,6 +70,28 @@ public class AdminController {
         return "admin/index";
     }
 
+    @GetMapping("/post")
+    public String post(Model model,
+                       @RequestParam(value = "status", defaultValue = "all") String status,
+                       @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "size", defaultValue = "15") int size) {
+        ContentStatusCounterVO contentStatusCounterVO = contentService.countStatus();
+        Set<ContentStatusEnum> statusSet;
+        if (status.toLowerCase().equals("all")) {
+            statusSet = Set.of(
+                    PUBLISH,
+                    FUTURE,
+                    DRAFT,
+                    TRASH);
+        } else {
+            statusSet = Set.of(ContentStatusEnum.valueOf(status));
+        }
+        Page<ContentDO> postPage = contentService.listContent(ContentTypeEnum.POST, statusSet, page);
+        model.addAttribute("postPage",postPage);
+        model.addAttribute("contentStatusCounter",contentStatusCounterVO);
+        return"admin/post";
+    }
+
     /**
      * 文章、页面的编辑器
      *
@@ -76,10 +102,9 @@ public class AdminController {
     public String edit(Model model, @RequestParam(value = "id", defaultValue = "0") Long postId) {
         Optional<EditContentDTO> editContentDTO = contentService.getEditContentDTO(postId);
         model.addAttribute("editContentDTO", editContentDTO.orElse(new EditContentDTO()));
-        model.addAttribute("allStatus", ContentStatusEnum.values());
-        model.addAttribute("allCate", metaService.listCategory());
-        model.addAttribute("allTag", metaService.listTag());
-        System.out.println(editContentDTO);
+        model.addAttribute("allStatus", values());
+        model.addAttribute("allCate", metaService.listMeta(MetaTypeEnum.CATEGORY));
+        model.addAttribute("allTag", metaService.listMeta(MetaTypeEnum.TAG));
         return "admin/edit";
     }
 
@@ -97,13 +122,25 @@ public class AdminController {
     }
 
     /**
-     * 添加媒体文件
+     * 添加meta
      *
      * @return view name
      */
-    @GetMapping("/media-new")
-    public String mediaNew() {
-        return "admin/media-new";
+    @GetMapping(value = "/meta")
+    public String meta(Model model, @RequestParam("type") MetaTypeEnum type) {
+        model.addAttribute("meta", new MetaDO());
+        model.addAttribute("type", type.toString());
+        model.addAttribute("all", metaService.listMeta(type));
+        System.out.println(metaService.listMeta(type));
+        return "admin/meta";
     }
 
+    @PostMapping(value = "/meta")
+    public String metaNew(Model model, MetaDO meta) {
+        metaService.save(meta);
+        model.addAttribute("meta", meta);
+        model.addAttribute("type", meta.getType().toString());
+        model.addAttribute("all", metaService.listMeta(meta.getType()));
+        return "admin/meta";
+    }
 }

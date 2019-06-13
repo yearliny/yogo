@@ -44,13 +44,15 @@ public class YogoServiceImpl implements YogoService {
         MetaDO category = new MetaDO();
         category.setType(MetaTypeEnum.CATEGORY);
         category.setName("默认分类");
+        category.setSlug("default-category");
         category = metaService.save(category);
 
         // 创建默认标签
         MetaDO tag = new MetaDO();
-        category.setType(MetaTypeEnum.TAG);
-        category.setName("默认标签");
-        category = metaService.save(tag);
+        tag.setType(MetaTypeEnum.TAG);
+        tag.setName("默认标签");
+        tag.setSlug("default-tag");
+        tag = metaService.save(tag);
 
         // 保存测试文章
         ContentDO content = new ContentDO();

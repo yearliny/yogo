@@ -2,6 +2,7 @@ package ga.yuan.yogo.controller;
 
 import ga.yuan.yogo.model.entity.ContentDO;
 import ga.yuan.yogo.model.entity.MetaDO;
+import ga.yuan.yogo.model.enums.MetaTypeEnum;
 import ga.yuan.yogo.service.ContentService;
 import ga.yuan.yogo.service.MetaService;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +26,12 @@ public class ApiController {
 
     @GetMapping("/categories/")
     List<MetaDO> getCategories() {
-        return metaService.listCategory();
+        return metaService.listMeta(MetaTypeEnum.CATEGORY);
     }
 
     @GetMapping("/post_tag/")
     List<MetaDO> getPostTag() {
-        return metaService.listTag();
+        return metaService.listMeta(MetaTypeEnum.TAG);
     }
 
     @PostMapping("/posts/")

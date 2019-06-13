@@ -10,18 +10,18 @@ import java.util.Optional;
 public interface MetaRepository extends JpaRepository<MetaDO, Long> {
     /**
      * 按 meta 类型查询，即查询所有的分类或标签
-     * @param metaType MetaTypeEnum
+     * @param type MetaTypeEnum
      * @return List<MetaDO>
      */
-    List<MetaDO> findAllByType(MetaTypeEnum metaType);
+    List<MetaDO> findAllByType(MetaTypeEnum type);
 
     /**
      * 按 meta 类型查询，即查询所有的分类或标签
-     * @param metaType MetaTypeEnum
+     * @param type MetaTypeEnum
      * @param name meta 名称
      * @return Optional<MetaDO>
      */
-    Optional<MetaDO> findByTypeAndName(MetaTypeEnum metaType, String name);
+    Optional<MetaDO> findByTypeAndName(MetaTypeEnum type, String name);
 
     /**
      * 按 Meta 的名称和类型进行查询，一个名字和类型仅能对应一个记录

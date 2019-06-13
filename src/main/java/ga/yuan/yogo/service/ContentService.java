@@ -16,6 +16,8 @@ public interface ContentService {
 
     Optional<ContentDO> getContent(Long id);
 
+    Page<ContentDO> listPosts(int pageNum, int size, Set<ContentStatusEnum> status, ContentTypeEnum type);
+
     Page<ContentDO> listPosts(int pageNum, int size);
 
     Page<ContentDO> listPosts(int pageNum);

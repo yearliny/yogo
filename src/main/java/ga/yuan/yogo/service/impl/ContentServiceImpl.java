@@ -36,6 +36,13 @@ public class ContentServiceImpl implements ContentService {
         return contentRepository.findById(id);
     }
 
+    @Override
+    public Page<ContentDO> listPosts(int pageNum, int size, Set<ContentStatusEnum> status, ContentTypeEnum type) {
+        return contentRepository.findByTypeAndStatusInOrderByCreatedDesc(ContentTypeEnum.POST,
+                status,
+                PageRequest.of(pageNum, size));
+    }
+
     //    返回分页已发表的文章
     @Override
     public Page<ContentDO> listPosts(int pageNum, int size) {

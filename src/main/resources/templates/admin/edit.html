@@ -44,10 +44,9 @@
             <div class="mb-3" th:unless="${allTag == null}">
                 <h2 class="h6">文章标签</h2>
                 <div th:each="at : ${allTag}" class="custom-control custom-checkbox">
-                    <input th:field="*{tags}" th:value="${at.mid}"
-                           th:checked="${#lists.contains(editContentDTO.tags, at)}" type="checkbox"
+                    <input th:field="*{tags}" th:value="${at.mid}" type="checkbox"
                            class="custom-control-input">
-                    <label th:for="${#ids.prev('tags')}" class="custom-control-label">Python</label>
+                    <label th:for="${#ids.prev('tags')}" th:text="${at.name}" class="custom-control-label">Python</label>
                 </div>
             </div>
             <div class="form-group">

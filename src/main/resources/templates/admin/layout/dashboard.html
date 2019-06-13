@@ -75,7 +75,7 @@
 
         <!-- Nav Item - 文章 -->
         <li th:classappend="${#strings.contains(postBar, sidebar)} ? 'active'" class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost"
+            <a class="nav-link collapsed" th:href="@{/yg-admin/post}" data-toggle="collapse" data-target="#collapsePost"
                aria-expanded="true"
                aria-controls="collapsePost">
                 <i class="fas fa-fw fa-pen"></i>
@@ -84,13 +84,14 @@
             <div th:classappend="${#strings.contains(postBar, sidebar)} ? 'show'" id="collapsePost" class="collapse"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a th:classappend="${sidebar=='post-all'} ? 'active'" class="collapse-item"
-                       href="buttons.html">所有文章</a>
-                    <a th:href="@{/yg-admin/edit}" th:classappend="${sidebar=='post-edit'} ? 'active'" class="collapse-item"
-                       href="cards.html">写文章</a>
-                    <a th:classappend="${sidebar=='post-cate'} ? 'active'" class="collapse-item"
-                       href="cards.html">分类目录</a>
-                    <a th:classappend="${sidebar=='post-tag'} ? 'active'" class="collapse-item" href="cards.html">标签</a>
+                    <a th:href="@{/yg-admin/post}" th:classappend="${sidebar=='post-all'} ? 'active'"
+                       class="collapse-item">所有文章</a>
+                    <a th:href="@{/yg-admin/edit}" th:classappend="${sidebar=='post-edit'} ? 'active'"
+                       class="collapse-item">写文章</a>
+                    <a th:href="@{/yg-admin/meta?type=CATEGORY}" th:classappend="${sidebar=='post-cate'} ? 'active'"
+                       class="collapse-item">分类目录</a>
+                    <a th:href="@{/yg-admin/meta?type=TAG}" th:classappend="${sidebar=='post-tag'} ? 'active'"
+                       class="collapse-item">标签</a>
                 </div>
             </div>
         </li>

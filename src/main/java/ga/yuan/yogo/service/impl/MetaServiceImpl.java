@@ -29,16 +29,11 @@ public class MetaServiceImpl implements MetaService {
 
     @Override
     public MetaDO save(MetaDO meta) {
-        return metaRepository.save(meta);
+        return metaRepository.saveAndFlush(meta);
     }
 
     @Override
-    public List<MetaDO> listCategory() {
-        return metaRepository.findAllByType(MetaTypeEnum.CATEGORY);
-    }
-
-    @Override
-    public List<MetaDO> listTag() {
-        return metaRepository.findAllByType(MetaTypeEnum.TAG);
+    public List<MetaDO> listMeta(MetaTypeEnum type) {
+        return metaRepository.findAllByType(type);
     }
 }
