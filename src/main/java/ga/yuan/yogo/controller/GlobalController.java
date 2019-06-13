@@ -28,12 +28,10 @@ public class GlobalController {
     /**
      * 404 错误处理
      *
-     * @param model model
      * @return view name
      */
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handelNotFound(Model model) {
-        model.addAttribute("options", YogoConst.OPTIONS);
+    public String handelNotFound() {
         return "error/404";
     }
 

@@ -23,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<CommentDO> findById(Long id) {
+    public Optional<CommentDO> findById(long id) {
         return commentRepository.findById(id);
     }
 

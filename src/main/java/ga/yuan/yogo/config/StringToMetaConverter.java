@@ -21,6 +21,6 @@ public class StringToMetaConverter implements Converter<String, MetaDO> {
 
     @Override
     public MetaDO convert(String source) {
-        return metaService.get(Long.valueOf(source));
+        return metaService.findById(Long.valueOf(source));
     }
 }

@@ -18,7 +18,7 @@ public class MetaServiceImpl implements MetaService {
     }
 
     @Override
-    public MetaDO get(Long id) {
+    public MetaDO findById(long id) {
         return metaRepository.getOne(id);
     }
 

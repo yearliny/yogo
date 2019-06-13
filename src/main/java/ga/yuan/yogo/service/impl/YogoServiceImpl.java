@@ -6,6 +6,8 @@ import ga.yuan.yogo.model.vo.InstallVO;
 import ga.yuan.yogo.service.*;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class YogoServiceImpl implements YogoService {
 
@@ -23,6 +25,7 @@ public class YogoServiceImpl implements YogoService {
         this.commentService = commentService;
     }
 
+    @Transactional
     @Override
     public void install(InstallVO installVO) {
         // 保存选项

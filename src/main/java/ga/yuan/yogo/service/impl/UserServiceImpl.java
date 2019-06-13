@@ -21,11 +21,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserDO> find(long id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
     public UserDO findByNameOrEmail(String nameOrEmail) {
         if (RegexUtil.isEmail(nameOrEmail)) {
             return userRepository.findByEmail(nameOrEmail);

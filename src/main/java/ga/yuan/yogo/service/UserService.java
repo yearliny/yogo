@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface UserService {
 
-    Optional<UserDO> find(long id);
-
     /**
      * 通过用户名或邮箱查询用户
      * @param nameOrEmail 字符串，用户名或邮箱地址

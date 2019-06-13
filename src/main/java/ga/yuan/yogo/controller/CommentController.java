@@ -18,7 +18,7 @@ public class CommentController {
     }
 
     @ResponseBody
-    @GetMapping("/commentStatus")
+    @PostMapping("/commentStatus")
     public String commentStatus(@RequestParam Long id, @RequestParam CommentStatusEnum status) {
         Optional<CommentDO> comment = commentService.findById(id);
         comment.ifPresent(c -> c.setStatus(status));

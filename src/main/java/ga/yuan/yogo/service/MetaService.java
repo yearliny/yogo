@@ -12,7 +12,7 @@ public interface MetaService {
      * @param id meta id
      * @return MetaDO
      */
-    MetaDO get(Long id);
+    MetaDO findById(long id);
 
     /**
      * 根据 meta 的名称和类型返回相对应的meta，用于根据名字查询 category 或 tag

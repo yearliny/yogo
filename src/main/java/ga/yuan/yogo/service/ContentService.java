@@ -14,7 +14,7 @@ import java.util.Set;
 
 public interface ContentService {
 
-    Optional<ContentDO> getContent(Long id);
+    Optional<ContentDO> findById(Long id);
 
     Page<ContentDO> listPosts(int pageNum, int size, Set<ContentStatusEnum> status, ContentTypeEnum type);
 

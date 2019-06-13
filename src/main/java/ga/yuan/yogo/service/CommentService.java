@@ -16,7 +16,7 @@ public interface CommentService {
      * @param id 评论id
      * @return CommentDO
      */
-    Optional<CommentDO> findById(Long id);
+    Optional<CommentDO> findById(long id);
 
     CommentDO save(CommentDO comment);
 
