@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 /**
  * Anti-Spam tool
+ *
  * @see <a href="https://akismet.com">Akismet</a>
  */
 @SuppressWarnings("WeakerAccess")
@@ -137,19 +138,23 @@ public class Akismet {
     /**
      * 提交被误判的评论
      */
-    private void submitComment(CommentDO comment, String type) {
+    private void submitComment(CommentDO comment, CommentType type) {
         final String HAM_URL = String.format("https://%s.rest.akismet.com/1.1/submit-ham", key);
         final String SPAM_URL = String.format("https://%s.rest.akismet.com/1.1/submit-spam", key);
         String API_URL;
 
-        if (type.equals("ham")) {
-            API_URL = HAM_URL;
-        } else if (type.equals("spam")) {
-            API_URL = SPAM_URL;
-        } else {
-            log.error("Unknown comment type");
-            return;
+        switch (type) {
+            case HAM:
+                API_URL = HAM_URL;
+                break;
+            case SPAM:
+                API_URL = SPAM_URL;
+                break;
+            default:
+                log.error("Unknown comment type");
+                return;
         }
+
         HttpRequest request = HttpRequest.newBuilder(URI.create(API_URL))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .POST(HttpRequest.BodyPublishers.ofString(getCommentParam(comment)))
@@ -157,7 +162,7 @@ public class Akismet {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.body().equals("Thanks for making the web a better place.")) {
-                log.info("comment %s submit success!", comment.getCoid());
+                log.info("comment {} submit success!", comment.getCoid());
             }
         } catch (IOException | InterruptedException e) {
             log.error(e.getMessage());
@@ -169,13 +174,20 @@ public class Akismet {
      * 提交漏判的垃圾评论
      */
     public void submitSpam(CommentDO comment) {
-        submitComment(comment, "spam");
+        submitComment(comment, CommentType.SPAM);
     }
 
     /**
      * 提交误判的正常评论
      */
     public void submitHam(CommentDO comment) {
-        submitComment(comment, "ham");
+        submitComment(comment, CommentType.HAM);
     }
+}
+
+/**
+ * 评论类型，垃圾评论或误判评论
+ */
+enum CommentType {
+    SPAM, HAM;
 }

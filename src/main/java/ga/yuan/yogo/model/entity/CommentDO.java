@@ -82,8 +82,7 @@ public class CommentDO implements Serializable {
      */
     @Transient
     public int countLink() {
-        Pattern p = Pattern.compile(RegexUtil.LINK);
-        Matcher m = p.matcher(body);
+        Matcher m = RegexUtil.LINK.matcher(body);
         int count = 0;
         while (m.find()) {
             count++;
