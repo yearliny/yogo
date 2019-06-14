@@ -1,20 +1,18 @@
 package ga.yuan.yogo.model.vo;
 
-import lombok.Data;
+import lombok.Value;
 
 /**
  * 博客后台展示的评论数量按类型统计，依次是全部评论、我的评论、待审评论、通过评论、垃圾评论、回收站
- *
  */
-@Data
+@Value
 public class CommentCounterVO {
-    private Long all;
-    private Long hold;
-    private Long approved;
-    private Long spam;
-    private Long trash;
+    long hold;
+    long approved;
+    long spam;
+    long trash;
 
-    public Long getAll() {
+    public long getAll() {
         return hold + approved + spam + trash;
     }
 }
