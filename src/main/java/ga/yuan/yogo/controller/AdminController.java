@@ -99,7 +99,7 @@ public class AdminController {
      * @return viewName
      */
     @GetMapping("/edit")
-    public String edit(Model model, @RequestParam(value = "id", defaultValue = "0") Long postId) {
+    public String edit(Model model, @RequestParam(value = "id", defaultValue = "0") long postId) {
         Optional<EditContentDTO> editContentDTO = contentService.getEditContentDTO(postId);
         model.addAttribute("editContentDTO", editContentDTO.orElse(new EditContentDTO()));
         model.addAttribute("allStatus", values());

@@ -32,7 +32,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Optional<ContentDO> findById(Long id) {
+    public Optional<ContentDO> findById(long id) {
         return contentRepository.findById(id);
     }
 
@@ -95,7 +95,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Optional<EditContentDTO> getEditContentDTO(Long id) {
+    public Optional<EditContentDTO> getEditContentDTO(long id) {
         Optional<ContentDO> contentDO = findById(id);
         if (contentDO.isEmpty()) {
             return Optional.empty();
