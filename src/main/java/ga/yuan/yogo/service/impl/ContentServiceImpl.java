@@ -86,12 +86,12 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public ContentStatusCounterVO countStatus() {
-        ContentStatusCounterVO counter = new ContentStatusCounterVO();
-        counter.setPublish(contentRepository.countByStatus(ContentStatusEnum.PUBLISH));
-        counter.setFuture(contentRepository.countByStatus(ContentStatusEnum.FUTURE));
-        counter.setDraft(contentRepository.countByStatus(ContentStatusEnum.DRAFT));
-        counter.setTrash(contentRepository.countByStatus(ContentStatusEnum.TRASH));
-        return counter;
+        return new ContentStatusCounterVO(
+                contentRepository.countByStatus(ContentStatusEnum.PUBLISH),
+                contentRepository.countByStatus(ContentStatusEnum.FUTURE),
+                contentRepository.countByStatus(ContentStatusEnum.DRAFT),
+                contentRepository.countByStatus(ContentStatusEnum.TRASH)
+        );
     }
 
     @Override

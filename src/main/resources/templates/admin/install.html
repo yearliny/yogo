@@ -19,10 +19,17 @@
             <p th:text="${err}"></p>
         </div>
 
+        <input name="siteUrl" th:with="url=${#request.requestURL}" th:value="${url.substring(0, url.indexOf('/', 8))}" type="hidden">
         <div class="form-group">
             <label th:for="${#ids.next('siteTitle')}" th:text="#{field.siteTitle}" class="sr-only">网站标题</label>
             <input th:field="*{siteTitle}" th:placeholder="#{field.siteTitle}" type="text"
                    class="form-control form-control-user">
+        </div>
+        <div class="form-group">
+            <label th:for="${#ids.next('siteDescription')}" th:text="#{field.siteDescription}" class="sr-only">网站描述</label>
+            <input th:field="*{siteDescription}" th:placeholder="#{field.siteDescription}" type="text"
+                   class="form-control form-control-user" aria-describedby="siteDescriptionHelp">
+            <small class="form-text text-muted ml-2" id="siteDescriptionHelp">用一句话描述你的网站吧~</small>
         </div>
         <div class="form-group">
             <label th:for="${#ids.next('username')}" th:text="#{field.username}"

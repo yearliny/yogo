@@ -27,4 +27,11 @@ public class CommonUtilTest {
         String actual = CommonUtil.getGravatar("yearliny@outlook.com", 50);
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void getBaseUrl() {
+        String expected = "https://yuan.ga";
+        String actual = RegexUtil.getBaseUrl("https://yuan.ga/about");
+        assertEquals(expected, actual);
+    }
 }

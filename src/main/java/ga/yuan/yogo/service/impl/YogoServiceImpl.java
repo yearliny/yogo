@@ -4,9 +4,12 @@ import ga.yuan.yogo.model.entity.*;
 import ga.yuan.yogo.model.enums.*;
 import ga.yuan.yogo.model.vo.InstallVO;
 import ga.yuan.yogo.service.*;
+import ga.yuan.yogo.util.RegexUtil;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class YogoServiceImpl implements YogoService {
@@ -29,10 +32,11 @@ public class YogoServiceImpl implements YogoService {
     @Override
     public void install(InstallVO installVO) {
         // 保存选项
-        OptionDO option = new OptionDO();
-        option.setName(OptionEnum.SITE_TITLE.getName());
-        option.setValue(installVO.getSiteTitle());
-        optionService.save(option);
+        Map<String, String> options = new HashMap<>(3);
+        options.put(OptionEnum.SITE_TITLE.getName(), installVO.getSiteTitle());
+        options.put(OptionEnum.SITE_DESCRIPTION.getName(), installVO.getSiteDescription());
+        options.put(OptionEnum.SITE_URL.getName(), installVO.getSiteUrl());
+        optionService.saveAll(options);
 
         // 创建用户
         UserDO user = new UserDO();

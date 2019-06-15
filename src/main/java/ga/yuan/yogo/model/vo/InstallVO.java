@@ -1,6 +1,5 @@
 package ga.yuan.yogo.model.vo;
 
-import lombok.Data;
 import lombok.Value;
 
 import javax.validation.constraints.Email;
@@ -14,6 +13,8 @@ import javax.validation.constraints.Size;
 @Value
 public class InstallVO {
     String siteTitle;
+    String siteUrl;
+    String siteDescription;
     @Email(message = "{valida.emailError}")
     @NotBlank(message = "{valida.usernameEmpty}")
     String email;

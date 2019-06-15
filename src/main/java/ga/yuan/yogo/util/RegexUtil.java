@@ -18,4 +18,13 @@ public class RegexUtil {
     public static boolean isEmail(String input) {
         return EMAIL.matcher(input).matches();
     }
+
+    /**
+     * 传入一个链接，截取协议和域名部分。
+     * @param str 如 https://yuan.ga/about
+     * @return 如 https://yuan.ga
+     */
+    public static String getBaseUrl(String str) {
+        return str.substring(0, str.indexOf("/", 8));
+    }
 }

@@ -2,6 +2,7 @@ package ga.yuan.yogo.model.enums;
 
 /**
  * OptionDO 枚举类，name 对应在数据库中表示的字段名 name
+ * SITE_URL: 不包含最后的斜杠，如 http://localhost:8080
  */
 public enum OptionEnum {
     SITE_TITLE("site_title"),

@@ -34,12 +34,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentCounterVO countComment() {
-        CommentCounterVO counter = new CommentCounterVO();
-        counter.setApproved(commentRepository.countByStatus(CommentStatusEnum.APPROVE));
-        counter.setHold(commentRepository.countByStatus(CommentStatusEnum.HOLD));
-        counter.setSpam(commentRepository.countByStatus(CommentStatusEnum.SPAM));
-        counter.setTrash(commentRepository.countByStatus(CommentStatusEnum.TRASH));
-        return counter;
+        return new CommentCounterVO(
+                commentRepository.countByStatus(CommentStatusEnum.HOLD),
+                commentRepository.countByStatus(CommentStatusEnum.APPROVE),
+                commentRepository.countByStatus(CommentStatusEnum.SPAM),
+                commentRepository.countByStatus(CommentStatusEnum.TRASH));
     }
 
     @Override
