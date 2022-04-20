@@ -1,0 +1,22 @@
+server:
+  port: 7777
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:yogo
+    username: yogo
+    password: yogo
+  web:
+    resources:
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /**
+  messages:
+    basename: i18n/messages
+  jpa:
+    hibernate:
+      ddl-auto: create
